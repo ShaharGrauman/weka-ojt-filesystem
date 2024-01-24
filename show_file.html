@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opened File Viewer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <!-- Container for the opened file -->
+    <div id="fileContainer" class="text-center mt-5">
+    <!-- The file content will be inserted here dynamically -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    // Function to check the file type and display accordingly
+    function displayFile(filePath) {
+        var fileContainer = document.getElementById('fileContainer');
+
+        // Get the file extension
+        var fileExtension = filePath.split('.').pop().toLowerCase();
+
+        // Check if it's an image or a video
+        if (['jpg', 'jpeg', 'png', 'gif'].indexOf(fileExtension) !== -1 || ['mp4', 'webm'].indexOf(fileExtension) !== -1) {
+            // Display the image or video directly on the page
+            if (['jpg', 'jpeg', 'png', 'gif'].indexOf(fileExtension) !== -1) {
+            fileContainer.innerHTML = '<img src="' + filePath + '" class="img-fluid" alt="Opened Image">';
+            } else {
+            fileContainer.innerHTML = '<video controls class="w-100"><source src="' + filePath + '" type="video/mp4">Your browser does not support the video tag.</video>';
+            }
+
+        // Display a message for unsupported file types
+        }else {
+        fileContainer.innerHTML = '<p>Unsupported file type. Cannot display the file.</p>' 
+        
+        // Open the modal
+        var myModal = new bootstrap.Modal(document.getElementById('myModal'));
+        myModal.show();
+        }
+    }
+
+    window.onload = function() {
+        // var filePath = 'final_project_frontend\\weka-ojt-filesystem\\photo.jpg';
+        // var filePath = 'final_project_frontend\\weka-ojt-filesystem\\phoddto.pdf';
+           var filePath = 'final_project_frontend\\weka-ojt-filesystem\\phoddto.mp4';
+
+        displayFile(filePath);
+    };
+    </script>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Download File</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            This file cannot be opened, you can download it.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Download</button>
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+</body>
+</html>
