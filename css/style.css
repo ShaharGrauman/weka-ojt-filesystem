@@ -1,5 +1,4 @@
 
-
 .wrapper{
     display: flex;
 }
@@ -81,4 +80,28 @@ a.sidebar-link:hover {
 #sidebar:not(.expand) .sidebar-logo,
 #sidebar:not(.expand) a.sidebar-link span {
     display: none;
+}
+
+
+
+ body {
+    margin: 0;
+}
+
+.navbar-brand {
+    padding: 0rem 1.5rem; 
+   
+}
+
+ .main {
+    padding-left: 1.5rem; 
+}
+
+.navbar-expan-lg{
+    padding-top: 0;
+     padding-bottom: 0;
+}
+
+.navbar-brand  span{
+    color:#0099ff ;
 }
