@@ -1,5 +1,4 @@
 
-
 .wrapper{
     display: flex;
 }
@@ -8,20 +7,11 @@
     width: 100%;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
-    padding-left: 1.5rem;
 }
-#sidebar {
-    width: 100px;
-    min-width: 100px;
-    z-index: 1000;
-    transition: all .25s ease-in-out;
-    background-color: #0e2238;
-    display: flex;
-    flex-direction: column;
-}
+
 #sidebar.expand {
-    width: 160px;
-    min-width: 160px;
+    width: 200px;
+    min-width: 200px;
 }
 .btn {
     background-color: transparent;
@@ -36,8 +26,6 @@
 .sidebar-logo {
     font-size: 1.5rem;
     margin-right: .75rem;
-    color: #000033;
-
 }
 
 #sidebar:not(.expand) .sidebar-logo,
@@ -52,9 +40,7 @@
 
 a.sidebar-link {
     padding: 1.125rem 1.625rem;
-    /* color: #FFF; */
     color: #000033;
-
     display: block;
     font-size: 1.1rem;
     white-space: nowrap;
@@ -81,17 +67,9 @@ a.sidebar-link:hover {
     transition: all .25 ease-in-out;
     display: flex;
     flex-direction: column;
-    background-color:#EDEDED;
-
-}
-#sidebar.expand {
-    width: 260px;
-    min-width: 260px;
+    background-color: #EDEDED;
 }
 
-.sidebar-logo {
-    margin: auto 0;
-}
 
 .sidebar-logo a {
     color: #000033;
@@ -104,10 +82,6 @@ a.sidebar-link:hover {
     display: none;
 }
 
-.sidebar-nav {
-    padding: 2rem 0;
-    flex: 1 1 auto;
-}
 
 
  body {
