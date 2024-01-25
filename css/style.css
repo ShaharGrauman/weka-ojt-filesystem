@@ -10,19 +10,6 @@
     transition: all 0.35s ease-in-out;
     padding-left: 1.5rem;
 }
-#sidebar {
-    width: 100px;
-    min-width: 100px;
-    z-index: 1000;
-    transition: all .25s ease-in-out;
-    background-color: #0e2238;
-    display: flex;
-    flex-direction: column;
-}
-#sidebar.expand {
-    width: 160px;
-    min-width: 160px;
-}
 .btn {
     background-color: transparent;
     cursor: pointer;
@@ -45,10 +32,6 @@
     display: none;
 }
 
-.sidebar-nav {
-    padding: 1rem 0;
-    flex: 1 1 auto;
-}
 
 a.sidebar-link {
     padding: 1.125rem 1.625rem;
@@ -99,11 +82,6 @@ a.sidebar-link:hover {
     font-weight: 600;
 }
 
-#sidebar:not(.expand) .sidebar-logo,
-#sidebar:not(.expand) a.sidebar-link span {
-    display: none;
-}
-
 .sidebar-nav {
     padding: 2rem 0;
     flex: 1 1 auto;
@@ -117,10 +95,6 @@ a.sidebar-link:hover {
 .navbar-brand {
     padding: 0rem 1.5rem; 
    
-}
-
- .main {
-    padding-left: 1.5rem; 
 }
 
 .navbar-expan-lg{
