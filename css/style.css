@@ -102,7 +102,13 @@ body {
   color: #0099ff;
 }
 
-.message {
+.deleteMessage {
+  display: none;
+  color: green;
+  font-weight: bold;
+}
+
+.downloadMessage {
   display: none;
   color: green;
   font-weight: bold;
