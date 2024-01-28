@@ -10,12 +10,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
     <!-- Navbar -->
@@ -55,103 +62,210 @@
                     </a>
                 </li>
             </ul>
-        <div class="sidebar-footer">
-            <a href="#" class="sidebar-link">
-                <i class="lni lni-exit"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </aside>
-    <div class="main p-3">
-        <div class="container">
-            <div class="row">
-                <div class="row mt-3">
-                    <div class="col-1">
-                        <button type="button" class="btn btn-secondary ">
-                            <i class="lni lni-circle-plus"></i>
-                        </button>
-                    </div>
-                    <div class="col-7">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-secondary" type="submit">
-                                <i class="lni lni-search-alt"></i>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-secondary ">
-                            <i class="lni lni-text-align-right"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="sidebar-footer">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-exit"></i>
+                    <span>Logout</span>
+                </a>
             </div>
-            <div class="row mt-4">
-                <div class="row row-cols-1 row-cols-md-3">
-                  <div class="col mb-3">
-                    <div class="card">
-                        <a class="card-block stretched-link text-decoration-none" href>
-                          <div class="col-md-10 text-center mt-2">
-                          <i class="lni lni-empty-file fs-1"></i>
-                          </div>
-                        </a>
-
-                      <div class="card-body">
-                        <h5 class="card-title">HW2.py</h5>
-                        <p class="card-text">last updated : 12/1/2024.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col mb-3">
-                    <div class="card">
-                      <a class="card-block stretched-link text-decoration-none" href>
-                          <div class="col-md-10 text-center mt-2">
-                          <i class="lni lni-empty-file fs-1"></i>
-                          </div>                      </a>
-                      <div class="card-body">
-                        <h5 class="card-title">HW1.txt</h5>
-                        <p class="card-text">last updated : 15/1/2024.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col mb-3">
-                    <div class="card">
-                      <a class="card-block stretched-link text-decoration-none" href>
-                          <div class="col-md-10 text-center mt-2">
-                          <i class="lni lni-empty-file fs-1 "></i>
-                          </div>
-                      </a>
-                        <div class="card-body">
-                            <h5 class="card-title">photo.jpg</h5>
-                            <p class="card-text">last updated : 12/1/2024.</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col mb-3">
-                    <div class="card">
-                      <a class="card-block stretched-link text-decoration-none" href>
-                          <div class="col-md-10 text-center mt-2">
-                          <i class="lni lni-folder fs-1"></i>
-                          </div>
-                      </a>
-                      <div class="card-body">
-                          <h5 class="card-title">project</h5>
-                          <p class="card-text">last updated : 01/01/2024.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
         </aside>
         <div class="main p-3">
-            <div class="text-center">
-                main
+            <div class="container">
+                <div class="row">
+                    <div class="row mt-3">
+                        <div class="col-1">
+                            <button type="button" class="btn btn-secondary ">
+                                <i class="lni lni-circle-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col-7">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-secondary" type="submit">
+                                    <i class="lni lni-search-alt"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-secondary ">
+                                <i class="lni lni-text-align-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="row row-cols-1 row-cols-md-3">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <a class="card-block text-decoration-none" href>
+                                <div class="col-md-10 text-center stretched-link mt-2">
+                                <i class="lni lni-empty-file fs-1"></i>
+                                </div>
+                            </a>
+                            <div class="col-12 text-right">
+                                <div class="dropdown dropend">
+                                    <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                        <li><span class="dropdown-item" href="#"> 
+                                            <i class="bi bi-share mx-2"></i> Share</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-trash mx-2"></i> Delete</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title">HW2.py</h5>
+                            <p class="card-text">last updated : 12/1/2024.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                    <div class="card">
+                        <a class="card-block text-decoration-none" href>
+                            <div class="col-md-10 text-center stretched-link mt-2">
+                            <i class="lni lni-empty-file fs-1"></i>
+                            </div>
+                        </a>
+                            <div class="col-12 text-right">
+                                <div class="dropdown dropend">
+                                    <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                        <li><span class="dropdown-item" href="#"> 
+                                            <i class="bi bi-share mx-2"></i> Share</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-trash mx-2"></i> Delete</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                            <h5 class="card-title">HW1.txt</h5>
+                            <p class="card-text">last updated : 15/1/2024.</p>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                    <div class="card">
+                        <a class="card-block text-decoration-none" href>
+                            <div class="col-md-10 text-center stretched-link mt-2">
+                            <i class="lni lni-empty-file fs-1 "></i>
+                            </div>
+                        </a>
+                        <div class="col-12 text-right">
+                            <div class="dropdown dropend">
+                                <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu">
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                    <li><span class="dropdown-item" href="#"> 
+                                        <i class="bi bi-share mx-2"></i> Share</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-trash mx-2"></i> Delete</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">photo.jpg</h5>
+                                <p class="card-text">last updated : 12/1/2024.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                    <div class="card">
+                        <a class="card-block  text-decoration-none" href>
+                            <div class="col-md-10 text-center stretched-link mt-2">
+                            <i class="lni lni-folder fs-1"></i>
+                            </div>
+                        </a>
+                        <div class="col-12 text-right">
+                            <div class="dropdown dropend">
+                                <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu">
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                    <li><span class="dropdown-item" href="#"> 
+                                        <i class="bi bi-share mx-2"></i> Share</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-trash mx-2"></i> Delete</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">project</h5>
+                            <p class="card-text">last updated : 01/01/2024.</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
+            </div>
+                <!-- <div class="main p-3">
+                    <div class="text-center">
+                        main
+                    </div>
+                </div> -->
 
+            </div>
         </div>
-        </div>
-    </div>
     </div>
 
     <!-- Footer -->
@@ -164,6 +278,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+     <!-- Bootstrap 5 JS and Popper.js -->
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-M57QZR3nLW5W3tGN5Zb5piObbhS4lC5rn03LwzT27F6xIMp4Tn8W7pEzT5biQsDf" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>
