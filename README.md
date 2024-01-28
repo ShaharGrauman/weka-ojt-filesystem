@@ -39,11 +39,11 @@ This project aims to develop a secure web-based file storage system that allows 
 
 ## Technologies Used
 
-- Flask
+- Fast Api
 - MySQL
 - GitHub
 - HTML/CSS/JS
-- Bootstrap/React
+- Bootstrap/React - Vite
 - Amazon Web Services (S3, Serverless)
 - Automation Testing - Pytest
 
