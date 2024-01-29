@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,23 +10,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- Bootstrap Icons CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
+        <!-- Bootstrap 5 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <!-- Bootstrap Icons CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
 
 
 </head>
@@ -80,20 +76,9 @@
             <div class="row">
                 <div class="row mt-3">
                     <div class="col-1">
-                        <!-- <button type="button" class="btn btn-secondary ">
+                        <button type="button" class="btn btn-secondary ">
                             <i class="lni lni-circle-plus"></i>
-                        </button> -->
-                        <div class="dropdown droup">
-                            <button type="button" class="btn btn-secondary lni lni-circle-plus"  data-bs-toggle="dropdown" aria-expanded="false">
-                            <!-- <i class="lni lni-circle-plus"></i> -->
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-cloud-upload mx-2"></i> Upload file </span></li>
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-cloud-plus-fill mx-2"></i> New folder</span></li>
-                            </ul>
-                        </div>
+                        </button>
                     </div>
                     <div class="col-7">
                         <form class="d-flex">
@@ -127,29 +112,10 @@
                                 <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu">
                                     <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
-                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#moveModal">
-                                        <i class="bi bi-arrows-move mx-2"></i> Move
-                                    </a>
-                                    </li>
-                                    <li><span class="dropdown-item" href="#"> 
-                                        <i class="bi bi-share mx-2"></i> Share</span>
-                                    </li>
-                                    <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
-                                    </li>
+                                        <i class="bi bi-arrow-counterclockwise mx-2"></i> Restore</span></li>
                                     <li><span class="dropdown-item" href="#">
                                         <i class="bi bi-trash mx-2"></i> Delete</span>
                                     </li>
-                                    <li>
-                                       <a class="dropdown-item" href="versions.html">
-                                             <i class="bi bi-card-list mx-2"></i> Versions
-                                       </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#fileDetailsModal">
-                                        <i class="bi bi-info-circle-fill mx-2"></i> Details
-                                   </a>
                                 </ul>
                             </div>
                         </div>
@@ -164,31 +130,16 @@
                       <a class="card-block  text-decoration-none" href ="show_file.html">
                           <div class="col-md-10 text-center  stretched-link mt-2">
                           <i class="lni lni-empty-file fs-1"></i>
-                          </div>                     
+                          </div>
                          </a>
                          <div class="col-12 text-right">
                             <div class="dropdown dropend">
                                 <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <ul class="dropdown-menu">
                                     <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
-                                    <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
-                                    <li><span class="dropdown-item" href="#"> 
-                                        <i class="bi bi-share mx-2"></i> Share</span>
-                                    </li>
-                                    <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
-                                    </li>
+                                        <i class="bi bi-arrow-counterclockwise mx-2"></i> Restore</span></li>
                                     <li><span class="dropdown-item" href="#">
                                         <i class="bi bi-trash mx-2"></i> Delete</span>
-                                    </li>
-                                    <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-card-list mx-2"></i> Versions</span>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><span class="dropdown-item" href="#">
-                                        <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
                                     </li>
                                 </ul>
                             </div>
@@ -211,24 +162,9 @@
                             <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
                             <ul class="dropdown-menu">
                                 <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
-                                <li><span class="dropdown-item" href="#"> 
-                                    <i class="bi bi-share mx-2"></i> Share</span>
-                                </li>
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-pencil-square mx-2"></i> Rename</span>
-                                </li>
+                                    <i class="bi bi-arrow-counterclockwise mx-2"></i> Restore</span></li>
                                 <li><span class="dropdown-item" href="#">
                                     <i class="bi bi-trash mx-2"></i> Delete</span>
-                                </li>
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-card-list mx-2"></i> Versions</span>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><span class="dropdown-item" href="#">
-                                    <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
                                 </li>
                             </ul>
                         </div>
@@ -251,24 +187,9 @@
                                     <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul class="dropdown-menu">
                                         <li><span class="dropdown-item" href="#">
-                                            <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
-                                        <li><span class="dropdown-item" href="#">
-                                            <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
-                                        <li><span class="dropdown-item" href="#"> 
-                                            <i class="bi bi-share mx-2"></i> Share</span>
-                                        </li>
-                                        <li><span class="dropdown-item" href="#">
-                                            <i class="bi bi-pencil-square mx-2"></i> Rename</span>
-                                        </li>
+                                            <i class="bi bi-arrow-counterclockwise mx-2"></i> Restore</span></li>
                                         <li><span class="dropdown-item" href="#">
                                             <i class="bi bi-trash mx-2"></i> Delete</span>
-                                        </li>
-                                        <li><span class="dropdown-item" href="#">
-                                            <i class="bi bi-card-list mx-2"></i> Versions</span>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><span class="dropdown-item" href="#">
-                                            <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -286,63 +207,6 @@
         </div>
     </div>
     </div>
-      <div class="modal fade" id="fileDetailsModal" tabindex="-1" role="dialog" aria-labelledby="fileDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="fileDetailsModalLabel">File Details</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p><strong>Owner:</strong> John Doe</p>
-              <p><strong>Shared with:</strong></p>
-              <ul>
-                <li>Jane Smith - view</li>
-                <li>Bob Johnson - edit</li>
-              </ul>
-              <p><strong>Required permissions:</strong> Viewers can download</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="moveModalLabel">Move file to:</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="moveTo" id="picRadio" value="pic">
-                        <label class="form-check-label" for="picRadio">
-                            <i class="fas fa-folder fs-5 fa-fw text-primary"></i> pic
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="moveTo" id="tasksRadio" value="tasks">
-                        <label class="form-check-label" for="tasksRadio">
-                             <i class="fas fa-folder fs-5 fa-fw text-primary"></i> tasks
-                        </label>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Move</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -366,18 +230,12 @@
     <!-- Footer -->
     <footer class="text-center py-1" id="footer">
         <p>&copy; 2024 File System. All rights reserved.</p>
-    </footer> 
+    </footer>
     <!-- Link to Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> -->
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-M57QZR3nLW5W3tGN5Zb5piObbhS4lC5rn03LwzT27F6xIMp4Tn8W7pEzT5biQsDf" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="script.js"></script>
 
