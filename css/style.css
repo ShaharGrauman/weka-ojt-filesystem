@@ -81,10 +81,6 @@ a.sidebar-link:hover {
   display: none;
 }
 
-body {
-  margin: 0;
-}
-
 .navbar-brand {
   padding: 0rem 1.5rem;
 }
@@ -112,4 +108,49 @@ body {
   display: none;
   color: green;
   font-weight: bold;
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#fileContainer {
+  flex: 1;
+}
+
+#footer {
+  margin-top: auto;
+}
+
+#fileContainerContainer {
+  background-color: #EDEDED; 
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  margin: 20px auto; 
+}
+
+/* Add a frame style */
+.image-frame {
+  border: 2px solid #EDEDED; 
+  padding: 5px;
+  border-radius: 5px; 
+  overflow: hidden;
+  display: inline-block; 
+}
+
+.image-frame img {
+  width: 100%;
+  height: auto;
+}
+
+img #back{
+  float: left;
 }
