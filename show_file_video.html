@@ -7,9 +7,9 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
     <!-- Link to Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
   <link
   rel="stylesheet"
@@ -20,22 +20,24 @@
   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css"
   rel="stylesheet"
 />
-
-
 </head>
 <body>
-   <!-- Navbar -->
-   <nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="Image/logo.png" width="25" height="25" class="d-inline-block " alt="Your Logo"/>
-        <span class="ml-3 mr-2">File System</span>
-    </a>
-   </nav>
-        <div id="fileContainer" class="text-center mt-5">
+ <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="Image/logo.png" width="25" height="25" class="d-inline-block " alt="Your Logo"/>
+            <span class="ml-3 mr-2">File System</span>
+        </a>
+    </nav>
+    
+    <!-- Container for the opened file -->
+    <div id="fileContainerContainer" class="text-center mt-5">
+        <div id="fileContainer">
             <!-- The file content will be inserted here dynamically -->
         </div>
+    </div>
 
-       <!-- Back Button -->
+    <!-- Back Button -->
     <div class="container-fluid mt-3">
     <div class="row justify-content-start">
         <div class="col-3">
@@ -45,6 +47,8 @@
         </div>
     </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
     // Function to check the file type and display accordingly
     function displayFile(filePath) {
@@ -73,7 +77,7 @@
     }
 
     window.onload = function() {
-        var filePath = '/file.pdf';
+           var filePath = 'Image/video.mp4';
         displayFile(filePath);
     };
     // Function to go back to the previous page
@@ -103,13 +107,9 @@
         </div>
     </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- Footer -->
     <footer class="text-center py-1" id="footer">
         <p>&copy; 2024 File System. All rights reserved.</p>
     </footer>
-
 </body>
 </html>
