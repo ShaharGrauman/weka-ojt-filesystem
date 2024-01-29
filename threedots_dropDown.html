@@ -1,85 +1,305 @@
-                                                        
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dot Menu</title>
-    </head>
-    <body>
+
+    <!-- Bootstrap 5 CSS -->
+
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- Bootstrap Icons CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Your custom styles -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <!-- Your existing HTML code with Bootstrap Icons -->
     <div class="container">
-        <div class="dropdown ms-auto">
-            <i class="glyphicon glyphicon-option-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item" href="test_Download.txt" download="test_Download.txt" id="downloadLink">
-                        <i class="glyphicon glyphicon-download-alt mx-2"></i> Download
-                    </a>
-                </li>
+      <div class="dropdown dropend">
+        <i
+          class="bi bi-three-dots-vertical"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        ></i>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              href="test_Download.txt"
+              download="test_Download.txt"
+              id="downloadLink"
+            >
+              <i class="glyphicon glyphicon-download-alt mx-2"></i> Download
+            </a>
+          </li>
+          <li>
+            <span class="dropdown-item" href="#">
+              <i class="bi bi-arrows-move mx-2"></i> Move</span
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#shareModal"
+            >
+              <i class="bi bi-share mx-2"></i> Share
+            </a>
+          </li>
 
-                <li><a class="dropdown-item" href="#">
-                    <i class="glyphicon glyphicon-move mx-2"></i> Move</a></li>
-                <li><a class="dropdown-item" href="#"> 
-                    <i class="glyphicon glyphicon-share mx-2"></i> Share</a>
-                </li>
-                <li><a class="dropdown-item" href="#">
-                    <i class="	glyphicon glyphicon-edit mx-2"></i> Rename</a>
-                </li>
-                <li><a class="dropdown-item" href="#" id="delete">
-                    <i class="glyphicon glyphicon-trash mx-2"></i> Delete</a>
-                </li>
-                <li><a class="dropdown-item" href="#">
-                    <i class="glyphicon glyphicon-list mx-2"></i> Versions</a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li><span class="dropdown-item" href="#">
-                    <i class="glyphicon glyphicon-info-sign mx-2"></i> Details</span>
-                </li>
-            </ul>
-        
+          <li>
+            <span
+              class="dropdown-item"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#renameModal"
+            >
+              <i class="bi bi-pencil-square mx-2"></i> Rename</span
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" id="deleteMessage">
+              <i class="bi bi-trash mx-2"></i> Delete</a
+            >
+          </li>
+          <li>
+            <span class="dropdown-item" href="#">
+              <i class="bi bi-card-list mx-2"></i> Versions</span
+            >
+          </li>
+          <li><hr class="dropdown-divider" /></li>
+          <li>
+            <span class="dropdown-item" href="#">
+              <i class="bi bi-info-circle-fill mx-2"></i> Details</span
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="downloadMessage" id="downloadMessage">download successfully</p>
+    <p class="deleteMessage" id="deleteMessage">delete successfully</p>
+
+    <!-- Modal for Share -->
+    <div
+      class="modal fade"
+      id="shareModal"
+      tabindex="-1"
+      aria-labelledby="shareModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="shareModalLabel">Share File</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="shareEmail" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="shareEmail"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="sharePermissions" class="form-label"
+                  >Permissions</label
+                >
+                <select class="form-control" id="sharePermissions">
+                  <option>Read</option>
+                  <option>Write</option>
+                  <option>Read & Write</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="shareButton">
+              Share
+            </button>
+          </div>
         </div>
-        <p class="downloadMessage" id="downloadMessage">download successfully</p>
-        <p class="deleteMessage" id="deleteMessage">delete successfully</p>
+      </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        
-        <script>
-            // Function to display the message after a short delay
-            function display_downloadMessage() {
-                var message = document.getElementById('downloadMessage');
-                downloadMessage.style.display = 'block';
-            }
-    
-            // Add an event listener to the download link
-            document.querySelector('a[download]').addEventListener('click', function() {
-                // Call displayMessage function after 1 second delay
-                setTimeout(display_downloadMessage, 1000);
-            });
+    <!-- Modal for Rename -->
+    <div
+      class="modal fade"
+      id="renameModal"
+      tabindex="-1"
+      aria-labelledby="renameModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="renameModalLabel">Rename File</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="newName" class="form-label">New Name</label>
+                <input type="text" class="form-control" id="newName" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="renameButton">
+              Rename
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            function display_deleteMessage() {
-                var message = document.getElementById('deleteMessage');
-                deleteMessage.style.display = 'block';
-            }
-    
-            // Add an event listener to the download link
-            document.getElementById('delete').addEventListener('click', function() {
-                // Call displayMessage function after 1 second delay
-                setTimeout(display_deleteMessage, 1000);
-            });
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-M57QZR3nLW5W3tGN5Zb5piObbhS4lC5rn03LwzT27F6xIMp4Tn8W7pEzT5biQsDf"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
 
-            
-        </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        
+    <script>
+      $(document).ready(function() {
+        $("#renameButton").click(function() {
+          var newName = $("#newName").val();
+          alert("File renamed to: " + newName);
+          $("#renameModal").modal("hide");
+        });
+      });
 
-    </body>
+      // Function to display the message after a short delay
+      function display_downloadMessage() {
+        var downloadMessage = document.getElementById("downloadMessage");
+        downloadMessage.style.display = "block";
+      }
+
+      // Add an event listener to the download link
+      document
+        .querySelector("a[download]")
+        .addEventListener("click", function() {
+          // Call displayMessage function after 1 second delay
+          setTimeout(display_downloadMessage, 1000);
+        });
+
+      function display_deleteMessage() {
+        var deleteMessage = document.getElementById("deleteMessage");
+        deleteMessage.style.display = "block";
+      }
+
+      // Add an event listener to the download link
+      document
+        .querySelector("a[deleteMessage]")
+        .addEventListener("click", function() {
+          // Call displayMessage function after 1 second delay
+          setTimeout(display_deleteMessage, 1000);
+        });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+        $("#renameButton").click(function() {
+          var newName = $("#newName").val();
+          alert("File renamed to: " + newName);
+          $("#renameModal").modal("hide");
+        });
+
+        $("#shareButton").click(function() {
+          var email = $("#shareEmail").val();
+          var permissions = $("#sharePermissions").val();
+          // You can implement sharing logic here, such as sending emails with the link and permissions
+          // For now, let's log the details to the console
+          console.log(
+            "Sharing with email: " + email + ", Permissions: " + permissions
+          );
+          $("#shareModal").modal("hide");
+        });
+      });
+
+      // Function to display the message after a short delay
+      function display_downloadMessage() {
+        var downloadMessage = document.getElementById("downloadMessage");
+        downloadMessage.style.display = "block";
+      }
+
+      // Add an event listener to the download link
+      document
+        .querySelector("a[download]")
+        .addEventListener("click", function() {
+          // Call displayMessage function after 1 second delay
+          setTimeout(display_downloadMessage, 1000);
+        });
+
+      function display_deleteMessage() {
+        var deleteMessage = document.getElementById("deleteMessage");
+        deleteMessage.style.display = "block";
+      }
+
+      // Add an event listener to the download link
+      document
+        .querySelector("a[deleteMessage]")
+        .addEventListener("click", function() {
+          // Call displayMessage function after 1 second delay
+          setTimeout(display_deleteMessage, 1000);
+        });
+    </script>
+  </body>
 </html>
-                                                                                                                                                                                
-                                                                                                                                                                            

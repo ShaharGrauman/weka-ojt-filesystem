@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar With Bootstrap</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="Image/logo.png" width="25" height="25" class="d-inline-block " alt="Your Logo"/>
+            <span class="ml-3 mr-2">File System</span>
+        </a>
+    </nav>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="btn" type="button">
+                    <i class="lni lni-menu"></i>
+                </button>
+                <div class="sidebar-logo ml-2 mr-2">
+                    <a href="#">Home</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-files"></i>
+                        <span>My Files</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-share-alt"></i>
+                        <span>Shared Files</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-trash-can"></i>
+                        <span>Deleted Files</span>
+                    </a>
+                </li>
+            </ul>
+         <div class="sidebar-footer">
+    <a href="#" class="sidebar-link" data-toggle="modal" data-target="#exampleModal">
+        <i class="lni lni-exit"></i>
+        <span>Logout</span>
+    </a>
+</div>
+    </aside>
+    <div class="main p-3">
+        <div class="container">
+            <div class="row">
+                <div class="row mt-3">
+                    <div class="col-1">
+                        <div class="dropdown droup">
+                            <button type="button" class="btn btn-secondary lni lni-circle-plus"  data-bs-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item" href="#" data-toggle="modal" data-target="#create">
+                                    <i class="bi bi-cloud-upload mx-2"></i> Upload file </span></li>
+                                <li><span class="dropdown-item" href="#" data-toggle="modal" data-target="#upload">
+                                    <i class="bi bi-cloud-plus-fill mx-2"></i> New folder</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="lni lni-search-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-secondary ">
+                            <i class="lni lni-text-align-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <h2>Path: jn/</h2>
+            </div>
+            <div class="row mt-4">
+                <div class="row row-cols-1 row-cols-md-3">
+                  <div class="col mb-3">
+                    <div class="card">
+                        <a class="card-block  text-decoration-none" href ="show_file.html">
+                          <div class="col-md-10 text-center stretched-link mt-2">
+                          <i class="lni lni-empty-file fs-1"></i>
+                          </div>
+                        </a>
+                        <div class="col-12 text-right">
+                            <div class="dropdown dropend">
+                                <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu">
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#moveModal">
+                                        <i class="bi bi-arrows-move mx-2"></i> Move
+                                    </a>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#"> 
+                                        <i class="bi bi-share mx-2"></i> Share</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-trash mx-2"></i> Delete</span>
+                                    </li>
+                                    <li>
+                                       <a class="dropdown-item" href="versions.html">
+                                             <i class="bi bi-card-list mx-2"></i> Versions
+                                       </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#fileDetailsModal">
+                                        <i class="bi bi-info-circle-fill mx-2"></i> Details
+                                   </a>
+                                </ul>
+                            </div>
+                        </div>
+                      <div class="card-body">
+                        <h5 class="card-title">HW2.py</h5>
+                        <p class="card-text">last updated : 12/1/2024.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col mb-3">
+                    <div class="card">
+                      <a class="card-block  text-decoration-none" href ="show_file.html">
+                          <div class="col-md-10 text-center  stretched-link mt-2">
+                          <i class="lni lni-empty-file fs-1"></i>
+                          </div>                     
+                         </a>
+                         <div class="col-12 text-right">
+                            <div class="dropdown dropend">
+                                <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                <ul class="dropdown-menu">
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                    <li><span class="dropdown-item" href="#"> 
+                                        <i class="bi bi-share mx-2"></i> Share</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-trash mx-2"></i> Delete</span>
+                                    </li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><span class="dropdown-item" href="#">
+                                        <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                      <div class="card-body">
+                        <h5 class="card-title">HW1.txt</h5>
+                        <p class="card-text">last updated : 15/1/2024.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col mb-3">
+                    <div class="card">
+                      <a class="card-block text-decoration-none" href ="show_file.html">
+                          <div class="col-md-10 text-center stretched-link mt-2">
+                          <i class="lni lni-empty-file fs-1 "></i>
+                          </div>
+                      </a>
+                      <div class="col-12 text-right">
+                        <div class="dropdown dropend">
+                            <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                <li><span class="dropdown-item" href="#"> 
+                                    <i class="bi bi-share mx-2"></i> Share</span>
+                                </li>
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                </li>
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-trash mx-2"></i> Delete</span>
+                                </li>
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><span class="dropdown-item" href="#">
+                                    <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                        <div class="card-body">
+                            <h5 class="card-title">photo.jpg</h5>
+                            <p class="card-text">last updated : 12/1/2024.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col mb-3">
+                    <div class="card">
+                      <a class="card-block text-decoration-none" href>
+                          <div class="col-md-10 text-center stretched-link mt-2">
+                          <i class="lni lni-folder fs-1"></i>
+                          </div>
+                      </a>
+                    <div class="col-12 text-right">
+                                <div class="dropdown dropend">
+                                    <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-box-arrow-in-down mx-2"></i> Download</span></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-arrows-move mx-2"></i> Move</span></li>
+                                        <li><span class="dropdown-item" href="#"> 
+                                            <i class="bi bi-share mx-2"></i> Share</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-pencil-square mx-2"></i> Rename</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-trash mx-2"></i> Delete</span>
+                                        </li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-card-list mx-2"></i> Versions</span>
+                                        </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><span class="dropdown-item" href="#">
+                                            <i class="bi bi-info-circle-fill mx-2"></i> Details</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                      <div class="card-body">
+                          <h5 class="card-title">project</h5>
+                          <p class="card-text">last updated : 01/01/2024.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+      <div class="modal fade" id="fileDetailsModal" tabindex="-1" role="dialog" aria-labelledby="fileDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="fileDetailsModalLabel">File Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><strong>Owner:</strong> John Doe</p>
+              <p><strong>Shared with:</strong></p>
+              <ul>
+                <li>Jane Smith - view</li>
+                <li>Bob Johnson - edit</li>
+              </ul>
+              <p><strong>Required permissions:</strong> Viewers can download</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="moveModalLabel">Move file to:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="moveTo" id="picRadio" value="pic">
+                        <label class="form-check-label" for="picRadio">
+                            <i class="fas fa-folder fs-5 fa-fw text-primary"></i> pic
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="moveTo" id="tasksRadio" value="tasks">
+                        <label class="form-check-label" for="tasksRadio">
+                             <i class="fas fa-folder fs-5 fa-fw text-primary"></i> tasks
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Move</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to log out?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Log out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onclick="this.style.display='none'">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="fileInput" class="form-label">Choose file to upload:</label>
+                        <input type="file" class="form-control" id="fileInput">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            
+    <!-- Modal -->
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onclick="this.style.display='none'">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Folder</h5>
+                    <button type="button" class="close text-white" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="folderName" class="form-label">Folder Name:</label>
+                        <input type="text" class="form-control" id="folderName" placeholder="Enter folder name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="createFolder" data-bs-dismiss="modal">Create</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-1" id="footer">
+        <p>&copy; 2024 File System. All rights reserved.</p>
+    </footer> 
+    <!-- Link to Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-M57QZR3nLW5W3tGN5Zb5piObbhS4lC5rn03LwzT27F6xIMp4Tn8W7pEzT5biQsDf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
