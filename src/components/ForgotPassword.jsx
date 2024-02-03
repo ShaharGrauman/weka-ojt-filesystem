@@ -1,9 +1,11 @@
 
 
 import React from 'react'
+import { useState } from 'react'
 
 
 function ForgotPassword() {
+
   return(
      <div className="row shadow border border-2 justify-content-center justify-content-lg-around  m-5 " style={{backgroundColor: '#EDEDED'}}>
         <h1 className="text-center m-1">Forget password</h1>
