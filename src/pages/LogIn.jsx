@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 const LogIn=()=> {
     const [Login, setLogin] = useState("True");
+    const [Forgotpassword, setForgotpassword] = useState("False");
+    const [Signup, setSignup] = useState("False");
+
   return (
      <div>
         <meta charSet="UTF-8" />
@@ -20,7 +23,7 @@ const LogIn=()=> {
 
             <div className="col-lg-6 lead container-sm vh-60 bg-light bg-transparent  ">
               <div className="row shadow border border-2 justify-content-center justify-content-lg-around  m-5 " style={{backgroundColor: '#EDEDED'}}>
-{/*  */}
+
 
 
            {Login==="True"?
@@ -36,21 +39,22 @@ const LogIn=()=> {
                  </div>
                  <div>
                    <small >
-                   <div onClick={()=>{setLogin("False")}}>
+                   <div onClick={()=>{setLogin("False") ,setSignup("False"),setForgotpassword("True")}}>
                    <a className="text-sm-end m-1"  href="#" >
                    <span >Forget Password</span>
                    </a></div>
                    </small>
                    <small>
-                                      <div onClick={()=>{setLogin("False")}}>
+                                      <div onClick={()=>{setLogin("False"),setSignup("True")}}>
 <a className="text-sm-start m-1 t" href="#"><span>SignUp</span></a>
                    </div></small>
                  </div>
-                 <button type="submit" className="btn btn-primary">Submit</button>
-               </div>:<div></div>}
+                 <button type="submit" className="btn btn-primary">Sign In </button>
+               </div>:<div></div>
+               }
 
 
-           {Login==="False"?
+           {Signup==="True"?
 
               <div className="signup">
 
@@ -70,13 +74,39 @@ const LogIn=()=> {
                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
                  </div>
                  <div>
-                   <small><a className="text-sm-end m-1" href="#"><span>Forget Password</span></a></small>
-                   <small><a className="text-sm-start m-1 t" href="#"><span>Sign In</span></a></small>
+{/*                    <small><a className="text-sm-end m-1" href="#"><span>Forget Password</span></a></small> */}
+
+                   <small>
+                    <div onClick={()=>{setLogin("True"),setSignup("False")}}>
+
+                   <a className="text-sm-start m-1 t" href="#"><span>Sign In</span></a></div></small>
+
                  </div>
                  <button type="submit" className="btn btn-primary">Sign Up</button>
                </div>
               </div>
-             :<div></div> }
+             :<div></div>
+              }
+
+
+          {Forgotpassword==="True"?
+                 <div className="row shadow border border-2 justify-content-center justify-content-lg-around  m-5 " style={{backgroundColor: '#EDEDED'}}>
+               <h1 className="text-center m-1">Forget password</h1>
+              <div className="form-group text-start ">
+          <label htmlFor="Email"> Email address</label>
+          <input type="email" className="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter your email address" />
+        </div>
+        <div>
+
+          <small>
+          <div onClick={()=>{setForgotpassword("False"),setLogin("True")}}>
+          <a className="text-sm-start m-1 t" href="#"><span>Sign in</span></a>
+          </div></small>
+        </div>
+        <button type="submit" className="btn btn-primary">confirm</button>
+      </div>
+
+              :<div></div>}
 
               </div>
               </div>
