@@ -1,0 +1,95 @@
+/* Sidebar.css */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #333;
+  color: #ededed;
+  transition: all 0.3s ease;
+}
+
+.closed {
+  width: 80px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #ededed;
+  font-size: 1.5rem;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.list-unstyled {
+  padding: 20px 0;
+  list-style-type: none;
+}
+
+.list-unstyled li {
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
+}
+
+.list-unstyled li:hover {
+  background-color: #444;
+}
+
+.list-unstyled li a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.item-name {
+  margin-left: 10px;
+}
+
+.item-name-hidden {
+  display: none;
+}
+
+.logout-btn .logout-name {
+  margin-left: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.closed .logout-btn .logout-name {
+  opacity: 0;
+}
+
+.hint {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+.hint p {
+  margin: 0;
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  color: #ededed;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #444;
+}
