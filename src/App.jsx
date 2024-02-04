@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 function App() {
   return (
 //   <LogIn/>
-    <Header/>
+    <Footer/>
   )
 }
 
