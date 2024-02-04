@@ -89,7 +89,7 @@ a.sidebar-link:hover {
   padding-left: 1.5rem;
 }
 
-.navbar-expan-lg {
+.navbar {
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -127,6 +127,8 @@ body {
 
 #footer {
   margin-top: auto;
+  background-color: #EDEDED;
+
 }
 
 #fileContainerContainer {
