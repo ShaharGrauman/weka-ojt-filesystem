@@ -1,10 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 const LogIn=()=> {
     const [Login, setLogin] = useState("True");
     const [Forgotpassword, setForgotpassword] = useState("False");
     const [Signup, setSignup] = useState("False");
-
+    const navigate=useNavigate();
   return (
      <div>
         <meta charSet="UTF-8" />
@@ -49,7 +52,8 @@ const LogIn=()=> {
 <a className="text-sm-start m-1 t" href="#"><span>SignUp</span></a>
                    </div></small>
                  </div>
-                 <button type="submit" className="btn btn-primary">Sign In </button>
+                 <button type="submit" className="btn btn-primary"  onClick={() => navigate("/homepage")}>Log In </button>
+
                </div>:<div></div>
                }
 
