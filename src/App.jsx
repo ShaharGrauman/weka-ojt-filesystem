@@ -4,11 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import HomePage from './pages/HomePage.jsx';
 import LogIn from './pages/Login.jsx'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   return (
-  <LogIn/>
-
+//   <LogIn/>
+    <Header/>
   )
 }
 
