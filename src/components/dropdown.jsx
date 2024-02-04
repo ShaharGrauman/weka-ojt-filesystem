@@ -4,22 +4,22 @@ const Dropdown = ({ options, onSelect }) => {
   return (
     <div className="dropdown dropend">
       <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
-        <div className="dropdown-menu">
+      <ul className="dropdown-menu">
         {options.map((option) => (
-          <span
-            key={option.value}
-            className="dropdown-item"
-            onClick={() => onSelect(option)}
-          >
-            <i className={`bi bi-${getIconForOption(option.value)} mx-2`} />
-            {option.label}
-          </span>
+          <li key={option.value}>
+            <span
+              className="dropdown-item"
+              onClick={() => onSelect(option)}
+            >
+              <i className={`bi bi-${getIconForOption(option.value)} mx-2`} />
+              {option.label}
+            </span>
+          </li>
         ))}
-        </div>
+      </ul>
     </div>
   );
 };
-
 
 
     // Function to get the appropriate icon for each option
@@ -38,9 +38,9 @@ const getIconForOption = (optionValue) => {
         case "details":
             return "info-circle-fill";
         case "restore":
-            return "arrow-counterclockwise";
-
-            
+            return "arrow-counterclock";
+        case "versions":
+            return "card-list";
     }
 };
    

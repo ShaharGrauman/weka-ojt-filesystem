@@ -35,37 +35,28 @@
   <body>
     <!-- Your existing HTML code with Bootstrap Icons -->
     <div class="container">
-      <div class="dropdown dropend">
-        <i
-          class="bi bi-three-dots-vertical"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        ></i>
-        <ul class="dropdown-menu">
-          <li>
-            <a
-              class="dropdown-item"
-              href="test_Download.txt"
+  
+        <div class="dropdown dropend">
+          <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-item" href="test_Download.txt"
               download="test_Download.txt"
-              id="downloadLink"
-            >
-              <i class="glyphicon glyphicon-download-alt mx-2"></i> Download
-            </a>
-          </li>
+              id="downloadLink">
+                <i className="bi bi-box-arrow-in-down mx-2" ></i> Download</span></li>
           <li>
             <span class="dropdown-item" href="#">
               <i class="bi bi-arrows-move mx-2"></i> Move</span
             >
           </li>
           <li>
-            <a
+            <span
               class="dropdown-item"
               href="#"
               data-bs-toggle="modal"
               data-bs-target="#shareModal"
             >
               <i class="bi bi-share mx-2"></i> Share
-            </a>
+            </span>
           </li>
 
           <li>
@@ -79,8 +70,8 @@
             >
           </li>
           <li>
-            <a class="dropdown-item" href="#" id="deleteMessage">
-              <i class="bi bi-trash mx-2"></i> Delete</a
+            <span class="dropdown-item" href="#" id="deleteMessage">
+              <i class="bi bi-trash mx-2"></i> Delete</span
             >
           </li>
           <li>
@@ -88,7 +79,6 @@
               <i class="bi bi-card-list mx-2"></i> Versions</span
             >
           </li>
-          <li><hr class="dropdown-divider" /></li>
           <li>
             <span class="dropdown-item" href="#">
               <i class="bi bi-info-circle-fill mx-2"></i> Details</span
