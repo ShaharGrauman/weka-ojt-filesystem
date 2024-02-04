@@ -3,13 +3,14 @@ import Cards from '../components/Cards'
 
 
 const HomePage = () => {
+
   return (
 
       <div>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sidebar With Bootstrap</title>
+        <title>Home Page</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
@@ -404,3 +405,42 @@ const HomePage = () => {
 }
 
 export default HomePage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
