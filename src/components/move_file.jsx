@@ -4,16 +4,31 @@ import { Modal, Button, FormCheck } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import CustomRadioButton from "./CustomRadioButton";
+
+function createCustomRadioButton(data) {
+  return (
+    <CustomRadioButton
+      key={data.id}
+      name={data.name}
+    />
+  );
+}
+
 const Move_file = () => {
-  const [showModal, setShowModal] = useState(false);
+   const [showModal, setShowModal] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState(null);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const handleMove = () => {
-    // Add your move logic here
+    // Add your move logic here using the selectedFolder state
+    console.log("Moving to folder:", selectedFolder);
     handleClose();
   };
 
+  const handleRadioButtonChange = (folderName) => {
+    setSelectedFolder(folderName);
+  };
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
@@ -25,17 +40,19 @@ const Move_file = () => {
           <Modal.Title>Move file to:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <CustomRadioButton
+        <CustomRadioButton
             id="picRadio"
-            name="folderType"
+            name="folderTypePic"
             label="pic"
-            icon={faFolder}
+            checked={selectedFolder === 'pic'}
+            onChange={() => handleRadioButtonChange('pic')}
           />
           <CustomRadioButton
             id="tasksRadio"
-            name="folderType"
+            name="folderTypeTasks"
             label="tasks"
-            icon={faFolder}
+            checked={selectedFolder === 'tasks'}
+            onChange={() => handleRadioButtonChange('tasks')}
           />
         </Modal.Body>
         <Modal.Footer>
