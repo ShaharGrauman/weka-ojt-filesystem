@@ -21,8 +21,9 @@ const Sidebar = () => {
 
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+
       <button className="toggle-btn" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon icon={faBars} style={{ color: '#000033' }} />
       </button>
       <ul className="list-unstyled components">
         <li>
