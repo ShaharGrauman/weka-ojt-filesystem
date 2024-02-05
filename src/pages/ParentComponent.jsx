@@ -47,10 +47,10 @@ function ParentComponent() {
           }
 
 
-           {Signup=="True"?
-
-             <SignUp/>
-
+           {Signup==="True"?
+<div>
+             <SignUp updateState={updatestate}/>
+</div>
              :<div></div>
               }
 
@@ -58,8 +58,8 @@ function ParentComponent() {
           {Forgotpassword==="True"?
                         <div>
 
-               <ForgotPassword Forgotpassword="True" />
-               {handleUpdateLogin("True")}
+               <ForgotPassword updateState={updatestate} />
+
 
                </div>
               :<div></div>

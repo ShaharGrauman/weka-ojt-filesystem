@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function SignUp() {
+function SignUp(props) {
+  const { updateState } = props;
 
-
+   const gotologin = () => {
+    // Your conditions here
+    updateState("True", "False", "False"); // Example values, update as needed
+  };
   return (
     <div className="signup">
 
@@ -28,10 +32,10 @@ function SignUp() {
                    <small>
                     <div onClick={()=>{setLogin("True"),setSignup("False")}}>
 
-                   <a className="text-sm-start m-1 t" href="#"><span>Sign In</span></a></div></small>
+                   <a onClick={() => gotologin()} className="text-sm-start m-1 t" href="#"><span>Log In</span></a></div></small>
 
                  </div>
-                 <button type="submit" className="btn btn-primary">Sign Up</button>
+                 <button onClick={() => gotologin()} type="submit" className="btn btn-primary">Sign Up</button>
                </div>
               </div>
   );
