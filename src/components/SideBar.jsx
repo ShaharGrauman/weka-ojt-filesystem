@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({onSelect}) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -27,7 +27,7 @@ const Sidebar = () => {
       </button>
       <ul className="list-unstyled components">
         <li>
-          <a href="#">
+          <a href="#" onClick={() => onSelect('Home')}>
             <FontAwesomeIcon icon={faHome} />
             <span className={isOpen ? "item-name" : "item-name-hidden"}>
               Home
@@ -35,7 +35,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" onClick={() => onSelect('MyFiles')}>
             <FontAwesomeIcon icon={faFileAlt} />
             <span className={isOpen ? "item-name" : "item-name-hidden"}>
               My Files
@@ -43,7 +43,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" onClick={() => onSelect('SharedFiles')}>
             <FontAwesomeIcon icon={faShareAlt} />
             <span className={isOpen ? "item-name" : "item-name-hidden"}>
               Shared Files
@@ -51,7 +51,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" onClick={() => onSelect('DeletedFiles')}>
             <FontAwesomeIcon icon={faTrashAlt} />
             <span className={isOpen ? "item-name" : "item-name-hidden"}>
               Deleted Files
