@@ -6,7 +6,6 @@ import SideBar from "../components/SideBar"
 import { Container, Row, Col } from 'react-bootstrap';
 import Item from "../components/Item"
 import PlusDropdown from "../components/PlusOptions";
-import HomeDropdown from "../components/HomeDropdown";
 
 
 const Data = {
@@ -50,7 +49,7 @@ const HomePage = () => {
               </Col>
               <Col xs={12} md={9} id="page-content-wrapper">
                 <h1>Main Content</h1>
-                <PlusDropdown onSelect={handleOptionSelect} />
+                <PlusDropdown  />
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '100px' }}>
                           {currentCategoryData.map((item) => (
                             <Item key={item.id} item={item} />
@@ -63,9 +62,5 @@ const HomePage = () => {
     </div>
   )
 }
-const handleOptionSelect = (selectedOption) => {
-  // Handle the selected option
-  console.log('Selected option:', selectedOption);
-};
 
 export default HomePage;
