@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from './dropdown';
 
-const VersionsDropdown = ({ onSelect }) => {
+const VersionsDropdown = () => {
   const versionsOptions = [
     { value: 'download', label: 'Download' },
     { value: 'share', label: 'Share' },

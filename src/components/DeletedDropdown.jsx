@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from './dropdown';
 
-const DeletedDropdown = ({ onSelect }) => {
+const DeletedDropdown = () => {
   const deletedOptions = [
     { value: 'restore', label: 'Restore' },
     { value: 'delete', label: 'Delete' },

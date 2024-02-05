@@ -17,7 +17,7 @@ const Item = ({ item }) => {
           )}
         </a>
         <div className="text-right">
-              <HomeDropdown onSelect={handleOptionSelect} />
+              <HomeDropdown />
         </div>
         <Card.Body>
           <Card.Title>{fileName}</Card.Title>
@@ -29,7 +29,4 @@ const Item = ({ item }) => {
     </div>
   );
 };
-const handleOptionSelect = (selectedOption) => {
-  console.log('Selected option:', selectedOption);
-  };
 export default Item;
