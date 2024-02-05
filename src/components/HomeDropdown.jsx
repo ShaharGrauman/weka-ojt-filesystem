@@ -12,13 +12,13 @@ const HomeDropdown = ({ onSelect }) => {
     { value: 'details', label: 'Details' },
   ];
 
-  const handleOptionSelect = (selectedOption) => {
-    onSelect(selectedOption); // Pass selected option to parent component if needed
+const handleOptionSelect = (selectedOption) => {
+  console.log('Selected option:', selectedOption);
+};
 
-    console.log('Selected option in home page dropdown:', selectedOption);
-  };
+return <Dropdown options={homeOptions} onSelect={handleOptionSelect} plusIcon={false} />;
 
-  return <Dropdown options={homeOptions} onSelect={handleOptionSelect} />;
+
 };
 
 export default HomeDropdown;
