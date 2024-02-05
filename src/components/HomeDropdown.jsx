@@ -1,5 +1,5 @@
 import React from 'react';
-import Dropdown from './Dropdown';
+import Dropdown from './dropdown';
 
 const HomeDropdown = ({ onSelect }) => {
   const homeOptions = [
