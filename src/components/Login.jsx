@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-  const [Signup, setSignup] = useState(false);
-  const [Forgotpassword, setForgotpassword] = useState(false);
+//   const [Signup, setSignup] = useState(false);
+//   const [Forgotpassword, setForgotpassword] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -29,17 +29,17 @@ function Login() {
       </div>
       <div>
         <small>
-          <a className="text-sm-end m-1" href="#" onClick={() => setForgotpassword(true)}>
+          <a className="text-sm-end m-1" href="#">
             <span>Forget Password</span>
           </a>
         </small>
         <small>
-          <a className="text-sm-start m-1 t" href="#" onClick={() => setSignup(true)}>
+          <a className="text-sm-start m-1 t" href="#" >
             <span>SignUp</span>
           </a>
         </small>
       </div>
-      <button type="submit" className="btn btn-primary" onClick={() => navigate("/homepage")}>
+      <button type="submit" className="btn btn-primary">
         Log In
       </button>
     </div>
