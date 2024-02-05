@@ -1,0 +1,55 @@
+/* Toolbar.css */
+
+/* Center the search input */
+.search-form {
+  justify-content: center;
+}
+
+/* Adjust margin for the plus dropdown */
+.plus-dropdown {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Adjust margin for the sort dropdown */
+.sort-dropdown {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Style for the search input and button */
+.search-form .form-control {
+  border-color: #ced4da; /* Border color */
+}
+
+.search-form .btn-outline-success {
+  color: #28a745; /* Text color */
+  border-color: #28a745; /* Border color */
+}
+
+.search-form .btn-outline-success:hover {
+  color: #fff; /* Text color on hover */
+  background-color: #28a745; /* Background color on hover */
+  border-color: #28a745; /* Border color on hover */
+}
+
+/* Style for the Sort dropdown */
+.sort-dropdown .dropdown-toggle {
+  background-color: #007bff; /* Background color */
+  border-color: #007bff; /* Border color */
+}
+
+.sort-dropdown .dropdown-toggle:hover {
+  background-color: #0056b3; /* Background color on hover */
+  border-color: #0056b3; /* Border color on hover */
+}
+
+.sort-dropdown .dropdown-menu {
+  background-color: #f8f9fa; /* Background color of the dropdown menu */
+}
+
+.sort-dropdown .dropdown-item {
+  color: #343a40; /* Text color */
+}
+
+.sort-dropdown .dropdown-item:hover {
+  background-color: #dee2e6; /* Background color on hover */
+}

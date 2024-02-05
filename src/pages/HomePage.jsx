@@ -3,6 +3,7 @@ import Cards from "../components/Cards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SideBar from "../components/SideBar";
+import Toolbar from "../components/Toolbar";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
 import PlusDropdown from "../components/PlusOptions";
@@ -48,11 +49,8 @@ const HomePage = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Home Page</title>
       <Header />
+      <Toolbar />
       <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <Row></Row>
-        <Row>
-          <PlusDropdown />
-        </Row>
         <Row>
           <Col xs={12} md={3} id="sidebar-wrapper">
             <SideBar onSelect={handleCategorySelect} />
