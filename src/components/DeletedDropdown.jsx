@@ -5,10 +5,13 @@ const DeletedDropdown = ({ onSelect }) => {
   const deletedOptions = [
     { value: 'restore', label: 'Restore' },
     { value: 'delete', label: 'Delete' },
-    // Add more options as needed
   ];
 
-  return <Dropdown options={deletedOptions} onSelect={onSelect} />;
+const handleOptionSelect = (selectedOption) => {
+  console.log('Selected option:', selectedOption);
+};
+
+return <Dropdown options={deletedOptions} onSelect={handleOptionSelect} plusIcon={false} />;
 };
 
 export default DeletedDropdown;
