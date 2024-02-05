@@ -50,13 +50,16 @@ const HomePage = () => {
       <title>Home Page</title>
       <Header />
       <Toolbar />
+
+      <SideBar onSelect={handleCategorySelect} />
+
       <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
-        <Row>
-          <Col xs={12} md={3} id="sidebar-wrapper">
-            <SideBar onSelect={handleCategorySelect} />
-          </Col>
+        <Row className="justify-content-center">
+          {" "}
+          {/* Centering the content */}
           <Col xs={12} md={9} id="page-content-wrapper">
-            <h1>Main Content</h1>
+            <h1 className="text-center">Main Content</h1>{" "}
+            {/* Centering the h1 element */}
             <div style={styles.container}>
               {currentCategoryData.map((item) => (
                 <Item key={item.id} item={item} />

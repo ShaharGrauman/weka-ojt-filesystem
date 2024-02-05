@@ -12,9 +12,8 @@ function Footer() {
           </span>
         </div>
         <div className="mt-2">
-          <a href="https://cloudstore.com/about">About Us</a> |
-          <a href="https://cloudstore.com/privacy"> Privacy Policy</a> |
-          <a href="https://cloudstore.com/terms"> Terms of Service</a>
+          <a href="#">About Us</a> |<a href="#"> Privacy Policy</a> |
+          <a href="#"> Terms of Service</a>
         </div>
       </Container>
     </footer>

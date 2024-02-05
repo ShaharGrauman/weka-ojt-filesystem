@@ -1,0 +1,37 @@
+/* header.css */
+
+/* Navbar styles */
+.custom-navbar {
+  background-color: #343a40; /* Dark background color */
+  padding: 10px 0; /* Add padding to the top and bottom */
+}
+
+.custom-navbar .navbar-brand {
+  color: #ffffff; /* White color for the brand text */
+  font-weight: bold; /* Bold font for the brand text */
+  margin-right: 20px; /* Add margin to the right of the brand */
+}
+
+.custom-navbar .navbar-nav .nav-link {
+  color: #ffffff; /* White color for the navigation links */
+}
+
+.custom-navbar .navbar-nav .nav-link:hover {
+  color: #f0f0f0; /* Lighter color on hover */
+}
+
+.custom-navbar .form-control {
+  background-color: #ffffff; /* White background color for form input */
+  color: #495057; /* Text color for form input */
+}
+
+.custom-navbar .btn-outline-success {
+  color: #28a745; /* Text color for the search button */
+  border-color: #28a745; /* Border color for the search button */
+}
+
+.custom-navbar .btn-outline-success:hover {
+  color: #ffffff; /* Text color on button hover */
+  background-color: #28a745; /* Background color on button hover */
+  border-color: #28a745; /* Border color on button hover */
+}
