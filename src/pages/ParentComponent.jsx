@@ -7,7 +7,7 @@ import SignUp from "../components/SignUp.jsx"
 
 
 function ParentComponent() {
-  const [showLogin,setshowLogin] = useState("False");
+  const [showLogin,setshowLogin] = useState("True");
   const [Forgotpassword, setForgotpassword] = useState("False");
   const [Signup, setSignup] = useState("False");
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ function ParentComponent() {
 
           {showLogin=="True" ?
           <div>
-          <Login updateState={updateState}/>
+          <Login updateState={updatestate}/>
           </div>
                :<div></div>
           }
@@ -89,4 +89,4 @@ function ParentComponent() {
   );
 }
 
-export default LogIn;
+export default ParentComponent;

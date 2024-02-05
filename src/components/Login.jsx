@@ -16,7 +16,6 @@ function Login(props) {
 
 
   return (
-    props.Login === "True" ? (
       <div>
         <h1>Log In</h1>
         <form className="text-start">
@@ -51,7 +50,6 @@ function Login(props) {
           Log In
         </button>
       </div>
-    ) : <div></div>
   );
 }
 
