@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from './dropdown';
 
-const PlusDropdown = ({ onSelect }) => {
+const PlusDropdown = ({}) => {
 
 const plusOptions = [
     { value: 'upload', label: 'Upload file' },

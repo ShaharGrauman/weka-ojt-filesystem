@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import HomeDropdown from "../components/HomeDropdown";
+import HomeDropdown from './HomeDropdown';
 
 const Item = ({ item }) => {
   const { fileName, lastUpdated, isFolder } = item;
@@ -17,7 +17,7 @@ const Item = ({ item }) => {
           )}
         </a>
         <div className="text-right">
-              <HomeDropdown onSelect={handleOptionSelect} />
+              <HomeDropdown />
         </div>
         <Card.Body>
           <Card.Title>{fileName}</Card.Title>
@@ -28,9 +28,5 @@ const Item = ({ item }) => {
       </Card>
     </div>
   );
-};
-const handleOptionSelect = (selectedOption) => {
-  // Handle the selected option
-  console.log('Selected option:', selectedOption);
 };
 export default Item;

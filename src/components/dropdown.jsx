@@ -22,8 +22,7 @@ const Dropdown = ({ options, onSelect,plusIcon }) => {
             {options.map((option) => (
               <li key={option.value}>
                 <span
-                  className="dropdown-item"
-                  onClick={() => onSelect(option)}
+                  className="dropdown-item" onClick={() => onSelect(option)} 
                 >
                   <i className={`bi bi-${getIconForOption(option.value)} mx-2`} />
                   {option.label}
@@ -61,6 +60,6 @@ const getIconForOption = (optionValue) => {
         return "cloud-plus-fill";
     }
 };
-   
+
 export default Dropdown;
 
