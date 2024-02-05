@@ -1,24 +1,35 @@
+import React, { useState } from 'react';
+import LogIn from '../pages/LogIn.jsx';
 
+function ForgotPassword(props) {
+  const [Forgotpassword, setForgotpassword] = useState(props.Forgotpassword);
 
-import React from 'react'
-import { useState } from 'react'
+  const BackToLogin = () => {
+    setForgotpassword("False");
+    // Handle navigation or rendering LogIn component
+    // Example assuming LogIn is a component:
+    return <LogIn LogIn="True"  />;
+  };
 
-
-function ForgotPassword() {
-
-  return(
-     <div className="row shadow border border-2 justify-content-center justify-content-lg-around  m-5 " style={{backgroundColor: '#EDEDED'}}>
+  return (
+//     Forgotpassword === "True" ?
+      <div>
         <h1 className="text-center m-1">Forget password</h1>
-        <div className="form-group text-start ">
+        <div className="form-group text-start">
           <label htmlFor="Email"> Email address</label>
           <input type="email" className="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter your email address" />
         </div>
         <div>
-          {/*              <small><a class="text-sm-end m-1" href="#"><span>Forget Password</span></a></small>*/}
-          <small><a className="text-sm-start m-1 t" href="#"><span>SignUp</span></a></small>
+          <small>
+            <div onClick={() => { BackToLogin() }}>
+              <a className="text-sm-start m-1 t" href="#"><span>Sign in</span></a>
+            </div>
+          </small>
         </div>
         <button type="submit" className="btn btn-primary">confirm</button>
       </div>
-
-  )
+//     : <div></div>
+  );
 }
+
+export default ForgotPassword;
