@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import ForgotPassword from "../components/ForgotPassword.jsx";
 import Login from "../components/Login.jsx"
+import SignUp from "../components/SignUp.jsx"
 
 
 function LogIn(props) {
@@ -50,48 +51,21 @@ function LogIn(props) {
 
            {Signup==="True"?
 
-              <div className="signup">
+             <SignUp/>
 
-                <div>
-                 <h1>Sign Up</h1>
-                 <div className="form-group text-start ">
-                   <label>User Name</label>
-                   <input type="UserName" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User Name" />
-                 </div>
-                 <div className="form-group text-start ">
-                   <label>Email address</label>
-                   <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                 </div>
-
-                 <div className="form-group text-start">
-                   <label>Password</label>
-                   <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                 </div>
-                 <div>
-{/*                    <small><a className="text-sm-end m-1" href="#"><span>Forget Password</span></a></small> */}
-
-                   <small>
-                    <div onClick={()=>{setLogin("True"),setSignup("False")}}>
-
-                   <a className="text-sm-start m-1 t" href="#"><span>Sign In</span></a></div></small>
-
-                 </div>
-                 <button type="submit" className="btn btn-primary">Sign Up</button>
-               </div>
-              </div>
              :<div></div>
               }
 
 
-{/*           {Forgotpassword==="True"? */}
-{/*                         <div> */}
+          {Forgotpassword==="True"?
+                        <div>
 
-{/*                <ForgotPassword Forgotpassword="True" /> */}
-{/*                {handleUpdateLogin("True")} */}
+               <ForgotPassword Forgotpassword="True" />
+               {handleUpdateLogin("True")}
 
-{/*                </div> */}
-{/*               :<div></div> */}
-{/*               } */}
+               </div>
+              :<div></div>
+              }
 
               </div>
               </div>
