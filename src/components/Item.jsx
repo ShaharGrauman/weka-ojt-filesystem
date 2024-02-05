@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-
+import HomeDropdown from './HomeDropdown';
 const Item = ({ item }) => {
   const { fileName, lastUpdated, isFolder } = item;
 
@@ -15,6 +15,9 @@ const Item = ({ item }) => {
             <i className="lni lni-empty-file" style={{ fontSize: '2rem', margin: '10px' }}></i>
           )}
         </a>
+        <div className="col-12 text-right">
+        <HomeDropdown onSelect={handleOptionSelect}  />
+        </div>
         <Card.Body>
           <Card.Title>{fileName}</Card.Title>
           <Card.Text>
@@ -24,6 +27,10 @@ const Item = ({ item }) => {
       </Card>
     </div>
   );
+};
+
+const handleOptionSelect = (selectedOption) => {
+console.log('Selected option:', selectedOption);
 };
 
 export default Item;
