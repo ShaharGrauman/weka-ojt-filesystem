@@ -5,7 +5,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import HomePage from "./pages/HomePage.jsx";
-import LogIn from "./pages/Login.jsx";
+import ParentComponent from "./pages/ParentComponent.jsx"
+
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home.jsx";
 import TestPage from "./pages/testOptions.jsx";
@@ -15,7 +16,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<LogIn LogIn="True" />} />
+          <Route path="/" element={<ParentComponent  />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/test" element={<TestPage />} />
