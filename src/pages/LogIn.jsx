@@ -1,13 +1,24 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import ForgotPassword from "../components/ForgotPassword.jsx";
+import Login from "../components/Login.jsx"
 
-const LogIn=()=> {
-    const [Login, setLogin] = useState("True");
-    const [Forgotpassword, setForgotpassword] = useState("False");
-    const [Signup, setSignup] = useState("False");
-    const navigate=useNavigate();
+
+function LogIn(props) {
+  const [showLogin,setshowLogin] = useState("True");
+  const [Forgotpassword, setForgotpassword] = useState("False");
+  const [Signup, setSignup] = useState("False");
+  const navigate = useNavigate();
+
+//  useEffect(() => {
+//     setLogin(props.LogIn);
+//   }, [props.LogIn]);
+//
+//     const handleUpdateLogin = (newValue) => {
+//     setLogin(newValue);
+//   };
+
   return (
      <div>
         <meta charSet="UTF-8" />
@@ -29,33 +40,12 @@ const LogIn=()=> {
 
 
 
-           {Login==="True"?
-                 <div>
-                 <h1>Log In</h1>
-                 <div className="form-group text-start ">
-                   <label htmlFor="exampleInputEmail1">Email address</label>
-                   <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                 </div>
-                 <div className="form-group text-start">
-                   <label htmlFor="exampleInputPassword1">Password</label>
-                   <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                 </div>
-                 <div>
-                   <small >
-                   <div onClick={()=>{setLogin("False") ,setSignup("False"),setForgotpassword("True")}}>
-                   <a className="text-sm-end m-1"  href="#" >
-                   <span >Forget Password</span>
-                   </a></div>
-                   </small>
-                   <small>
-                                      <div onClick={()=>{setLogin("False"),setSignup("True")}}>
-<a className="text-sm-start m-1 t" href="#"><span>SignUp</span></a>
-                   </div></small>
-                 </div>
-                 <button type="submit" className="btn btn-primary"  onClick={() => navigate("/homepage")}>Log In </button>
-
-               </div>:<div></div>
-               }
+          {  props.LogIn=="True" ?
+          <div>
+          <Login/>
+          </div>
+               :<div></div>
+          }
 
 
            {Signup==="True"?
@@ -93,24 +83,15 @@ const LogIn=()=> {
               }
 
 
-          {Forgotpassword==="True"?
-                 <div className="row shadow border border-2 justify-content-center justify-content-lg-around  m-5 " style={{backgroundColor: '#EDEDED'}}>
-               <h1 className="text-center m-1">Forget password</h1>
-              <div className="form-group text-start ">
-          <label htmlFor="Email"> Email address</label>
-          <input type="email" className="form-control" id="Email" aria-describedby="emailHelp" placeholder="Enter your email address" />
-        </div>
-        <div>
+{/*           {Forgotpassword==="True"? */}
+{/*                         <div> */}
 
-          <small>
-          <div onClick={()=>{setForgotpassword("False"),setLogin("True")}}>
-          <a className="text-sm-start m-1 t" href="#"><span>Sign in</span></a>
-          </div></small>
-        </div>
-        <button type="submit" className="btn btn-primary">confirm</button>
-      </div>
+{/*                <ForgotPassword Forgotpassword="True" /> */}
+{/*                {handleUpdateLogin("True")} */}
 
-              :<div></div>}
+{/*                </div> */}
+{/*               :<div></div> */}
+{/*               } */}
 
               </div>
               </div>
