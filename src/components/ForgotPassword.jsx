@@ -4,14 +4,14 @@ import ParentComponent from '../pages/ParentComponent.jsx';
 function ForgotPassword(props) {
   const [Forgotpassword, setForgotpassword] = useState(props.Forgotpassword);
 
-  const BackToLogin = () => {
-    setForgotpassword("False");
-
-    return <LogIn LogIn="True"  />;
+  const { updateState } = props;
+  const gotologin = () => {
+    // Your conditions here
+    updateState("True", "False", "False"); // Example values, update as needed
   };
 
+
   return (
-//     Forgotpassword === "True" ?
       <div>
         <h1 className="text-center m-1">Forget password</h1>
         <div className="form-group text-start">
@@ -20,8 +20,8 @@ function ForgotPassword(props) {
         </div>
         <div>
           <small>
-            <div onClick={() => { BackToLogin() }}>
-              <a className="text-sm-start m-1 t" href="#"><span>Sign in</span></a>
+            <div >
+              <a onClick={() => gotologin()} className="text-sm-start m-1 t" href="#"><span>Log in</span></a>
             </div>
           </small>
         </div>
