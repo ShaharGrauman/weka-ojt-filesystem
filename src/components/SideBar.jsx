@@ -60,8 +60,8 @@ const Sidebar = () => {
         </li>
       </ul>
       <button className={`logout-btn ${isOpen ? "open" : "closed"}`}>
-        <FontAwesomeIcon icon={faSignOutAlt} />
-        <span className="logout-name">Logout</span>
+        <FontAwesomeIcon icon={faSignOutAlt} style={{ color: '#000033' }} />
+        <span className="logout-name" style={{ color: '#000033' }}>Logout</span>
       </button>
     </div>
   );

@@ -14,6 +14,8 @@ const cardData = [
     { fileName: 'Folder 2', lastUpdated: '2022-02-07' , isFolder: true },
   { fileName: 'File 2', lastUpdated: '2022-02-05' , isFolder: false },
   { fileName: 'Folder 3', lastUpdated: '2022-02-06' , isFolder: true },
+  { fileName: 'File 3', lastUpdated: '2022-02-06' , isFolder: false },
+
 ];
 
 const HomePage = () => {
@@ -24,17 +26,15 @@ const HomePage = () => {
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <title>Home Page</title>
           <Header/>
-           <Row>
-           </Row>
           <Container style={{ marginTop: '20px' }}>
             <Row>
-              <Col xs={1} id="sidebar-wrapper">
+              <Col xs={2} md={1} id="sidebar-wrapper">
                 <SideBar />
               </Col>
-              <Col xs={11} id="page-content-wrapper">
+              <Col xs={12} md={9} id="page-content-wrapper">
                 <h1>Main Content</h1>
                 <PlusDropdown onSelect={handleOptionSelect} />
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '100px' }}>
                           {cardData.map((item, index) => (
                             <Item key={index} item={item} />
                             ))}
