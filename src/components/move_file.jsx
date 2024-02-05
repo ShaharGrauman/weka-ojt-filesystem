@@ -1,34 +1,24 @@
-import react from "react";
-import { useState } from "react";
-import { Modal, Button, FormCheck } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFolder } from "@fortawesome/free-solid-svg-icons";
-import CustomRadioButton from "./CustomRadioButton";
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import FolderRadioButton from "./FolderRadioButton";
 
-function createCustomRadioButton(data) {
-  return (
-    <CustomRadioButton
-      key={data.id}
-      name={data.name}
-    />
-  );
-}
-
-const Move_file = () => {
-   const [showModal, setShowModal] = useState(false);
-  const [selectedFolder, setSelectedFolder] = useState(null);
+const Move_file = ({ folders, onMove }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState(folders[0]?.name); // Initialize with the first folder
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const handleMove = () => {
     // Add your move logic here using the selectedFolder state
     console.log("Moving to folder:", selectedFolder);
+    onMove(selectedFolder);
     handleClose();
   };
 
   const handleRadioButtonChange = (folderName) => {
     setSelectedFolder(folderName);
   };
+
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
@@ -40,20 +30,16 @@ const Move_file = () => {
           <Modal.Title>Move file to:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <CustomRadioButton
-            id="picRadio"
-            name="folderTypePic"
-            label="pic"
-            checked={selectedFolder === 'pic'}
-            onChange={() => handleRadioButtonChange('pic')}
-          />
-          <CustomRadioButton
-            id="tasksRadio"
-            name="folderTypeTasks"
-            label="tasks"
-            checked={selectedFolder === 'tasks'}
-            onChange={() => handleRadioButtonChange('tasks')}
-          />
+          {folders.map((folder) => (
+            <FolderRadioButton
+              key={folder.id}
+              id={`folderRadio-${folder.id}`}
+              name={`folderType-${folder.id}`}
+              label={folder.name}
+              checked={selectedFolder === folder.name}
+              onChange={() => handleRadioButtonChange(folder.name)}
+            />
+          ))}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
