@@ -13,7 +13,7 @@ import {
 import "./Sidebar.css";
 
 const Sidebar = ({ onSelect }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
