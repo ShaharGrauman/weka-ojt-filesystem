@@ -48,7 +48,7 @@ const HomePage = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Home Page</title>
       <Header />
-      <Container style={{ marginTop: "20px" }}>
+      <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
         <Row></Row>
         <Row>
           <PlusDropdown />
