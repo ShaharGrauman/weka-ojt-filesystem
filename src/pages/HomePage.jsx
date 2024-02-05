@@ -5,7 +5,8 @@ import Footer from "../components/Footer"
 import SideBar from "../components/SideBar"
 import { Container, Row, Col } from 'react-bootstrap';
 import Item from "../components/Item"
-
+import PlusDropdown from "../components/PlusOptions";
+import HomeDropdown from "../components/HomeDropdown";
 
 const cardData = [
   { fileName: 'File 1', lastUpdated: '2022-02-05', isFolder: false },
@@ -45,5 +46,9 @@ const HomePage = () => {
     </div>
   )
 }
+const handleOptionSelect = (selectedOption) => {
+  // Handle the selected option
+  console.log('Selected option:', selectedOption);
+};
 
 export default HomePage;
