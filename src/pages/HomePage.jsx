@@ -1,6 +1,7 @@
 import React from 'react'
 import Cards from '../components/Cards'
-
+import PlusDropdown from "../components/PlusOptions";
+import HomeDropdown from "../components/HomeDropdown";
 
 const HomePage = () => {
 
@@ -61,16 +62,7 @@ const HomePage = () => {
               <div className="row">
                 <div className="row mt-3">
                   <div className="col-1">
-                    <div className="dropdown droup">
-                      <button type="button" className="btn btn-secondary lni lni-circle-plus" data-bs-toggle="dropdown" aria-expanded="false">
-                      </button>
-                      <ul className="dropdown-menu">
-                        <li><span className="dropdown-item" href="#" data-toggle="modal" data-target="#create">
-                            <i className="bi bi-cloud-upload mx-2" /> Upload file </span></li>
-                        <li><span className="dropdown-item" href="#" data-toggle="modal" data-target="#upload">
-                            <i className="bi bi-cloud-plus-fill mx-2" /> New folder</span></li>
-                      </ul>
-                    </div>
+                  <PlusDropdown onSelect={handleOptionSelect} />
                   </div>
                   <div className="col-7">
                     <form className="d-flex">
@@ -100,35 +92,8 @@ const HomePage = () => {
                         </div>
                       </a>
                       <div className="col-12 text-right">
-                        <div className="dropdown dropend">
-                          <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
-                          <ul className="dropdown-menu">
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-box-arrow-in-down mx-2" /> Download</span></li>
-                            <li><a className="dropdown-item" href="#" data-toggle="modal" data-target="#moveModal">
-                                <i className="bi bi-arrows-move mx-2" /> Move
-                              </a>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-share mx-2" /> Share</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-pencil-square mx-2" /> Rename</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-trash mx-2" /> Delete</span>
-                            </li>
-                            <li>
-                              <a className="dropdown-item" href="versions.html">
-                                <i className="bi bi-card-list mx-2" /> Versions
-                              </a>
-                            </li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <a className="dropdown-item" href="#" data-toggle="modal" data-target="#fileDetailsModal">
-                              <i className="bi bi-info-circle-fill mx-2" /> Details
-                            </a>
-                          </ul>
-                        </div>
+                      <HomeDropdown onSelect={handleOptionSelect}  />
+
                       </div>
                       <div className="card-body">
                         <h5 className="card-title">HW2.py</h5>
@@ -144,31 +109,7 @@ const HomePage = () => {
                         </div>
                       </a>
                       <div className="col-12 text-right">
-                        <div className="dropdown dropend">
-                          <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
-                          <ul className="dropdown-menu">
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-box-arrow-in-down mx-2" /> Download</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-arrows-move mx-2" /> Move</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-share mx-2" /> Share</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-pencil-square mx-2" /> Rename</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-trash mx-2" /> Delete</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-card-list mx-2" /> Versions</span>
-                            </li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-info-circle-fill mx-2" /> Details</span>
-                            </li>
-                          </ul>
-                        </div>
+                      <HomeDropdown onSelect={handleOptionSelect}  />
                       </div>
                       <div className="card-body">
                         <h5 className="card-title">HW1.txt</h5>
@@ -184,31 +125,7 @@ const HomePage = () => {
                         </div>
                       </a>
                       <div className="col-12 text-right">
-                        <div className="dropdown dropend">
-                          <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
-                          <ul className="dropdown-menu">
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-box-arrow-in-down mx-2" /> Download</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-arrows-move mx-2" /> Move</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-share mx-2" /> Share</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-pencil-square mx-2" /> Rename</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-trash mx-2" /> Delete</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-card-list mx-2" /> Versions</span>
-                            </li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-info-circle-fill mx-2" /> Details</span>
-                            </li>
-                          </ul>
-                        </div>
+                      <HomeDropdown onSelect={handleOptionSelect}  />
                       </div>
                       <div className="card-body">
                         <h5 className="card-title">photo.jpg</h5>
@@ -224,31 +141,7 @@ const HomePage = () => {
                         </div>
                       </a>
                       <div className="col-12 text-right">
-                        <div className="dropdown dropend">
-                          <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false" />
-                          <ul className="dropdown-menu">
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-box-arrow-in-down mx-2" /> Download</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-arrows-move mx-2" /> Move</span></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-share mx-2" /> Share</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-pencil-square mx-2" /> Rename</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-trash mx-2" /> Delete</span>
-                            </li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-card-list mx-2" /> Versions</span>
-                            </li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><span className="dropdown-item" href="#">
-                                <i className="bi bi-info-circle-fill mx-2" /> Details</span>
-                            </li>
-                          </ul>
-                        </div>
+                      <HomeDropdown onSelect={handleOptionSelect}  />
                       </div>
                       <div className="card-body">
                         <h5 className="card-title">project</h5>
@@ -387,10 +280,16 @@ const HomePage = () => {
         {/* Link to Bootstrap JS and Popper.js */}
         {/*  */}
        </div>
-  )
-}
+     );
+    };
+    
 
-export default HomePage
+const handleOptionSelect = (selectedOption) => {
+  // Handle the selected option
+  console.log('Selected option:', selectedOption);
+};
+
+export default HomePage;
 
 
 

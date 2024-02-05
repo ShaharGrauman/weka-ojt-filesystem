@@ -3,11 +3,21 @@ import React from 'react';
 const Dropdown = ({ options, onSelect,plusIcon }) => {
     return (
         <div className="dropdown dropend">
-         <i
-            className={`${plusIcon ? 'lni lni-circle-plus' : 'bi bi-three-dots-vertical'}`}
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-           />
+        {plusIcon ? (
+        <button
+        className="btn btn-secondary"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        >
+        <i className="lni lni-circle-plus" />
+        </button>
+        ) : (
+        <i
+        className="bi bi-three-dots-vertical"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        />
+        )}
           <ul className="dropdown-menu">
             {options.map((option) => (
               <li key={option.value}>
