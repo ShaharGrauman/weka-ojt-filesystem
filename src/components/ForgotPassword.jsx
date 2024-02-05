@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import LogIn from '../pages/LogIn.jsx';
+import ParentComponent from '../pages/ParentComponent.jsx';
 
 function ForgotPassword(props) {
   const [Forgotpassword, setForgotpassword] = useState(props.Forgotpassword);
 
   const BackToLogin = () => {
     setForgotpassword("False");
-    // Handle navigation or rendering LogIn component
-    // Example assuming LogIn is a component:
+
     return <LogIn LogIn="True"  />;
   };
 
@@ -28,7 +27,6 @@ function ForgotPassword(props) {
         </div>
         <button type="submit" className="btn btn-primary">confirm</button>
       </div>
-//     : <div></div>
   );
 }
 

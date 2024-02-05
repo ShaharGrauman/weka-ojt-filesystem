@@ -6,19 +6,17 @@ import Login from "../components/Login.jsx"
 import SignUp from "../components/SignUp.jsx"
 
 
-function LogIn(props) {
-  const [showLogin,setshowLogin] = useState("True");
+function ParentComponent() {
+  const [showLogin,setshowLogin] = useState("False");
   const [Forgotpassword, setForgotpassword] = useState("False");
   const [Signup, setSignup] = useState("False");
   const navigate = useNavigate();
 
-//  useEffect(() => {
-//     setLogin(props.LogIn);
-//   }, [props.LogIn]);
-//
-//     const handleUpdateLogin = (newValue) => {
-//     setLogin(newValue);
-//   };
+ const updatestate = (newlogin,newsignup,newforgotpassword) => {
+     setshowLogin(newlogin);
+     setSignup(newsignup);
+     setForgotpassword(newforgotpassword);
+  };
 
   return (
      <div>
@@ -41,15 +39,15 @@ function LogIn(props) {
 
 
 
-          {  props.LogIn=="True" ?
+          {showLogin=="True" ?
           <div>
-          <Login/>
+          <Login updateState={updateState}/>
           </div>
                :<div></div>
           }
 
 
-           {Signup==="True"?
+           {Signup=="True"?
 
              <SignUp/>
 
