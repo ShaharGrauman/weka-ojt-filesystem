@@ -17,6 +17,11 @@ const Item = ({ item }) => {
       {/* Render a Bootstrap Card */}
       <Card style={{ width: "18rem" }}>
         {/* Link to '#' */}
+
+        {/* Render HomeDropdown component for additional actions */}
+        <div className="text-right">
+          <HomeDropdown />
+        </div>
         <a href="#">
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
           {isFolder ? (
@@ -31,11 +36,6 @@ const Item = ({ item }) => {
             ></i>
           )}
         </a>
-
-        {/* Render HomeDropdown component for additional actions */}
-        <div className="text-right">
-          <HomeDropdown />
-        </div>
 
         {/* Card body */}
         <Card.Body>
