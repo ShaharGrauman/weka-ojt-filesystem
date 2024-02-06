@@ -1,15 +1,10 @@
-import React,{ useState }  from "react";
+import React  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
-import ItemDropDown from "./ItemDropDown";
 
-const Item = ({ item }) => {
-  // Destructure properties from the 'item' prop
-//   const { fileName, lastUpdated, isFolder } = item;
-
-  const [selectedItem, setSelectedItem] = useState(null);
-  const handleItemClick = () => {
-    setSelectedItem(item);
+const Item = ({ item, onSelect}) => {
+  const handleDropdownSelect = () => {
+    onSelect(item); // Pass the clicked item to the parent component
   };
   return (
     <div>
@@ -19,9 +14,9 @@ const Item = ({ item }) => {
       />
       <Card style={{ width: "18rem" }}>
         <div className="text-right">
-          <HomeDropdown selectedItem={selectedItem}/>
+          <HomeDropdown selectedItem={item}/>
         </div>
-        <a href="#" onClick={handleItemClick}>
+        <a href="#" >
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
           {item.isFolder ? (
             <i
@@ -37,7 +32,6 @@ const Item = ({ item }) => {
 
         <Card.Body>
           <Card.Title>{item.fileName}</Card.Title>
-
           <Card.Text>Last updated: {item.lastUpdated}.</Card.Text>
         </Card.Body>
      </Card>

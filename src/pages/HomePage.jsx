@@ -26,6 +26,7 @@ const Data = {
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState(null);
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...Data.MyFiles, ...Data.SharedFiles]
@@ -33,6 +34,10 @@ const HomePage = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item); // Set the selected item when an item is clicked
   };
 
   const styles = {
@@ -63,7 +68,7 @@ const HomePage = () => {
             {/* Centering the h1 element */}
             <div style={styles.container}>
               {currentCategoryData.map((item) => (
-                <Item key={item.id} item={item} />
+                <Item key={item.id} item={item} onSelect={handleItemClick}/>
               ))}
             </div>
             <Paginations />
@@ -71,6 +76,7 @@ const HomePage = () => {
         </Row>
       </Container>
       <Footer />
+      )}
     </div>
   );
 };
