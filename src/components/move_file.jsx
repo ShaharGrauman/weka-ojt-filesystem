@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import FolderRadioButton from "./FolderRadioButton";
 
-const Move_file = ({ folders, onMove }) => {
+const Move_file = ({ folders, onMove } ,props) => {
   const [showModal, setShowModal] = useState(true);
   const [selectedFolder, setSelectedFolder] = useState(folders[0]?.name); // Initialize with the first folder
+  const { updateState } = props;
+ const updatetofalse = () => {
+    updateState(false);
+  };
 
-//   const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+// useEffect(() => {
+//   setShowModal(false);
+// },[updateState])
+
+  const handleClose = () => {setShowModal(false);
+   updatetofalse()}
+
+
   const handleMove = () => {
     // Add your move logic here using the selectedFolder state
     console.log("Moving to folder:", selectedFolder);
