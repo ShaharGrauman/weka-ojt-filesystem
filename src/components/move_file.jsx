@@ -3,10 +3,10 @@ import { Modal, Button } from "react-bootstrap";
 import FolderRadioButton from "./FolderRadioButton";
 
 const Move_file = ({ folders, onMove }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [selectedFolder, setSelectedFolder] = useState(folders[0]?.name); // Initialize with the first folder
 
-  const handleShow = () => setShowModal(true);
+//   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const handleMove = () => {
     // Add your move logic here using the selectedFolder state
@@ -21,9 +21,9 @@ const Move_file = ({ folders, onMove }) => {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        Move
-      </Button>
+{/*       <Button variant="primary" onClick={handleShow}> */}
+{/*         Move */}
+{/*       </Button> */}
 
       <Modal show={showModal} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
