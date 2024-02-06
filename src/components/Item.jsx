@@ -5,6 +5,7 @@ import HomeDropdown from "./HomeDropdown";
 const Item = ({ item }) => {
   // Destructure properties from the 'item' prop
   const { fileName, lastUpdated, isFolder } = item;
+  // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
   return (
     <div>
@@ -20,7 +21,8 @@ const Item = ({ item }) => {
 
         {/* Render HomeDropdown component for additional actions */}
         <div className="text-right">
-          <HomeDropdown />
+        <HomeDropdown />
+          {/* {isInDeletedFiles ? (<DeletedDropdown/> ):  (<HomeDropdown />)} */}
         </div>
         <a href="#">
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
@@ -31,7 +33,8 @@ const Item = ({ item }) => {
             ></i>
           ) : (
             <i
-              className="lni lni-empty-file"
+              className="lni lni-empty-file" 
+              // onClick={<FileViewer filePath={item.path} />}
               style={{ fontSize: "2rem", margin: "10px" }}
             ></i>
           )}
