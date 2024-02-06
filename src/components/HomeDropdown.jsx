@@ -9,6 +9,7 @@ const HomeDropdown = ({ selectedItem }) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
+  const [showShare, setShowShare] = useState(false);
 
   const folders = [{ name: "one" }, { name: "two" }];
   const homeOptions = [
@@ -25,7 +26,7 @@ const HomeDropdown = ({ selectedItem }) => {
     if (selectedOption.value === "details") {
       setShowModal(true); // Show the modal when "Details" option is selected
     } else if (selectedOption.value === "share") {
-      // Handle share option
+      setShowShare(true);
       console.log("Sharing...", selectedItem);
     } else if (selectedOption.value === "move") {
       setShowMoveFile(true);
@@ -38,6 +39,7 @@ const HomeDropdown = ({ selectedItem }) => {
     setShowModal(false);
     setShowMoveFile(false);
     setShowRenameFile(false);
+    setShowShare(false);
   };
 
   return (
@@ -58,12 +60,9 @@ const HomeDropdown = ({ selectedItem }) => {
         <Move_file folders={folders} onClose={handleCloseModal} />
       ) : null}
 
-      {showRenameFile && (
-        <RenameFile
-          fileName={selectedItem.fileName}
-          onClose={handleCloseModal}
-        />
-      )}
+      {showRenameFile && <RenameFile onClose={handleCloseModal} />}
+
+      {showShare && <Share />}
     </div>
   );
 };
