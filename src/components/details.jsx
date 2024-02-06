@@ -4,7 +4,7 @@ import FileDetailsContent from './FileDetailsContent';
 
 
 const FileDetailsModal = ({showModal, onClose, fileDetails }) => {
-  const { owner, sharedWith, requiredPermissions } = fileDetails;
+const { owner, sharedWith, requiredPermissions } = fileDetails;
 
   return (
     <div className={`container mt-5 ${showModal ? 'modal show' : 'modal'}`} id="fileDetailsModal" tabIndex="-1" role="dialog" aria-labelledby="fileDetailsModalLabel" aria-hidden={!showModal}>

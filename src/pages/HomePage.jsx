@@ -39,7 +39,7 @@ const HomePage = () => {
     container: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
-      gap: "20px", // Adjust gap according to your design
+      gap: "60px", // Adjust gap according to your design
     },
   };
 

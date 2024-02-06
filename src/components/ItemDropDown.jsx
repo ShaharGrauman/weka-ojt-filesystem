@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import Dropdown from "./dropdown";
+import Dropdown from "./Dropdown"; // Make sure to import Dropdown component properly
 import Share from "./Share";
 import FileDetailsModal from "./details"
-import Move_file from "./move_file";
 
-const HomeDropdown = ({ selectedItem }) => {
-  const [showMoveFile, setShowMoveFile] = useState(false);
-  const folders = [{ name: "one" }, { name: "two" }];
+const ItemDropDown = ({ selectedItem }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const homeOptions = [
     { value: "download", label: "Download" },
     { value: "move", label: "Move" },
@@ -19,28 +18,27 @@ const HomeDropdown = ({ selectedItem }) => {
 
   const handleOptionSelect = (selectedOption) => {
     if (selectedOption.value === "details") {
+      setShowDropdown(false); // Hide the dropdown menu after selecting an option
       return <FileDetailsModal showModal={true} onClose={() => {}} fileDetails={selectedItem} />;
       // Handle details option
     } else if (selectedOption === "share") {
+        setShowDropdown(false); // Hide the dropdown menu after selecting an option
       // Handle share option
       console.log("Sharing...", selectedItem);
     }
-    else if (selectedOption.value === "move") {
-      setShowMoveFile(true);
-    }
-   
   };
 
   return (
-    <div>
+  <div>
     <Dropdown
       options={homeOptions}
       onSelect={handleOptionSelect}
       plusIcon={false}
+      showDropdown={showDropdown}
+      toggleDropdown={() => setShowDropdown(!showDropdown)}
    />
-     {showMoveFile ? <Move_file folders={folders} /> : null}
   </div>
   );
 };
 
-export default HomeDropdown;
+export default ItemDropDown;

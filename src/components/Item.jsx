@@ -1,30 +1,29 @@
-import React from "react";
+import React,{ useState }  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
+import ItemDropDown from "./ItemDropDown";
 
 const Item = ({ item }) => {
   // Destructure properties from the 'item' prop
-  const { fileName, lastUpdated, isFolder } = item;
+//   const { fileName, lastUpdated, isFolder } = item;
 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const handleItemClick = () => {
+    setSelectedItem(item);
+  };
   return (
     <div>
-      {/* Include the LineIcons CSS */}
       <link
         href="https://cdn.lineicons.com/4.0/lineicons.css"
         rel="stylesheet"
       />
-
-      {/* Render a Bootstrap Card */}
       <Card style={{ width: "18rem" }}>
-        {/* Link to '#' */}
-
-        {/* Render HomeDropdown component for additional actions */}
         <div className="text-right">
-          <HomeDropdown />
+          <HomeDropdown selectedItem={selectedItem}/>
         </div>
-        <a href="#">
+        <a href="#" onClick={handleItemClick}>
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
-          {isFolder ? (
+          {item.isFolder ? (
             <i
               className="lni lni-folder"
               style={{ fontSize: "2rem", margin: "10px" }}
@@ -32,21 +31,17 @@ const Item = ({ item }) => {
           ) : (
             <i
               className="lni lni-empty-file"
-              style={{ fontSize: "2rem", margin: "10px" }}
-            ></i>
+              style={{ fontSize: "2rem", margin: "10px" }}> </i>
           )}
         </a>
 
-        {/* Card body */}
         <Card.Body>
-          {/* Render file name */}
-          <Card.Title>{fileName}</Card.Title>
+          <Card.Title>{item.fileName}</Card.Title>
 
-          {/* Render last updated date */}
-          <Card.Text>Last updated: {lastUpdated}.</Card.Text>
+          <Card.Text>Last updated: {item.lastUpdated}.</Card.Text>
         </Card.Body>
-      </Card>
-    </div>
+     </Card>
+   </div>
   );
 };
 
