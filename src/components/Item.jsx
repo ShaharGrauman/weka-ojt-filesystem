@@ -3,6 +3,8 @@ import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
 
 const Item = ({ item, onSelect}) => {
+  // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
+
   const handleDropdownSelect = () => {
     onSelect(item); // Pass the clicked item to the parent component
   };
@@ -14,6 +16,8 @@ const Item = ({ item, onSelect}) => {
       />
       <Card style={{ width: "18rem" }}>
         <div className="text-right">
+
+          {/* {isInDeletedFiles ? (<DeletedDropdown/> ):  (<HomeDropdown />)} */}
           <HomeDropdown selectedItem={item}/>
         </div>
         <a href="#" >
@@ -25,8 +29,11 @@ const Item = ({ item, onSelect}) => {
             ></i>
           ) : (
             <i
-              className="lni lni-empty-file"
-              style={{ fontSize: "2rem", margin: "10px" }}> </i>
+              className="lni lni-empty-file" 
+              // onClick={<FileViewer filePath={item.path} />}
+              style={{ fontSize: "2rem", margin: "10px" }}
+            ></i>
+
           )}
         </a>
 

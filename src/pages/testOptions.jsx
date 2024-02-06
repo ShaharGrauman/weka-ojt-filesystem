@@ -3,16 +3,18 @@ import DeletedDropdown from "../components/DeletedDropdown";
 import PlusDropdown from "../components/PlusOptions";
 import React from 'react';
 import HomeDropdown from "../components/HomeDropdown";
+import FileViewer from "../components/FileViewer";
   const TestPage = () => {
 
   
     return (
       <div>
-        <h1>Home Page options </h1>
-        <HomeDropdown  />
+        {/* <HomeDropdown  />
         <DeletedDropdown />
         <PlusDropdown  />
-        <VersionsDropdown />
+        <VersionsDropdown /> */}
+        <FileViewer filePath="..\Image\photo.png" />
+
       </div>
 
     );
