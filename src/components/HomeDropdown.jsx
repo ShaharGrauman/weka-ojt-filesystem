@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropdown from "./dropdown";
-import FileDetailsModal from "./details";
-import Share from "./Share";
+import Move_file from "./move_file";
 
 const HomeDropdown = () => {
+  const [showMoveFile, setShowMoveFile] = useState(false);
+  const folders = [{ name: "one" }, { name: "two" }];
+
   const homeOptions = [
     { value: "download", label: "Download" },
     { value: "move", label: "Move" },
@@ -13,19 +15,22 @@ const HomeDropdown = () => {
     { value: "versions", label: "Versions" },
     { value: "details", label: "Details" },
   ];
-  const handleOptionSelect = (selectedOption) => {
-    if (selectedOption === "details") {
-    } else if (selectedOption === "share") {
-      <Share />;
+
+  const handleOptionSelect = (selectedValue) => {
+    if (selectedValue.value === "move") {
+      setShowMoveFile(true);
     }
   };
 
   return (
-    <Dropdown
-      options={homeOptions}
-      onSelect={handleOptionSelect}
-      plusIcon={false}
-    />
+    <div>
+     <Dropdown
+  options={homeOptions}
+onSelect={handleOptionSelect}
+  plusIcon={false}
+/>
+      {showMoveFile ? <Move_file folders={folders} /> : null}
+    </div>
   );
 };
 
