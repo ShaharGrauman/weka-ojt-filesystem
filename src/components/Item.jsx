@@ -1,32 +1,28 @@
-import React from "react";
+import React  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
 
-const Item = ({ item }) => {
-  // Destructure properties from the 'item' prop
-  const { fileName, lastUpdated, isFolder } = item;
+const Item = ({ item, onSelect}) => {
   // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
+  const handleDropdownSelect = () => {
+    onSelect(item); // Pass the clicked item to the parent component
+  };
   return (
     <div>
-      {/* Include the LineIcons CSS */}
       <link
         href="https://cdn.lineicons.com/4.0/lineicons.css"
         rel="stylesheet"
       />
-
-      {/* Render a Bootstrap Card */}
       <Card style={{ width: "18rem" }}>
-        {/* Link to '#' */}
-
-        {/* Render HomeDropdown component for additional actions */}
         <div className="text-right">
-        <HomeDropdown />
+
           {/* {isInDeletedFiles ? (<DeletedDropdown/> ):  (<HomeDropdown />)} */}
+          <HomeDropdown selectedItem={item}/>
         </div>
-        <a href="#">
+        <a href="#" >
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
-          {isFolder ? (
+          {item.isFolder ? (
             <i
               className="lni lni-folder"
               style={{ fontSize: "2rem", margin: "10px" }}
@@ -37,19 +33,16 @@ const Item = ({ item }) => {
               // onClick={<FileViewer filePath={item.path} />}
               style={{ fontSize: "2rem", margin: "10px" }}
             ></i>
+
           )}
         </a>
 
-        {/* Card body */}
         <Card.Body>
-          {/* Render file name */}
-          <Card.Title>{fileName}</Card.Title>
-
-          {/* Render last updated date */}
-          <Card.Text>Last updated: {lastUpdated}.</Card.Text>
+          <Card.Title>{item.fileName}</Card.Title>
+          <Card.Text>Last updated: {item.lastUpdated}.</Card.Text>
         </Card.Body>
-      </Card>
-    </div>
+     </Card>
+   </div>
   );
 };
 
