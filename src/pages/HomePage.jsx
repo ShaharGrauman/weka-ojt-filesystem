@@ -32,6 +32,7 @@ const HomePage = () => {
   };
 
   const [selectedCategory, setSelectedCategory] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState(null);
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...Data.MyFiles, ...Data.SharedFiles]
@@ -39,6 +40,18 @@ const HomePage = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item); // Set the selected item when an item is clicked
+  };
+
+  const styles = {
+    container: {
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
+      gap: "60px", // Adjust gap according to your design
+    },
   };
 
   return (
@@ -68,7 +81,7 @@ const HomePage = () => {
             <h1 className="text-center">Main Content</h1>
             <div className="item-container">
               {currentCategoryData.map((item) => (
-                <Item key={item.id} item={item} />
+                <Item key={item.id} item={item} onSelect={handleItemClick} />
               ))}
             </div>
             <Paginations />

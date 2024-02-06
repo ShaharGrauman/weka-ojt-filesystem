@@ -11,10 +11,6 @@ function Footer() {
             © 2024 CloudStore. All rights reserved.
           </span>
         </div>
-        <div className="mt-2">
-          <a href="#">About Us</a> |<a href="#"> Privacy Policy</a> |
-          <a href="#"> Terms of Service</a>
-        </div>
       </Container>
     </footer>
   );

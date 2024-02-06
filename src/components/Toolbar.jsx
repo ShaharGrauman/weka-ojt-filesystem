@@ -40,7 +40,6 @@ function Toolbar() {
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
               <Dropdown.Item href="#/action-2">Date</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Size</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>

@@ -123,6 +123,11 @@ body {
 
 #fileContainer {
   flex: 1;
+  background-color: #EDEDED; 
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  margin: 20px auto; 
 }
 
 #footer {
@@ -131,13 +136,13 @@ body {
 
 }
 
-#fileContainerContainer {
+/* #fileContainerContainer {
   background-color: #EDEDED; 
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
   margin: 20px auto; 
-}
+} */
 
 /* Add a frame style */
 .image-frame {
