@@ -45,12 +45,11 @@ const HomePage = () => {
   const handleItemClick = (item) => {
     setSelectedItem(item); // Set the selected item when an item is clicked
   };
-
   const styles = {
     container: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
-      gap: "60px", // Adjust gap according to your design
+      gap: "20px", // Adjust gap according to your design
     },
   };
 
