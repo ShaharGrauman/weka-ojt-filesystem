@@ -25,7 +25,14 @@ const Data = {
 };
 
 const HomePage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   const [selectedCategory, setSelectedCategory] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState(null);
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...Data.MyFiles, ...Data.SharedFiles]
@@ -33,6 +40,10 @@ const HomePage = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item); // Set the selected item when an item is clicked
   };
 
   const styles = {
@@ -46,31 +57,40 @@ const HomePage = () => {
   return (
     <div>
       <meta charSet="UTF-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Home Page</title>
-      <Header />
-      <Toolbar />
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Header />
+      </Container>
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
+        <Toolbar />
+      </Container>
 
-      <SideBar onSelect={handleCategorySelect} />
-
-      <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+      <SideBar
+        onSelect={handleCategorySelect}
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      />
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
         <Row className="justify-content-center">
-          {" "}
-          {/* Centering the content */}
           <Col xs={12} md={9} id="page-content-wrapper">
-            <h1 className="text-center">Main Content</h1>{" "}
-            {/* Centering the h1 element */}
-            <div style={styles.container}>
+            <h1 className="text-center">Main Content</h1>
+            <div className="item-container">
               {currentCategoryData.map((item) => (
-                <Item key={item.id} item={item} />
+                <Item key={item.id} item={item} onSelect={handleItemClick} />
               ))}
             </div>
             <Paginations />
           </Col>
         </Row>
       </Container>
-      <Footer />
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Footer />
+      </Container>
     </div>
   );
 };

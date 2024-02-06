@@ -1,9 +1,8 @@
 import React from "react";
-import React from "react";
-import { ModalHeader, ModalBody, ModalFooter } from "./ModalComponents";
+import { ModalHeader, ModalBody, ModalFooter } from "./ModalComponent";
 
 
-const DeleteModal = ({ showModal, closeModal, handleLogout }) => (
+const DeleteModal = ({ showModal, closeModal, handleDelete }) => (
   <div className={`modal fade ${showModal ? 'show' : ''}`} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden={!showModal}>
     <div className="modal-dialog" role="document">
       <div className="modal-content">

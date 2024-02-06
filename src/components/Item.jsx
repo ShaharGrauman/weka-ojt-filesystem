@@ -1,15 +1,12 @@
-import React,{ useState }  from "react";
+import React  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
-import ItemDropDown from "./ItemDropDown";
 
-const Item = ({ item }) => {
-  // Destructure properties from the 'item' prop
-//   const { fileName, lastUpdated, isFolder } = item;
+const Item = ({ item, onSelect}) => {
+  // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
-  const [selectedItem, setSelectedItem] = useState(null);
-  const handleItemClick = () => {
-    setSelectedItem(item);
+  const handleDropdownSelect = () => {
+    onSelect(item); // Pass the clicked item to the parent component
   };
   return (
     <div>
@@ -19,9 +16,11 @@ const Item = ({ item }) => {
       />
       <Card style={{ width: "18rem" }}>
         <div className="text-right">
-          <HomeDropdown selectedItem={selectedItem}/>
+
+          {/* {isInDeletedFiles ? (<DeletedDropdown/> ):  (<HomeDropdown />)} */}
+          <HomeDropdown selectedItem={item}/>
         </div>
-        <a href="#" onClick={handleItemClick}>
+        <a href="#" >
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
           {item.isFolder ? (
             <i
@@ -30,14 +29,16 @@ const Item = ({ item }) => {
             ></i>
           ) : (
             <i
-              className="lni lni-empty-file"
-              style={{ fontSize: "2rem", margin: "10px" }}> </i>
+              className="lni lni-empty-file" 
+              // onClick={<FileViewer filePath={item.path} />}
+              style={{ fontSize: "2rem", margin: "10px" }}
+            ></i>
+
           )}
         </a>
 
         <Card.Body>
           <Card.Title>{item.fileName}</Card.Title>
-
           <Card.Text>Last updated: {item.lastUpdated}.</Card.Text>
         </Card.Body>
      </Card>

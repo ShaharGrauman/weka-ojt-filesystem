@@ -6,6 +6,8 @@ import Move_file from "./move_file";
 
 const HomeDropdown = ({ selectedItem }) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to control the visibility of FileDetailsModal
+
   const folders = [{ name: "one" }, { name: "two" }];
   const homeOptions = [
     { value: "download", label: "Download" },
@@ -19,9 +21,8 @@ const HomeDropdown = ({ selectedItem }) => {
 
   const handleOptionSelect = (selectedOption) => {
     if (selectedOption.value === "details") {
-      return <FileDetailsModal showModal={true} onClose={() => {}} fileDetails={selectedItem} />;
-      // Handle details option
-    } else if (selectedOption === "share") {
+      setShowModal(true); // Show the modal when "Details" option is selected
+    } else if (selectedOption.value === "share") {
       // Handle share option
       console.log("Sharing...", selectedItem);
     }
@@ -31,6 +32,12 @@ const HomeDropdown = ({ selectedItem }) => {
    
   };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setShowMoveFile(false);
+  };
+
+
   return (
     <div>
     <Dropdown
@@ -38,7 +45,10 @@ const HomeDropdown = ({ selectedItem }) => {
       onSelect={handleOptionSelect}
       plusIcon={false}
    />
-     {showMoveFile ? <Move_file folders={folders} /> : null}
+         {showModal && (
+        <FileDetailsModal showModal={showModal} onClose={handleCloseModal} fileDetails={selectedItem} />
+      )}
+     {showMoveFile ? <Move_file folders={folders} onClose={handleCloseModal}/> : null}
   </div>
   );
 };

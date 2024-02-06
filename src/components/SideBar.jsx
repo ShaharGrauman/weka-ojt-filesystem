@@ -11,8 +11,9 @@ import {
 import "./Sidebar.css";
 import LogoutModall from "./LogoutModal"; // Import LogoutModall component
 
-const Sidebar = ({ onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
+
+
+const Sidebar = ({ onSelect, isOpen, toggleSidebar }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false); // State to manage logout modal visibility
 
   const toggleSidebar = () => {
@@ -22,7 +23,7 @@ const Sidebar = ({ onSelect }) => {
   const toggleLogoutModal = () => {
     setShowLogoutModal(!showLogoutModal);
   };
-
+ 
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <button className="toggle-btn" onClick={toggleSidebar}>
