@@ -1,6 +1,5 @@
 import React from "react";
-import React from "react";
-import { ModalHeader, ModalBody, ModalFooter } from "./ModalComponents";
+import { ModalHeader, ModalBody, ModalFooter } from "./ModalComponent";
 
 
 const DeleteModal = ({ showModal, closeModal, handleLogout }) => (
