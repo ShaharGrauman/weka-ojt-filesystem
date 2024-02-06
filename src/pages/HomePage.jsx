@@ -12,8 +12,10 @@ import "./HomePage.css";
 
 const Data = {
   MyFiles: [
-    { id: 1, fileName: "File 1", lastUpdated: "2022-02-05", isFolder: false },
-    { id: 3, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
+    { id: 1, fileName: "File1.jpg", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 2, fileName: "File2.mp3", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 3, fileName: "File2.pdf", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 4, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
     { id: 5, fileName: "Folder 3", lastUpdated: "2022-02-06", isFolder: true },
   ],
   SharedFiles: [
@@ -56,9 +58,7 @@ const HomePage = () => {
       <title>Home Page</title>
       <Header />
       <Toolbar />
-
       <SideBar onSelect={handleCategorySelect} />
-
       <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
         <Row className="justify-content-center">
           {" "}
@@ -71,12 +71,11 @@ const HomePage = () => {
                 <Item key={item.id} item={item} onSelect={handleItemClick}/>
               ))}
             </div>
-            <Paginations />
+            <Paginations/>
           </Col>
         </Row>
       </Container>
       <Footer />
-      )}
     </div>
   );
 };
