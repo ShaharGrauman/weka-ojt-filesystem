@@ -33,8 +33,10 @@ const HomeDropdown = ({ selectedItem }) => {
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); // Close the modal when the close button is clicked
+    setShowModal(false);
+    setShowMoveFile(false);
   };
+
 
   return (
     <div>
@@ -46,7 +48,7 @@ const HomeDropdown = ({ selectedItem }) => {
          {showModal && (
         <FileDetailsModal showModal={showModal} onClose={handleCloseModal} fileDetails={selectedItem} />
       )}
-     {showMoveFile ? <Move_file folders={folders} /> : null}
+     {showMoveFile ? <Move_file folders={folders} onClose={handleCloseModal}/> : null}
   </div>
   );
 };
