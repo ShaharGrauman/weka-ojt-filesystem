@@ -45,35 +45,22 @@ const HomePage = () => {
   const handleItemClick = (item) => {
     setSelectedItem(item); // Set the selected item when an item is clicked
   };
-  const styles = {
-    container: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
-      gap: "20px", // Adjust gap according to your design
-    },
-  };
 
   return (
-    <div>
-      <meta charSet="UTF-8" />
-      <Container className={isOpen ? "sidebar-open" : ""}>
+    <div className="body-homepage">
+      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Header />
       </Container>
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : ""}
+        className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
         <Toolbar />
       </Container>
 
-      <SideBar
-        onSelect={handleCategorySelect}
-        isOpen={isOpen}
-        toggleSidebar={toggleSidebar}
-      />
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : ""}
+        className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
         <Row className="justify-content-center">
           <Col xs={12} md={9} id="page-content-wrapper">
@@ -87,9 +74,15 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Container className={isOpen ? "sidebar-open" : ""}>
+      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Footer />
       </Container>
+
+      <SideBar
+        onSelect={handleCategorySelect}
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      />
     </div>
   );
 };
