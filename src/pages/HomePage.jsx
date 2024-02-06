@@ -25,6 +25,12 @@ const Data = {
 };
 
 const HomePage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const currentCategoryData =
     selectedCategory === "Home"
@@ -35,33 +41,32 @@ const HomePage = () => {
     setSelectedCategory(category);
   };
 
-  const styles = {
-    container: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
-      gap: "20px", // Adjust gap according to your design
-    },
-  };
-
   return (
     <div>
       <meta charSet="UTF-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Home Page</title>
-      <Header />
-      <Toolbar />
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Header />
+      </Container>
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
+        <Toolbar />
+      </Container>
 
-      <SideBar onSelect={handleCategorySelect} />
-
-      <Container style={{ marginTop: "20px", marginBottom: "20px" }}>
+      <SideBar
+        onSelect={handleCategorySelect}
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      />
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
         <Row className="justify-content-center">
-          {" "}
-          {/* Centering the content */}
           <Col xs={12} md={9} id="page-content-wrapper">
-            <h1 className="text-center">Main Content</h1>{" "}
-            {/* Centering the h1 element */}
-            <div style={styles.container}>
+            <h1 className="text-center">Main Content</h1>
+            <div className="item-container">
               {currentCategoryData.map((item) => (
                 <Item key={item.id} item={item} />
               ))}
@@ -70,7 +75,9 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Footer />
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Footer />
+      </Container>
     </div>
   );
 };
