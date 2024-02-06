@@ -1,5 +1,3 @@
-// Sidebar.js
-
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,12 +9,18 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Sidebar.css";
+import LogoutModall from "./LogoutModal"; // Import LogoutModall component
 
 const Sidebar = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false); // State to manage logout modal visibility
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
   };
 
   return (
@@ -58,12 +62,14 @@ const Sidebar = ({ onSelect }) => {
           </a>
         </li>
       </ul>
-      <button className={`logout-btn ${isOpen ? "open" : "closed"}`}>
+      <button className={`logout-btn ${isOpen ? "open" : "closed"}`} onClick={toggleLogoutModal}>
         <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "#000033" }} />
         <span className="logout-name" style={{ color: "#000033" }}>
           Logout
         </span>
       </button>
+      {/* Render LogoutModall component */}
+      {showLogoutModal && <LogoutModall />}
     </div>
   );
 };
