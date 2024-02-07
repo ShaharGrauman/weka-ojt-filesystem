@@ -1,21 +1,21 @@
 import React from "react";
 
-const ModalHeader = ({ closeModal }) => (
+const ModallHeader = ({ closeModal }) => (
   <div className="modal-header">
-    <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+    <h5 className="modal-title" id="exampleModalLabel"></h5>
     <button type="button" className="close" onClick={closeModal} aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 );
 
-const ModalBody = () => (
+const ModallBody = () => (
   <div className="modal-body">
-    Are you sure you want to log out?
+    Are you sure ?
   </div>
 );
 
-const ModalFooter = ({ closeModal, handleAction, actionText }) => (
+const ModallFooter = ({ closeModal, handleAction, actionText }) => (
   <div className="modal-footer">
     <button type="button" className="btn btn-secondary" onClick={closeModal}>
       Cancel
@@ -26,4 +26,4 @@ const ModalFooter = ({ closeModal, handleAction, actionText }) => (
   </div>
 );
 
-export { ModalHeader, ModalBody, ModalFooter };
+export { ModallHeader, ModallBody, ModallFooter };

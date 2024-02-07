@@ -12,10 +12,8 @@ import "./HomePage.css";
 
 const Data = {
   MyFiles: [
-    { id: 1, fileName: "File1.jpg", lastUpdated: "2022-02-05", isFolder: false },
-    { id: 2, fileName: "File2.mp3", lastUpdated: "2022-02-05", isFolder: false },
-    { id: 3, fileName: "File2.pdf", lastUpdated: "2022-02-05", isFolder: false },
-    { id: 4, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
+    { id: 1, fileName: "File 1", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 3, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
     { id: 5, fileName: "Folder 3", lastUpdated: "2022-02-06", isFolder: true },
   ],
   SharedFiles: [
@@ -55,45 +53,45 @@ const HomePage = () => {
     },
   };
 
-return (
-  <div>
-    <meta charSet="UTF-8" />
-    <Container className={isOpen ? "sidebar-open" : ""}>
-      <Header />
-    </Container>
-    <Container
-      style={{ marginTop: "20px", marginBottom: "20px" }}
-      className={isOpen ? "sidebar-open" : ""}
-    >
-      <Toolbar />
-    </Container>
+  return (
+    <div>
+      <meta charSet="UTF-8" />
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Header />
+      </Container>
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
+        <Toolbar />
+      </Container>
 
-    <SideBar
-      onSelect={handleCategorySelect}
-      isOpen={isOpen}
-      toggleSidebar={toggleSidebar}
-    />
-    <Container
-      style={{ marginTop: "20px", marginBottom: "20px" }}
-      className={isOpen ? "sidebar-open" : ""}
-    >
-      <Row className="justify-content-center">
-        <Col xs={12} md={9} id="page-content-wrapper">
-          <h1 className="text-center">Main Content</h1>
-          <div className="item-container">
-            {currentCategoryData.map((item) => (
-              <Item key={item.id} item={item} onSelect={handleItemClick} />
-            ))}
-          </div>
-          <Paginations />
-        </Col>
-      </Row>
-    </Container>
-    <Container className={isOpen ? "sidebar-open" : ""}>
-      <Footer />
-    </Container>
-  </div>
-);
+      <SideBar
+        onSelect={handleCategorySelect}
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      />
+      <Container
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+        className={isOpen ? "sidebar-open" : ""}
+      >
+        <Row className="justify-content-center">
+          <Col xs={12} md={9} id="page-content-wrapper">
+            <h1 className="text-center">Main Content</h1>
+            <div className="item-container">
+              {currentCategoryData.map((item) => (
+                <Item key={item.id} item={item} onSelect={handleItemClick} />
+              ))}
+            </div>
+            <Paginations />
+          </Col>
+        </Row>
+      </Container>
+      <Container className={isOpen ? "sidebar-open" : ""}>
+        <Footer />
+      </Container>
+    </div>
+  );
 };
 
 export default HomePage;
