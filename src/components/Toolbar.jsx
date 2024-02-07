@@ -10,7 +10,7 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import PlusDropdown from "./PlusOptions";
-import "./Toolbar.css";
+import "../css/Toolbar.css";
 
 function Toolbar() {
   return (

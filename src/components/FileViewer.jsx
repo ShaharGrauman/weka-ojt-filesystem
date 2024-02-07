@@ -2,8 +2,8 @@ import React, { useEffect ,useState} from 'react';
 import SideBar from "./SideBar.jsx";
 import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const FileViewer = ({ filePath }) => {
 
