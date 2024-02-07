@@ -8,7 +8,7 @@ import {
   faSignOutAlt,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Sidebar.css";
+import "../css/Sidebar.css";
 import LogoutModall from "./LogoutModal"; // Import LogoutModall component
 
 const Sidebar = ({ onSelect, isOpen, toggleSidebar }) => {
