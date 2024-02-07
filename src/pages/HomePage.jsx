@@ -6,7 +6,6 @@ import Paginations from "../components/Paginations";
 import Toolbar from "../components/Toolbar";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
-import PlusDropdown from "../components/PlusOptions";
 import "./HomePage.css";
 
 const Data = {
@@ -44,22 +43,35 @@ const HomePage = () => {
   const handleItemClick = (item) => {
     setSelectedItem(item); // Set the selected item when an item is clicked
   };
+  // const styles = {
+  //   container: {
+  //     display: "grid",
+  //     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
+  //     gap: "20px", // Adjust gap according to your design
+  //   },
+  // };
 
   return (
-    <div className="body-homepage">
-      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
+    <div>
+      <meta charSet="UTF-8" />
+      <Container className={isOpen ? "sidebar-open" : ""}>
         <Header />
       </Container>
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : "sidebar-close"}
+        className={isOpen ? "sidebar-open" : ""}
       >
         <Toolbar />
       </Container>
 
+      <SideBar
+        onSelect={handleCategorySelect}
+        isOpen={isOpen}
+        toggleSidebar={toggleSidebar}
+      />
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : "sidebar-close"}
+        className={isOpen ? "sidebar-open" : ""}
       >
         <Row className="justify-content-center">
           <Col xs={12} md={9} id="page-content-wrapper">
@@ -73,15 +85,9 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
+      <Container className={isOpen ? "sidebar-open" : ""}>
         <Footer />
       </Container>
-
-      <SideBar
-        onSelect={handleCategorySelect}
-        isOpen={isOpen}
-        toggleSidebar={toggleSidebar}
-      />
     </div>
   );
 };

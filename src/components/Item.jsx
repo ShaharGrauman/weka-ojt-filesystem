@@ -1,7 +1,7 @@
 import React  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
-
+import FileViewer from "./FileViewer"
 const Item = ({ item, onSelect}) => {
   // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
@@ -29,8 +29,7 @@ const Item = ({ item, onSelect}) => {
             ></i>
           ) : (
             <i
-              className="lni lni-empty-file" 
-              // onClick={<FileViewer filePath={item.path} />}
+              className="lni lni-empty-file"
               style={{ fontSize: "2rem", margin: "10px" }}
             ></i>
 
