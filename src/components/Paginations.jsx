@@ -1,5 +1,5 @@
 import Pagination from "react-bootstrap/Pagination";
-import "./Paginations.css";
+import "../css/Paginations.css";
 
 function AdvancedExample() {
   return (
