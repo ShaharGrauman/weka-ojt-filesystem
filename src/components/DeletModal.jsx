@@ -1,20 +1,34 @@
-import React from "react";
-import { ModalHeader, ModalBody, ModalFooter } from "./ModalComponent";
+import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal } from 'react-bootstrap';
+import { ModallBody,ModallFooter,ModallHeader } from './ModalComponent';
 
 
-const DeleteModal = ({ showModal, closeModal, handleDelete }) => (
-  <div className={`modal fade ${showModal ? 'show' : ''}`} id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden={!showModal}>
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        {/* Modal Header Component */}
-        <ModalHeader closeModal={closeModal} />
-        {/* Modal Body Component */}
-        <ModalBody />
-        {/* Modal Footer Component */}
-        <ModalFooter closeModal={closeModal} handleAction={handleDelete} actionText="Delete" />
-      </div>
-    </div>
-  </div>
-);
+const DeleteModal = ({onClose}) => {
+    const [show, setShow] = useState(true);
+
+    const handleClose = () => {setShow(false);onClose();}
+
+    const handledelete = () => {
+        handleClose();
+        onClose();
+    };
+
+    return (
+        <div>
+
+            <Modal show={show} onHide={handleClose}>
+                <ModallHeader closeModal={handleClose} />
+                <ModallBody />
+                <ModallFooter
+                    closeModal={handleClose}
+                    handleAction={handledelete}
+                    actionText="Delete"
+                />
+            </Modal>
+        </div>
+    );
+};
 
 export default DeleteModal;
+
