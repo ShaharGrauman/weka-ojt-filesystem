@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-const Share = () => {
+const Share = ({ onClose }) => {
   const [showModal, setShowModal] = useState(true);
   const [email, setEmail] = useState("");
 
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    onClose();
+  };
 
   const handleEmailChange = (e) => setEmail(e.target.value);
 

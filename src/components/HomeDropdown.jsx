@@ -27,7 +27,6 @@ const HomeDropdown = ({ selectedItem }) => {
       setShowModal(true); // Show the modal when "Details" option is selected
     } else if (selectedOption.value === "share") {
       setShowShare(true);
-      console.log("Sharing...", selectedItem);
     } else if (selectedOption.value === "move") {
       setShowMoveFile(true);
     } else if (selectedOption.value === "rename") {
@@ -62,7 +61,7 @@ const HomeDropdown = ({ selectedItem }) => {
 
       {showRenameFile && <RenameFile onClose={handleCloseModal} />}
 
-      {showShare && <Share />}
+      {showShare ? <Share onClose={handleCloseModal} /> : null}
     </div>
   );
 };
