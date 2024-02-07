@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Cards from "../components/Cards";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SideBar from "../components/SideBar";
@@ -7,7 +6,6 @@ import Paginations from "../components/Paginations";
 import Toolbar from "../components/Toolbar";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
-import PlusDropdown from "../components/PlusOptions";
 import "./HomePage.css";
 
 const Data = {
