@@ -4,12 +4,16 @@ import Share from "./Share";
 import FileDetailsModal from "./details";
 import Move_file from "./move_file";
 import RenameFile from "./RenameFile";
+import DeleteModal from "./DeletModal"
+
+
 
 const HomeDropdown = ({ selectedItem }) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [showdelete, setshowdelete] = useState(false);
 
   const folders = [{ name: "one" }, { name: "two" }];
   const homeOptions = [
@@ -32,6 +36,8 @@ const HomeDropdown = ({ selectedItem }) => {
       setShowMoveFile(true);
     } else if (selectedOption.value === "rename") {
       setShowRenameFile(true);
+    }else if (selectedOption.value === "delete") {
+      setshowdelete(true);
     }
   };
 
@@ -39,6 +45,7 @@ const HomeDropdown = ({ selectedItem }) => {
     setShowModal(false);
     setShowMoveFile(false);
     setShowRenameFile(false);
+    setshowdelete(false);
     setShowShare(false);
   };
 
@@ -61,8 +68,10 @@ const HomeDropdown = ({ selectedItem }) => {
       ) : null}
 
       {showRenameFile && <RenameFile onClose={handleCloseModal} />}
+      {showdelete && <DeleteModal onClose={handleCloseModal} />}
 
-      {showShare && <Share />}
+
+      {showShare && <Share  />}
     </div>
   );
 };
