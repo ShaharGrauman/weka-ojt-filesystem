@@ -1,8 +1,4 @@
 import React, { useEffect ,useState} from 'react';
-import SideBar from "./SideBar.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-
 
 const FileViewer = ({ filePath }) => {
 
@@ -41,8 +37,6 @@ const FileViewer = ({ filePath }) => {
   return (
     <>
     <div>
-    <Header />
-    <SideBar></SideBar>
     <div id="fileContainer">{fileContent}</div>
     
       <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,7 +59,6 @@ const FileViewer = ({ filePath }) => {
         </div>
       </div>
 
-      <Footer></Footer>
     </div>
     </>
   );
