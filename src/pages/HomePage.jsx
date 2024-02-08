@@ -49,12 +49,12 @@ const HomePage = () => {
   return (
     <div>
       <meta charSet="UTF-8" />
-      <Container className={isOpen ? "sidebar-open" : ""}>
+      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Header />
       </Container>
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : ""}
+        className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
         <Toolbar />
       </Container>
@@ -66,7 +66,7 @@ const HomePage = () => {
       />
       <Container
         style={{ marginTop: "20px", marginBottom: "20px" }}
-        className={isOpen ? "sidebar-open" : ""}
+        className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
         <Row className="justify-content-center">
           <Col xs={12} md={9} id="page-content-wrapper">
@@ -85,7 +85,7 @@ const HomePage = () => {
           </Col>
         </Row>
       </Container>
-      <Container className={isOpen ? "sidebar-open" : ""}>
+      <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Footer />
       </Container>
     </div>
