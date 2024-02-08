@@ -5,9 +5,12 @@ import FileViewer from "./FileViewer"
 const Item = ({ item, onSelect}) => {
   // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
-  const handleDropdownSelect = () => {
-    onSelect(item); // Pass the clicked item to the parent component
+  const handleItemClick = () => {
+    if (!item.isFolder) {
+      onSelect(item); // Pass the clicked file item to the parent component
+    }
   };
+  
   return (
     <div>
       <link
@@ -20,7 +23,7 @@ const Item = ({ item, onSelect}) => {
           {/* {isInDeletedFiles ? (<DeletedDropdown/> ):  (<HomeDropdown />)} */}
           <HomeDropdown selectedItem={item}/>
         </div>
-        <a href="#" >
+        <a href="#" onClick={handleItemClick}>
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
           {item.isFolder ? (
             <i

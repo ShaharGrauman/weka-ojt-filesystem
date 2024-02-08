@@ -6,11 +6,12 @@ import Paginations from "../components/Paginations";
 import Toolbar from "../components/Toolbar";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
+import FileViewer from "../components/FileViewer";
 import "./HomePage.css";
 
 const Data = {
   MyFiles: [
-    { id: 1, fileName: "File 1", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 1, fileName: "File 1", lastUpdated: "2022-02-05", isFolder: false ,filePath:"../Image/photo.png"},
     { id: 3, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
     { id: 5, fileName: "Folder 3", lastUpdated: "2022-02-06", isFolder: true },
   ],
@@ -18,19 +19,19 @@ const Data = {
     { id: 2, fileName: "Folder 1", lastUpdated: "2022-02-06", isFolder: true },
   ],
   DeletedFiles: [
-    { id: 4, fileName: "File 2", lastUpdated: "2022-02-05", isFolder: false },
+    { id: 4, fileName: "File 2", lastUpdated: "2022-02-05", isFolder: false, filePath:"../Image/logo.png"},
   ],
 };
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState("Home");
-  const [selectedItem, setSelectedItem] = useState(null);
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...Data.MyFiles, ...Data.SharedFiles]
@@ -38,18 +39,12 @@ const HomePage = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setSelectedItem(null);
   };
 
   const handleItemClick = (item) => {
     setSelectedItem(item); // Set the selected item when an item is clicked
   };
-  // const styles = {
-  //   container: {
-  //     display: "grid",
-  //     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", // Responsive grid columns
-  //     gap: "20px", // Adjust gap according to your design
-  //   },
-  // };
 
   return (
     <div>
@@ -76,11 +71,16 @@ const HomePage = () => {
         <Row className="justify-content-center">
           <Col xs={12} md={9} id="page-content-wrapper">
             <h1 className="text-center">Main Content</h1>
+            {selectedItem ? (
+              // Render the FileViewer component if an item is selected
+              <FileViewer filePath={selectedItem.filePath} />
+            ) : (
             <div className="item-container">
               {currentCategoryData.map((item) => (
-                <Item key={item.id} item={item} onSelect={handleItemClick} />
+                <Item key={item.id} item={item} onSelect={() => handleItemClick(item)} />
               ))}
             </div>
+            )}
             <Paginations />
           </Col>
         </Row>

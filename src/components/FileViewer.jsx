@@ -2,17 +2,20 @@ import React, { useEffect ,useState} from 'react';
 import SideBar from "./SideBar.jsx";
 import Footer from "./Footer.jsx";
 import Header from "./Header.jsx";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const FileViewer = ({ filePath }) => {
 
-  useEffect(() => {
-    displayFile(filePath);
-  }, [filePath]);
-
   const [unsupportedFileType, setUnsupportedFileType] = useState(false);
   const [fileContent, setFileContent] = useState(null);
+
+  useEffect(() => {
+    if (filePath) {
+      displayFile(filePath);
+    } else {
+      setFileContent(<p>No file selected.</p>);
+    }
+  }, [filePath]);
 
 
   const displayFile = (filePath) => {
