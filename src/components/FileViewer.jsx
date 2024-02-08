@@ -1,18 +1,17 @@
 import React, { useEffect ,useState} from 'react';
-import SideBar from "./SideBar.jsx";
-import Footer from "./Footer.jsx";
-import Header from "./Header.jsx";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const FileViewer = ({ filePath }) => {
 
-  useEffect(() => {
-    displayFile(filePath);
-  }, [filePath]);
-
   const [unsupportedFileType, setUnsupportedFileType] = useState(false);
   const [fileContent, setFileContent] = useState(null);
+
+  useEffect(() => {
+    if (filePath) {
+      displayFile(filePath);
+    } else {
+      setFileContent(<p>No file selected.</p>);
+    }
+  }, [filePath]);
 
 
   const displayFile = (filePath) => {
@@ -38,8 +37,6 @@ const FileViewer = ({ filePath }) => {
   return (
     <>
     <div>
-    <Header />
-    <SideBar></SideBar>
     <div id="fileContainer">{fileContent}</div>
     
       <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,7 +59,6 @@ const FileViewer = ({ filePath }) => {
         </div>
       </div>
 
-      <Footer></Footer>
     </div>
     </>
   );
