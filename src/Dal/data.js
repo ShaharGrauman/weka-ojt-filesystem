@@ -1,3 +1,4 @@
+
 // Dictionary to store user data with example data
 const users = {
   1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: 123456, reset_token: null },
@@ -217,8 +218,86 @@ function permanentDeleteFile(userId, fileId) {
 }
 
 
+function getFileVersions(userId, fileId, size = 20, page = 1) {
+  // Check if the user has access to the file
+  if (files[fileId] && files[fileId].user_id === userId) {
+    // Filter file versions for the specified file
+    const fileVersionsList = Object.values(fileVersions).filter(version => version.file_id === fileId);
+    
+    // Sort file versions by version number in descending order
+    fileVersionsList.sort((a, b) => b.version_number - a.version_number);
+    
+    // Calculate the start index based on the specified page and size
+    const startIndex = (page - 1) * size;
+    
+    // Return a slice of file versions based on the calculated start index and size
+    return fileVersionsList.slice(startIndex, startIndex + size);
+  } else {
+    // Return an empty array if the user doesn't have access to the file
+    return [];
+  }
+}
 
 
+function getFileDetails(userId, fileId) {
+  // Check if the user has access to the file
+  if (files[fileId]) {
+    const file = files[fileId];
+    const fileDetails = {
+      owner: null,
+      sharedWith: [],
+      permissions: []
+    };
+
+    // Check if the file belongs to the user
+    if (file.user_id === userId) {
+      fileDetails.owner = {
+        userId: file.user_id,
+        username: users[file.user_id].username,
+        email: users[file.user_id].email
+      };
+    }
+
+    // Check if the file is shared with other users
+    const sharedFiless = Object.values(sharedFiles).filter(sharedFile => sharedFile.file_id === fileId);
+    sharedFiless.forEach(sharedFile => {
+      if (sharedFile.shared_with_user_id !== userId) {
+        fileDetails.sharedWith.push({
+          userId: sharedFile.shared_with_user_id,
+          username: users[sharedFile.shared_with_user_id].username,
+          email: users[sharedFile.shared_with_user_id].email
+        });
+        fileDetails.permissions.push(sharedFile.permission);
+      }
+    });
+
+    return fileDetails;
+  } else {
+    return null; // Return null if the file doesn't exist
+  }
+}
+
+
+function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
+  // Filter files owned by the user
+  const userFiles = Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
+  
+  userFiles.sort((a, b) => {
+    if (sortBy === 'name') {
+      return order === 'desc' ? b.file_name.localeCompare(a.file_name) : a.file_name.localeCompare(b.file_name);
+    } else if (sortBy === 'date') {
+      return order === 'desc' ? new Date(b.upload_date) - new Date(a.upload_date) : new Date(a.upload_date) - new Date(b.upload_date);
+    } else {
+      return 0; // No sorting
+    }
+  });
+  
+  // Calculate the start index based on the specified page and size
+  const startIndex = (page - 1) * size;
+  
+  // Return a slice of user files based on the calculated start index and size
+  return userFiles.slice(startIndex, startIndex + size);
+}
 
 
 
