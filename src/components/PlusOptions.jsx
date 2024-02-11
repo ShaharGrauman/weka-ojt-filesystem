@@ -34,7 +34,7 @@ return   <div>
  onSelect={handleOptionSelect}
   plusIcon={true} />
 
-{/* {showUpload&& <UploadFile onClose={handleCloseModal}/>} */}
+{showUpload&& <UploadFile onClose={handleCloseModal}/>}
 {showNewFolder && <CreateFolder onClose={handleCloseModal} />}
 
 </div>
