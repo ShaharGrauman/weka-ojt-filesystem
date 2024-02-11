@@ -1,6 +1,6 @@
 import React from 'react';
-
-const FileVersion = ({ number, date, icon, dropdownItems }) => (
+import VersionsDropdown from './VersionsDropdown';
+const FileVersion = ({ props }) => (
   <div className="row">
     <div className="col-3 col-md-3 col-sm-3">
       <p>{number}</p>
@@ -12,14 +12,7 @@ const FileVersion = ({ number, date, icon, dropdownItems }) => (
       {icon}
     </div>
     <div className="col-3 col-md-3 col-sm-3">
-      <div className="dropdown dropend">
-        <i className="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
-        <ul className="dropdown-menu">
-          {dropdownItems.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      </div>
+      <VersionsDropdown props={ props }/>
     </div>
   </div>
 );
