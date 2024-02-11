@@ -12,6 +12,7 @@ import "./HomePage.css";
 const Data = {
   MyFiles: [
     { id: 1, fileName: "photo.png", lastUpdated: "2022-02-05", isFolder: false ,filePath:"../Image/photo.png", is_deleted: false,is_version: true},
+    { id: 2, fileName: "file.pdf", lastUpdated: "2022-02-05", isFolder: false ,filePath:"../Image/file.pdf", is_deleted: false,is_version: true},
     { id: 3, fileName: "photos", lastUpdated: "2022-02-07", isFolder: true ,filePath:"../files/photos", is_deleted: false,is_version: false},
     { id: 5, fileName: "docs", lastUpdated: "2022-02-06", isFolder: true ,filePath:"../files/docs", is_deleted: false,is_version: false},
   ],
@@ -73,7 +74,7 @@ const HomePage = () => {
             <h1 className="text-center">Main Content</h1>
             {selectedItem ? (
               // Render the FileViewer component if an item is selected
-              <FileViewer filePath={selectedItem.filePath} />
+              <FileViewer filePath={selectedItem.filePath} fileName= {selectedItem.fileName} />
             ) : (
             <div className="item-container">
               {currentCategoryData.map((item) => (
