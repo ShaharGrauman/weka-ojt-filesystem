@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 
 // Dictionary to store user data with example data
-let users = {
+const users = {
   1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: 123456, reset_token: null },
   2: { user_id: 2, username: "user2", email: "user2@example.com", passwordhash: 654321, reset_token: null }
 };
@@ -55,7 +55,6 @@ function registerUser(name, email, password) {
     users[id] = newUser;  // Add the new user to the users array
     return "User registered successfully.";
 }
-export default registerUser;
 
 // Function to generate a random token
 function generateToken() {
@@ -244,4 +243,4 @@ function checksignin(email, password) {
   }
   return false;
 }
-export default checksignin;
+export default registerUser;checksignin;
