@@ -1,6 +1,6 @@
 import React from 'react';
 import VersionsDropdown from './VersionsDropdown';
-const FileVersion = ({ props }) => (
+const FileVersion = ({number, date, icon}) => (
   <div className="row">
     <div className="col-3 col-md-3 col-sm-3">
       <p>{number}</p>
@@ -12,7 +12,7 @@ const FileVersion = ({ props }) => (
       {icon}
     </div>
     <div className="col-3 col-md-3 col-sm-3">
-      <VersionsDropdown props={ props }/>
+      <VersionsDropdown/>
     </div>
   </div>
 );

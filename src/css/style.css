@@ -18,6 +18,8 @@
   cursor: pointer;
   border: 0;
   padding: 1rem 1.5rem;
+  color:#0099ff;
+
 }
 .btn i {
   font-size: 1.5rem;
@@ -136,13 +138,6 @@ body {
 
 }
 
-/* #fileContainerContainer {
-  background-color: #EDEDED; 
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-  margin: 20px auto; 
-} */
 
 /* Add a frame style */
 .image-frame {
@@ -161,3 +156,4 @@ body {
 img #back{
   float: left;
 }
+

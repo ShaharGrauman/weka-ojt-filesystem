@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ParentComponent />} />
           <Route path="/homepage" element={<HomePage />} />
+          {/* <Route path="/test"  element={<Testpage />} /> */}
         </Routes>
       </Router>
     </div>

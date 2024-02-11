@@ -4,7 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { ModallBody,ModallFooter,ModallHeader } from './ModalComponent';
 
 
-const StoreModal = ({onClose}) => {
+const RestoreModal = ({onClose}) => {
     const [show, setShow] = useState(true);
 
     const handleClose = () => {setShow(false);onClose();}
@@ -30,5 +30,5 @@ const StoreModal = ({onClose}) => {
     );
 };
 
-export default StoreModal;
+export default RestoreModal;
 
