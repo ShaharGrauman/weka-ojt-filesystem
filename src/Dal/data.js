@@ -1,27 +1,27 @@
 // Dictionary to store user data with example data
 const users = {
-  1: { username: "user1", email: "user1@example.com", reset_token: null },
-  2: { username: "user2", email: "user2@example.com", reset_token: null }
+  1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: 123456, reset_token: null },
+  2: { user_id: 2, username: "user2", email: "user2@example.com", passwordhash: 654321, reset_token: null }
 };
 
 // Dictionary to store file data with example data
 const files = {
-  1: { file_name: "file1.txt", type: "txt", user_id: 1, folder_id: 2, is_deleted: false, file_path: "/path/to/file1.txt", upload_date: new Date(), last_opened_date: null },
-  2: { file_name: "file2.pdf", type: "pdf", user_id: 1, folder_id: null, is_deleted: false, file_path: "/path/to/file2.pdf", upload_date: new Date(), last_opened_date: null },
-  3: { file_name: "file3.jpg", type: "jpg", user_id: 2, folder_id: null, is_deleted: false, file_path: "/path/to/file3.jpg", upload_date: new Date(), last_opened_date: null }
+  1: { file_id: 1, file_name: "file1.txt", user_id: 1, folder_id: 1, size: 1024, is_deleted: false, is_version: false, file_path: "/path/to/file1.txt", upload_date: new Date("2023-01-15") },
+  2: { file_id: 2, file_name: "file2.pdf", user_id: 1, folder_id: 2, size: 2048, is_deleted: false, is_version: false, file_path: "/path/to/file2.pdf", upload_date: new Date("2023-02-28") },
+  3: { file_id: 3, file_name: "file3.jpg", user_id: 2, folder_id: null, size: 4096, is_deleted: false, is_version: false, file_path: "/path/to/file3.jpg", upload_date: new Date("2023-03-10") }
 };
 
 // Dictionary to store folder data with example data
 const folders = {
-  1: { folder_name: "Folder 1", user_id: 1, parent_folder: 2, is_deleted: false, folder_path: "/path/to/Folder1", last_opened_date: new Date() },
-  2: { folder_name: "Folder 2", user_id: 1, parent_folder: null, is_deleted: false, folder_path: "/path/to/Folder2", last_opened_date: new Date() }
+  1: { folder_name: "Folder 1", user_id: 1, parent_folder: null, is_deleted: false, folder_path: "/path/to/Folder1", upload_date: new Date("2023-01-2") },
+  2: { folder_name: "Folder 2", user_id: 1, parent_folder: null, is_deleted: false, folder_path: "/path/to/Folder2",upload_date: new Date("2023-01-1")}
 };
 
 // Dictionary to store file version data with example data
 const fileVersions = {
-  1: { file_id: 1, version_number: 1, upload_date: new Date() },
-  2: { file_id: 2, version_number: 1, upload_date: new Date() },
-  3: { file_id: 3, version_number: 1, upload_date: new Date() }
+  1: { file_id: 1, version_number: 1,upload_date: new Date("2023-04-10") },
+  2: { file_id: 2, version_number: 1, upload_date: new Date("2023-05-10") },
+  3: { file_id: 1, version_number: 2, upload_date: new Date("2023-06-10") }
 };
 
 // Dictionary to store shared file data with example data
@@ -51,13 +51,21 @@ function sendResetLink(email) {
 }
 
 // Function to handle password change
-function changePassword(email, newPassword) {
-  if (users[email]) {
-      users[email].password = newPassword;
-      return true;
+function changepass(email, newpass) {
+  // Check if there's a user with the specified email
+  const user = Object.values(users).find(user => user.email === email);
+  if (user) {
+    // Generate a reset token (assuming generateToken function is defined elsewhere)
+    const resetToken = generateToken();
+    
+    user.reset_token = resetToken;
+    
+    return true;
   }
+  
   return false;
 }
+
 
 // Function to handle user signup
 function signup(email, name, password) {
@@ -92,7 +100,7 @@ function addFolder(userId, path, folder) {
 }
 
 // Function to handle user logout
-function logout(userId) {
+function logout(email) {
   
   return true;
 }
@@ -112,8 +120,10 @@ function getMyFolders(userId) {
 // Function to move a file to a specified folder
 function moveFile(userId, fileId, folderId) {
   if (files[fileId] && folders[folderId]) {
-      files[fileId].folder_id = folderId;
-      return true;
+      if (files[fileId].user_id === userId) { // Check if the file belongs to the user
+          files[fileId].folder_id = folderId;
+          return true;
+      }
   }
   return false;
 }
