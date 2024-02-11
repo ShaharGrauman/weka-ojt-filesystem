@@ -11,15 +11,15 @@ import "./HomePage.css";
 
 const Data = {
   MyFiles: [
-    { id: 1, fileName: "File 1", lastUpdated: "2022-02-05", isFolder: false ,filePath:"../Image/photo.png"},
-    { id: 3, fileName: "Folder 2", lastUpdated: "2022-02-07", isFolder: true },
-    { id: 5, fileName: "Folder 3", lastUpdated: "2022-02-06", isFolder: true },
+    { id: 1, fileName: "photo.png", lastUpdated: "2022-02-05", isFolder: false ,filePath:"../Image/photo.png", is_deleted: false },
+    { id: 3, fileName: "photos", lastUpdated: "2022-02-07", isFolder: true ,filePath:"../files/photos", is_deleted: false},
+    { id: 5, fileName: "docs", lastUpdated: "2022-02-06", isFolder: true ,filePath:"../files/docs", is_deleted: false},
   ],
   SharedFiles: [
-    { id: 2, fileName: "Folder 1", lastUpdated: "2022-02-06", isFolder: true },
+    { id: 2, fileName: "photos", lastUpdated: "2022-02-06", isFolder: true ,filePath:"../shared/photos", is_deleted: false },
   ],
   DeletedFiles: [
-    { id: 4, fileName: "File 2", lastUpdated: "2022-02-05", isFolder: false, filePath:"../Image/logo.png"},
+    { id: 4, fileName: "memories.mp4", lastUpdated: "2022-02-05", isFolder: false, filePath:"../Image/memories.mp4", is_deleted: true },
   ],
 };
 
