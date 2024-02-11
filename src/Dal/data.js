@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 
 // Dictionary to store user data with example data
 const users = {
-  1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: 123456, reset_token: null },
-  2: { user_id: 2, username: "user2", email: "user2@example.com", passwordhash: 654321, reset_token: null }
+  1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: "123456", reset_token: null },
+  2: { user_id: 2, username: "user2", email: "user2@example.com", passwordhash: "654321", reset_token: null }
 };
 
 // Dictionary to store file data with example data
@@ -243,4 +243,5 @@ function checksignin(email, password) {
   }
   return false;
 }
-export default registerUser;checksignin;
+
+export { registerUser, checksignin };
