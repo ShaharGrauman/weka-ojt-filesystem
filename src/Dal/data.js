@@ -1,7 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcryptjs';
+
 // Dictionary to store user data with example data
 const users = {
-  1:{ user_id: 1, username:"user1", email:"user1@example.com", passwordhash:"123456", reset_token: null },
-  2:{ user_id: 2, username:"user2", email:"user2@example.com", passwordhash:654321, reset_token: null },
+  1: { user_id: 1, username: "user1", email: "user1@example.com", passwordhash: "123456", reset_token: null },
+  2: { user_id: 2, username: "user2", email: "user2@example.com", passwordhash: "654321", reset_token: null }
 };
 
 // Dictionary to store file data with example data
@@ -34,6 +37,25 @@ const sharedFolders = {
   1: { folder_id: 1, shared_with_user_id: 2, shared_by_user_id: 1, permission: "read" }
 };
 
+function registerUser(name, email, password) {
+    const usersArray = Object.values(users);
+    const existingUser = usersArray.find(user => user.email === email);
+    if (existingUser) {
+        return "User with this email already exists.";
+    }
+    const id = uuidv4();
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const newUser = {
+        user_id: id, // Use the uuidv4 generated ID as the user_id
+        username: name,
+        email: email,
+        passwordhash: hashedPassword,
+        reset_token: null
+    };
+    users[id] = newUser;  // Add the new user to the users array
+    return "User registered successfully.";
+}
+
 // Function to generate a random token
 function generateToken() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -65,19 +87,6 @@ function changepass(email, newpass) {
 
   return false;
 }
-
-
-// Function to handle user signup
-function signup(email, name, password) {
-  if (!users[email]) {
-      const id = Object.keys(users).length + 1;
-      users[email] = { id, username: name, email, password };
-      return true;
-  }
-  return false;
-}
-
-
 
 // Function to retrieve recent files for a user
 function getRecentFiles(userId, sortBy = 'date', order = 'desc', size = 20, page = 1) {
@@ -234,4 +243,6 @@ function checksignin(email, password) {
   }
   return false;
 }
-export default checksignin;
+
+export { registerUser, checksignin };
+

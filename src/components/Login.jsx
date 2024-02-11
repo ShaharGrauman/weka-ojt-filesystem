@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ForgotPassword from '../components/ForgotPassword.jsx';
 import ParentComponent from '../pages/ParentComponent.jsx'
-import checksignin from "../Dal/data.js"
+import { checksignin } from "../Dal/data.js";
 
 function Login(props) {
   const navigate = useNavigate();
   const { updateState } = props;
+  const[errormsg,seterrormsg]=useState("")
 
   const gotoforgetpassword = () => {
     updateState("False", "False", "True");
@@ -26,9 +27,7 @@ function Login(props) {
 //       console.log(email);
 
     } else {
-      console.log("login failed");
-            console.log(email);
-                  console.log(password);
+      seterrormsg("Your Password or your email is not correct")
 
 
     }
@@ -52,6 +51,7 @@ function Login(props) {
           id="Password"
           placeholder="Password"
         />
+        <h6 className="small fst-normal text-danger">{errormsg}</h6>
         <input type="submit" value="Submit" />
       </form>
 
