@@ -1,66 +1,70 @@
 import React, { useEffect ,useState} from 'react';
+import Download from './Download';
 
-const FileViewer = ({ filePath }) => {
 
-  const [unsupportedFileType, setUnsupportedFileType] = useState(false);
+const FileViewer = ({ filePath , fileName }) => {
   const [fileContent, setFileContent] = useState(null);
+  const [showDownload, setshowDownload] = useState(false);
+
 
   useEffect(() => {
     if (filePath) {
-      displayFile(filePath);
+      displayFile(filePath, fileName);
     } else {
       setFileContent(<p>No file selected.</p>);
     }
   }, [filePath]);
 
+  const handleCloseModal = () => {
+    setshowDownload(false);
+  };
 
-  const displayFile = (filePath) => {
+  
+  const handleShowModal = () => {
+    setshowDownload(true);
+  };
+
+
+  const displayFile = (filePath,fileName) => {
     const fileExtension = filePath.split('.').pop().toLowerCase();
 
     if (['jpg', 'jpeg', 'png', 'gif'].indexOf(fileExtension) !== -1 || ['mp4', 'webm'].indexOf(fileExtension) !== -1) {
-      setUnsupportedFileType(false);
+
       if (['jpg', 'jpeg', 'png', 'gif'].indexOf(fileExtension) !== -1) {
-        setFileContent(<img src={filePath} className="img-fluid" alt="Opened Image" />);
+        setFileContent(
+          <>  
+          <p>{fileName}</p>
+          <img src={filePath} className="img-fluid" alt="Opened Image"/>
+          <button type="button" className="btn btn-primary" onClick={handleShowModal} style={{ marginTop: '10px'}}> Download
+          </button>
+           </>)
       } else {
-        setFileContent(<video controls className="w-100"><source src={filePath} type="video/mp4" />Your browser does not support the video tag.</video>);
-      }
-    } else if (fileExtension === 'pdf') {
-      setFileContent(<embed src={filePath} type="application/pdf" width="100%" height="600px" />);
+        setFileContent( <> <p>{fileName}</p>
+        <video controls className="w-100"><source src={filePath} type="video/mp4" />Your browser does not support the video tag.</video>
+        <button type="button" className="btn btn-primary" onClick={handleShowModal} style={{ marginTop: '10px'}}> Download
+            </button>
+
+          </>)}
     } else {
-      setFileContent(<p>Unsupported file type. Cannot display the file.</p>);
-      setUnsupportedFileType(true);
-      const myModal = new bootstrap.Modal(document.getElementById('myModal'));
-      myModal.show();
+        setFileContent(
+          <>
+            <embed src={filePath} type="application/pdf" width="100%" height="600px" />
+            {/* <p>Unsupported file type. Cannot display the file. you can download it</p> */}
+            <p>
+            Unsupported file type. Cannot display the file. you can{' '}
+            <button type="button" className="btn btn-primary" onClick={handleShowModal}>
+              Download it
+            </button>
+          </p>
+          </>
+        );
     }
   };
-
   return (
-    <>
-    <div>
-    <div id="fileContainer">{fileContent}</div>
-    
-      <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">Download File</h5>
-              <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              This file cannot be opened, you can download it.
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Download</button>
-              <button type="button" className="btn btn-light" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    </>
+  <div id="fileContainer" className="position-relative">
+    {fileContent}
+    {showDownload && <Download show={showDownload} onClose={handleCloseModal} />}
+  </div>
   );
 };
 
