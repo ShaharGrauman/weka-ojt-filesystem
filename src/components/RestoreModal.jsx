@@ -9,7 +9,7 @@ const StoreModal = ({onClose}) => {
 
     const handleClose = () => {setShow(false);onClose();}
 
-    const handlestore = () => {
+    const handleRestore = () => {
         handleClose();
         onClose();
     };
@@ -22,8 +22,8 @@ const StoreModal = ({onClose}) => {
                 <ModallBody />
                 <ModallFooter
                     closeModal={handleClose}
-                    handleAction={handlestore}
-                    actionText="Store"
+                    handleAction={handleRestore}
+                    actionText="Restore"
                />
             </Modal>
         </div>
