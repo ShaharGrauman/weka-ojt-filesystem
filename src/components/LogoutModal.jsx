@@ -4,10 +4,13 @@ import { Modal } from 'react-bootstrap';
 import { ModallBody,ModallFooter,ModallHeader } from './ModalComponent';
 
 
-const LogoutModall = () => {
+const LogoutModall = ({toggleLogoutModal}) => {
     const [show, setShow] = useState(true);
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        toggleLogoutModal();
+    }
 
     const handleLogout = () => {
         // Your logout logic goes here

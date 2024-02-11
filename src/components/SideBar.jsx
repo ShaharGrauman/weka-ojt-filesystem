@@ -67,7 +67,7 @@ const Sidebar = ({ onSelect, isOpen, toggleSidebar }) => {
         </span>
       </button>
       {/* Render LogoutModall component */}
-      {showLogoutModal && <LogoutModall />}
+      {showLogoutModal && <LogoutModall toggleLogoutModal={toggleLogoutModal} />}
     </div>
   );
 };
