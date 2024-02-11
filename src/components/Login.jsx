@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ForgotPassword from '../components/ForgotPassword.jsx';
 import ParentComponent from '../pages/ParentComponent.jsx'
-import checksignin from "../Dal/data.js"
+import { checksignin } from "../Dal/data.js";
 
 function Login(props) {
   const navigate = useNavigate();

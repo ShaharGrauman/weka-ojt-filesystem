@@ -243,6 +243,6 @@ function checksignin(email, password) {
   }
   return false;
 }
-export default checksignin;
-//export default registerUser;
+
+export { registerUser, checksignin };
 

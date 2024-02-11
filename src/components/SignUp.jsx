@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from "../components/Login.jsx"
-import registerUser from '../Dal/data.js'; // Ensure this import is correct
+// import registerUser from '../Dal/data.js'; // Ensure this import is correct
+import { registerUser } from '../Dal/data.js';
 
 function SignUp(props) {
   const { updateState } = props;
