@@ -4,12 +4,12 @@ import { Modal } from 'react-bootstrap';
 import { ModallBody,ModallFooter,ModallHeader } from './ModalComponent';
 
 
-const StoreModal = ({onClose}) => {
+const RestoreModal = ({onClose}) => {
     const [show, setShow] = useState(true);
 
     const handleClose = () => {setShow(false);onClose();}
 
-    const handlestore = () => {
+    const handleRestore = () => {
         handleClose();
         onClose();
     };
@@ -22,13 +22,13 @@ const StoreModal = ({onClose}) => {
                 <ModallBody />
                 <ModallFooter
                     closeModal={handleClose}
-                    handleAction={handlestore}
-                    actionText="Store"
+                    handleAction={handleRestore}
+                    actionText="Restore"
                />
             </Modal>
         </div>
     );
 };
 
-export default StoreModal;
+export default RestoreModal;
 

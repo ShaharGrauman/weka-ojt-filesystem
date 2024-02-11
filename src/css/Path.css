@@ -1,0 +1,22 @@
+/* Path.css */
+
+.path-component {
+  background-color: #f8f9fa; /* Background color */
+  padding: 10px; /* Padding around the breadcrumb */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.path-component .breadcrumb-item.active {
+  color: #007bff; /* Active breadcrumb item color */
+  font-weight: bold; /* Bold font for active item */
+}
+
+.path-component .breadcrumb-item + .breadcrumb-item::before {
+  content: "›"; /* Breadcrumb separator */
+  color: #6c757d; /* Separator color */
+  margin: 0 5px; /* Space between separator and breadcrumb item */
+}
+
+.path-component .breadcrumb-item:first-child {
+  color: #6c757d; /* Color for the first breadcrumb item */
+}
