@@ -1,8 +1,8 @@
 import React  from "react";
 import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
-import DeletedDropdown from "./DeletedDropdown";
-const Item = ({ item, onSelect}) => {
+import FileViewer from "./FileViewer"
+const Item = ({ item, onSelect,showversion}) => {
   // const isInDeletedFiles = Data.DeletedFiles.some(file => file.id === item.id);
 
   const handleItemClick = () => {
@@ -19,9 +19,8 @@ const Item = ({ item, onSelect}) => {
       />
       <Card style={{ width: "18rem" }}>
         <div className="text-right">
-        {item.is_deleted ? (<DeletedDropdown selectedItem={item}/> ): (<HomeDropdown selectedItem={item}/>)}
+          <HomeDropdown selectedItem={item} showversion={showversion} />
         </div>
-
         <a href="#" onClick={handleItemClick}>
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
           {item.isFolder ? (

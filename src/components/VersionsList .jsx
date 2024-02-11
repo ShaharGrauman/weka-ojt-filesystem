@@ -1,6 +1,7 @@
 
 import React from 'react';
 import FileVersion from './versionsFile';
+import VersionsDropdown from './VersionsDropdown';
 
 const VersionsList = ({ versionData }) => (
   <div className="container mt-5">
@@ -10,8 +11,7 @@ const VersionsList = ({ versionData }) => (
         key={index} // Ensure each child component has a unique key
         number={version.number}
         date={version.date}
-        icon={<i className="lni lni-empty-file custom-icon"></i>} 
-        dropdownItems={version.dropdownItems}
+        icon={<i className="lni lni-empty-file custom-icon"></i>}
       />
     ))}
   </div>
