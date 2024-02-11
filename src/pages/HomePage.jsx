@@ -8,7 +8,29 @@ import Path from "../components/Path";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
 import FileViewer from "../components/FileViewer";
+import VersionsList from "../components/VersionsList ";
 import "./HomePage.css";
+
+
+
+
+const versionData = [
+  {
+    number: 1,
+    date: "2023-01-15",
+    dropdownItems: ["Download", "View Details", "Delete"]
+  },
+  {
+    number: 2,
+    date: "2023-02-20",
+    dropdownItems: ["Download", "View Details"]
+  },
+  {
+    number: 3,
+    date: "2023-03-25",
+    dropdownItems: ["Download", "View Details", "Share"]
+  }
+];
 
 const Data = {
   MyFiles: [
@@ -64,15 +86,22 @@ const Data = {
   ],
 };
 
-const HomePage = () => {
+const HomePage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVersion, setisVersion] = useState(true);
+  const [showitems, setshowitems] = useState(true);
+
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [selectedItem, setSelectedItem] = useState(null);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+ const showversion = (items,version) => {
+ setshowitems(items)
+    setisVersion(version);
 
+  };
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...Data.MyFiles, ...Data.SharedFiles]
@@ -81,6 +110,7 @@ const HomePage = () => {
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedItem(null);
+    showversion(true,false)
   };
 
   const handleItemClick = (item) => {
@@ -116,26 +146,31 @@ const HomePage = () => {
         style={{ marginTop: "20px", marginBottom: "20px" }}
         className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
-        <Row className="justify-content-center">
-          <Col xs={12} md={9} id="page-content-wrapper">
-            <h1 className="text-center">Main Content</h1>
-            {selectedItem ? (
-              // Render the FileViewer component if an item is selected
-              <FileViewer filePath={selectedItem.filePath} />
-            ) : (
-              <div className="item-container">
-                {currentCategoryData.map((item) => (
-                  <Item
-                    key={item.id}
-                    item={item}
-                    onSelect={() => handleItemClick(item)}
-                  />
-                ))}
-              </div>
-            )}
-            <Paginations />
-          </Col>
-        </Row>
+      <Row className="justify-content-center">
+
+  <Col xs={12} md={9} id="page-content-wrapper">
+    <h1 className="text-center">Main Content</h1>
+{showitems ?
+  (selectedItem ?
+    <FileViewer filePath={selectedItem.filePath} />
+    :
+    <div className="item-container">
+      {currentCategoryData.map((item) => (
+        <Item key={item.id} item={item} showversion={showversion} onSelect={() => handleItemClick(item)} />
+      ))}
+    </div>
+  )
+  :
+  (isVersion ?
+    <VersionsList versionData={versionData} />
+    :
+    null
+  )
+}
+
+    <Paginations />
+  </Col>
+</Row>
       </Container>
       <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Footer />
