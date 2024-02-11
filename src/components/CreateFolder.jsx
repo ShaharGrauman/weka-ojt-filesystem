@@ -27,7 +27,7 @@ const CreateFolder = ({onClose }) => {
         <Modal.Body>
           <Form.Control
             type="text"
-            placeholder="Enter  folder name"
+            placeholder="Enter folder name"
             value={newFolderName}
             onChange={handleChange}
           />

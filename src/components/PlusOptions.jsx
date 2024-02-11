@@ -1,8 +1,8 @@
 
-import React from 'react';
 import Dropdown from './dropdown';
 import CreateFolder from './CreateFolder';
-
+import UploadFile from './UploadFile';
+import React, { useState } from 'react';
 
 const PlusDropdown = () => {
 
@@ -29,16 +29,16 @@ const handleCloseModal = () => {
 };
 
 
-return   <div>
+return ( <
+  div>
 <Dropdown options={plusOptions}
  onSelect={handleOptionSelect}
   plusIcon={true} />
-
-{showUpload&& <UploadFile onClose={handleCloseModal}/>}
-{showNewFolder && <CreateFolder onClose={handleCloseModal} />}
+ {showUpload&& <UploadFile closeModal={handleCloseModal}/>}
+ {showNewFolder && <CreateFolder onClose={handleCloseModal} />}
 
 </div>
-
+);
 };
 
 export default PlusDropdown;
