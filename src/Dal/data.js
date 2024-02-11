@@ -245,3 +245,4 @@ function checksignin(email, password) {
 }
 
 export { registerUser, checksignin };
+
