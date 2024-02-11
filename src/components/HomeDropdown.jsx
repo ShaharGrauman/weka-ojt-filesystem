@@ -7,14 +7,13 @@ import RenameFile from "./RenameFile";
 import DeleteModal from "./DeletModal";
 import Download from "./Download";
 
-const HomeDropdown = ({ selectedItem }) => {
+const HomeDropdown = ({ selectedItem ,showversion}) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [showdelete, setshowdelete] = useState(false);
   const [showDownload, setshowDownload] = useState(false);
-
   const folders = [{ name: "one" }, { name: "two" }];
   const homeOptions = [
     { value: "download", label: "Download" },
@@ -25,6 +24,12 @@ const HomeDropdown = ({ selectedItem }) => {
     { value: "versions", label: "Versions" },
     { value: "details", label: "Details" },
   ];
+
+//    const { updateState } = showversion;
+//   const showversion = () => {
+//     // Your conditions here
+//     updateState(false,true);
+//   };
 
   const handleOptionSelect = (selectedOption) => {
     if (selectedOption.value === "details") {
@@ -39,6 +44,8 @@ const HomeDropdown = ({ selectedItem }) => {
       setshowdelete(true);
     } else if (selectedOption.value === "download") {
       setshowDownload(true);
+    } else if (selectedOption.value === "versions") {
+           showversion(false,true)
     }
   };
 
