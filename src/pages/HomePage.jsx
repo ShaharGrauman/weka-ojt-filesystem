@@ -11,9 +11,6 @@ import FileViewer from "../components/FileViewer";
 import VersionsList from "../components/VersionsList ";
 import "./HomePage.css";
 
-
-
-
 const versionData = [
   {
     number: 1,
@@ -43,6 +40,13 @@ const Data = {
       is_deleted: false,
       is_version: true,
     },
+    { id: 7, 
+      fileName: "file.pdf",
+      lastUpdated: "2022-02-05",
+      isFolder: false, 
+      filePath:"../Image/file.pdf",
+      is_deleted: false,
+      is_version: true},
     {
       id: 3,
       fileName: "photos",
