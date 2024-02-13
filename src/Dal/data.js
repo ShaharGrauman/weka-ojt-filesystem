@@ -197,12 +197,26 @@ function deleteFile(userId, fileId) {
 }
 
 
-function getMySharedFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
- const userSharedFiles = Object.values(sharedFiles).filter(file => file.shared_with_user_id === userId);
- const sortedFiles = userSharedFiles.sort((a, b) => order === 'desc' ? b.file_id - a.file_id : a.file_id - b.file_id);
+
+
+
+async function getMySharedFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
+
+try{
+ const userSharedFiles = await Object.values(sharedFiles).filter(file => file.shared_with_user_id === userId);
+ const sortedFiles =await  userSharedFiles.sort((a, b) => order === 'desc' ? b.file_id - a.file_id : a.file_id - b.file_id);
  const startIndex = (page - 1) * size;
  return sortedFiles.slice(startIndex, startIndex + size).map(file => files[file.file_id]);
+ }catch(err){
+ throw error
+
+ }
 }
+
+
+
+
+
 
 // Function to get files deleted by the user
 function getMyDeletedFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
