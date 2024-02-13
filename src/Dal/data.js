@@ -208,7 +208,7 @@ try{
  const startIndex = (page - 1) * size;
  return sortedFiles.slice(startIndex, startIndex + size).map(file => files[file.file_id]);
  }catch(err){
- throw error
+    console.log(err)
 
  }
 }
@@ -349,7 +349,7 @@ async function getFileDetails(userId, fileId) {
 }
 
 
-
+function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
   // Filter files owned by the user
   const userFiles = Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
   
@@ -370,6 +370,6 @@ async function getFileDetails(userId, fileId) {
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser, checksignin ,getMyFiles,getMyDeletedFiles,getMySharedFiles};
+export { registerUser, LogIn ,getMyFiles,getMyDeletedFiles,getMySharedFiles};
 
 
