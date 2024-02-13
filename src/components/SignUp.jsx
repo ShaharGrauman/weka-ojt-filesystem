@@ -14,9 +14,9 @@ function SignUp(props) {
    const gotologin = () => {
     updateState("True", "False", "False"); // Example values, update as needed
   };
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     try {
-      const response = registerUser(username, email, password);
+      const response = await registerUser(username, email, password);
       if (response === "User registered successfully.") {
         gotologin();
       } else {
@@ -27,6 +27,8 @@ function SignUp(props) {
       console.error('Error registering user:', error);
     }
   };
+
+
   return (
     <div className="signup">
 
