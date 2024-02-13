@@ -40,12 +40,12 @@ const sharedFolders = {
 async function registerUser(name, email, password) {
     try{
         const usersArray = Object.values(users);
-        const existingUser = await usersArray.find(user => user.email === email);
+        const existingUser = usersArray.find(user => user.email === email);
         if (existingUser) {
             return "User with this email already exists.";
         }
         const id = uuidv4();
-        const hashedPassword = await bcrypt.hashSync(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = {
             user_id: id, // Use the uuidv4 generated ID as the user_id
             username: name,
@@ -53,11 +53,12 @@ async function registerUser(name, email, password) {
             passwordhash: hashedPassword,
             reset_token: null
         };
-         users[id] = await newUser;  // Add the new user to the users array
+         users[id] = newUser;  // Add the new user to the users array
         console.log(users)
         return "User registered successfully.";
     }catch(err){
         console.log("error",err)
+        throw err; // Re-throwing the error so it can be caught by the caller
     }
 }
 
@@ -369,25 +370,26 @@ async function getFileDetails(userId, fileId) {
 }
 
 
-function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
-  // Filter files owned by the user
-  const userFiles = Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
-  
-  userFiles.sort((a, b) => {
-    if (sortBy === 'name') {
-      return order === 'desc' ? b.file_name.localeCompare(a.file_name) : a.file_name.localeCompare(b.file_name);
-    } else if (sortBy === 'date') {
-      return order === 'desc' ? new Date(b.upload_date) - new Date(a.upload_date) : new Date(a.upload_date) - new Date(b.upload_date);
-    } else {
-      return 0; // No sorting
+async function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
+    try{
+        // Filter files owned by the user
+        const userFiles = await Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
+        userFiles.sort((a, b) => {
+            if (sortBy === 'name') {
+              return order === 'desc' ? b.file_name.localeCompare(a.file_name) : a.file_name.localeCompare(b.file_name);
+            } else if (sortBy === 'date') {
+              return order === 'desc' ? new Date(b.upload_date) - new Date(a.upload_date) : new Date(a.upload_date) - new Date(b.upload_date);
+            } else {
+              return 0; // No sorting
+            }
+        });
+        // Calculate the start index based on the specified page and size
+        const startIndex = (page - 1) * size;
+        // Return a slice of user files based on the calculated start index and size
+        return userFiles.slice(startIndex, startIndex + size);
+    }catch(err){
+        console.log(err)
     }
-  });
-  
-  // Calculate the start index based on the specified page and size
-  const startIndex = (page - 1) * size;
-  
-  // Return a slice of user files based on the calculated start index and size
-  return userFiles.slice(startIndex, startIndex + size);
 }
 
 export { registerUser, LogIn ,getMyFiles,getMyDeletedFiles,getMySharedFiles,fileDeletion };
