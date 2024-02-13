@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from "../components/Login.jsx"
-// import registerUser from '../Dal/data.js'; // Ensure this import is correct
 import { registerUser } from '../Dal/data.js';
 
 function SignUp(props) {
@@ -13,22 +12,19 @@ function SignUp(props) {
   const [errorMessage, setErrorMessage] = useState('');
 
    const gotologin = () => {
-    // Your conditions here
     updateState("True", "False", "False"); // Example values, update as needed
   };
-  const handleSignUp = async () => {
+  const handleSignUp = () => {
     try {
-      const response = await registerUser(username, email, password);
+      const response = registerUser(username, email, password);
       if (response === "User registered successfully.") {
         gotologin();
-//         navigate("/login");
       } else {
-              console.log("an error!!!")
-              setErrorMessage(response);
+        console.log("an error!!!")
+        setErrorMessage(response);
       }
     } catch (error) {
       console.error('Error registering user:', error);
-      // Handle any other errors here
     }
   };
   return (
