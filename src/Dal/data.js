@@ -37,24 +37,28 @@ const sharedFolders = {
   1: { folder_id: 1, shared_with_user_id: 2, shared_by_user_id: 1, permission: "read" }
 };
 
-function registerUser(name, email, password) {
-    const usersArray = Object.values(users);
-    const existingUser = usersArray.find(user => user.email === email);
-    if (existingUser) {
-        return "User with this email already exists.";
+async function registerUser(name, email, password) {
+    try{
+        const usersArray = Object.values(users);
+        const existingUser = await usersArray.find(user => user.email === email);
+        if (existingUser) {
+            return "User with this email already exists.";
+        }
+        const id = uuidv4();
+        const hashedPassword = await bcrypt.hashSync(password, 10);
+        const newUser = {
+            user_id: id, // Use the uuidv4 generated ID as the user_id
+            username: name,
+            email: email,
+            passwordhash: hashedPassword,
+            reset_token: null
+        };
+         users[id] = await newUser;  // Add the new user to the users array
+        console.log(users)
+        return "User registered successfully.";
+    }catch(err){
+        console.log("error",err)
     }
-    const id = uuidv4();
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const newUser = {
-        user_id: id, // Use the uuidv4 generated ID as the user_id
-        username: name,
-        email: email,
-        passwordhash: hashedPassword,
-        reset_token: null
-    };
-    users[id] = newUser;  // Add the new user to the users array
-    console.log(users)
-    return "User registered successfully.";
 }
 
 // Function to generate a random token
@@ -235,15 +239,33 @@ function permanentDeleteFile(userId, fileId) {
 
 
 
-function checksignin(email, password) {
+async function LogIn(email, password) {
+try{
   for (let key in users) {
-    if (users[key].passwordhash === password && users[key].email === email) {
-      return true;
-
+    if (users[key].email === email) {
+      if (bcrypt.compareSync(password, users[key].passwordhash)) {
+        return true;
+      } else {
+        return false; // Incorrect password
+      }
     }
   }
-  return false;
+  return false; // User not found
+  }
+  catch{
+  console.log("LogIn function not working..")
+
+  }
 }
+
+
+
+
+
+
+
+
+
 
 
 function getFileVersions(userId, fileId, size = 20, page = 1) {
@@ -336,5 +358,5 @@ function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser, checksignin };
+export { registerUser, LogIn };
 

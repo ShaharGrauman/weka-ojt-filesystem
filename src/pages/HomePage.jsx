@@ -94,7 +94,6 @@ const HomePage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVersion, setisVersion] = useState(true);
   const [showitems, setshowitems] = useState(true);
-
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -102,7 +101,7 @@ const HomePage = (props) => {
     setIsOpen(!isOpen);
   };
  const showversion = (items,version) => {
- setshowitems(items)
+    setshowitems(items)
     setisVersion(version);
 
   };
