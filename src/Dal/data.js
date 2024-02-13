@@ -239,15 +239,33 @@ function permanentDeleteFile(userId, fileId) {
 
 
 
-function checksignin(email, password) {
+async function LogIn(email, password) {
+try{
   for (let key in users) {
-    if (users[key].passwordhash === password && users[key].email === email) {
-      return true;
-
+    if (users[key].email === email) {
+      if (bcrypt.compareSync(password, users[key].passwordhash)) {
+        return true;
+      } else {
+        return false; // Incorrect password
+      }
     }
   }
-  return false;
+  return false; // User not found
+  }
+  catch{
+  console.log("LogIn function not working..")
+
+  }
 }
+
+
+
+
+
+
+
+
+
 
 
 function getFileVersions(userId, fileId, size = 20, page = 1) {
@@ -271,46 +289,53 @@ function getFileVersions(userId, fileId, size = 20, page = 1) {
 }
 
 
-function getFileDetails(userId, fileId) {
-  // Check if the user has access to the file
-  if (files[fileId]) {
-    const file = files[fileId];
-    const fileDetails = {
-      owner: null,
-      sharedWith: [],
-      permissions: []
-    };
-
-    // Check if the file belongs to the user
-    if (file.user_id === userId) {
-      fileDetails.owner = {
-        userId: file.user_id,
-        username: users[file.user_id].username,
-        email: users[file.user_id].email
+async function getFileDetails(userId, fileId) {
+  try {
+    // Check if the user has access to the file
+    if (files[fileId]) {
+      const file = files[fileId]; // Retrieve file data
+      const fileDetails = {
+        owner: null,
+        sharedWith: [],
+        permissions: []
       };
-    }
 
-    // Check if the file is shared with other users
-    const sharedFiless = Object.values(sharedFiles).filter(sharedFile => sharedFile.file_id === fileId);
-    sharedFiless.forEach(sharedFile => {
-      if (sharedFile.shared_with_user_id !== userId) {
-        fileDetails.sharedWith.push({
-          userId: sharedFile.shared_with_user_id,
-          username: users[sharedFile.shared_with_user_id].username,
-          email: users[sharedFile.shared_with_user_id].email
-        });
-        fileDetails.permissions.push(sharedFile.permission);
+      // Check if the file belongs to the user
+      if (file.user_id === userId) {
+        const user = users[userId]; // Retrieve user data
+        fileDetails.owner = {
+          userId: user.user_id, // Access user_id property
+          username: user.username,
+          email: user.email
+        };
       }
-    });
 
-    return fileDetails;
-  } else {
-    return null; // Return null if the file doesn't exist
+      // Check if the file is shared with other users
+      const sharedFileEntries = Object.values(sharedFiles).filter(sharedFile => sharedFile.file_id === fileId);
+      for (const sharedFileEntry of sharedFileEntries) {
+        if (sharedFileEntry.shared_with_user_id !== userId) {
+          const sharedUser = users[sharedFileEntry.shared_with_user_id]; // Retrieve user data
+          fileDetails.sharedWith.push({
+            userId: sharedUser.user_id, // Access user_id property
+            username: sharedUser.username,
+            email: sharedUser.email
+          });
+          fileDetails.permissions.push(sharedFileEntry.permission);
+        }
+      }
+
+      return fileDetails;
+    } else {
+      return null; // Return null if the file doesn't exist
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error; // Re-throw the error for handling elsewhere if needed
   }
 }
 
 
-function getMyFiles(userId, sortBy = 'date', order = 'desc', size = 20, page = 1) {
+
   // Filter files owned by the user
   const userFiles = Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
   
@@ -332,4 +357,5 @@ function getMyFiles(userId, sortBy = 'date', order = 'desc', size = 20, page = 1
 }
 
 export { registerUser, checksignin ,getMyFiles,getMyDeletedFiles,getMySharedFiles};
+
 

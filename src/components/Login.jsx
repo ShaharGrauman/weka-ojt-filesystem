@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ForgotPassword from '../components/ForgotPassword.jsx';
 import ParentComponent from '../pages/ParentComponent.jsx'
-import { checksignin } from "../Dal/data.js";
+import { LogIn } from "../Dal/data.js";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Login(props) {
     e.preventDefault(); // Prevent default form submission
     const email = e.target.email.value;
     const password = e.target.Password.value;
-    if (checksignin(email, password)) {
+    if (LogIn(email, password)) {
     navigate("/homepage")
 //       console.log("login successful");
 //       console.log(email);
