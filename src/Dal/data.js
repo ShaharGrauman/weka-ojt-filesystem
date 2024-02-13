@@ -282,25 +282,33 @@ try{
 
 
 
-function getFileVersions(userId, fileId, size = 20, page = 1) {
-  // Check if the user has access to the file
-  if (files[fileId] && files[fileId].user_id === userId) {
-    // Filter file versions for the specified file
-    const fileVersionsList = Object.values(fileVersions).filter(version => version.file_id === fileId);
-    
-    // Sort file versions by version number in descending order
-    fileVersionsList.sort((a, b) => b.version_number - a.version_number);
-    
-    // Calculate the start index based on the specified page and size
-    const startIndex = (page - 1) * size;
-    
-    // Return a slice of file versions based on the calculated start index and size
-    return fileVersionsList.slice(startIndex, startIndex + size);
-  } else {
-    // Return an empty array if the user doesn't have access to the file
-    return [];
+async function getFileVersions(userId, fileId, size = 20, page = 1) {
+  try {
+    // Check if the user has access to the file
+    if (files[fileId] && files[fileId].user_id === userId) {
+      // Filter file versions for the specified file
+      const fileVersionsList = await Object.values(fileVersions);
+      const filteredVersions = fileVersionsList.filter(version => version.file_id === fileId);
+      
+      // Sort file versions by version number in descending order
+      filteredVersions.sort((a, b) => b.version_number - a.version_number);
+      
+      // Calculate the start index based on the specified page and size
+      const startIndex = (page - 1) * size;
+      
+      // Return a slice of file versions based on the calculated start index and size
+      return filteredVersions.slice(startIndex, startIndex + size);
+    } else {
+      // Return an empty array if the user doesn't have access to the file
+      return [];
+    }
+  } catch (error) {
+    // Handle any errors
+    console.error("Error in getFileVersions:", error);
+    throw error;
   }
 }
+
 
 
 async function getFileDetails(userId, fileId) {
