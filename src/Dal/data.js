@@ -179,25 +179,42 @@ function renameFile(userId, fileId, newName) {
  return false;
 }
 
-
 function deleteFile(userId, fileId) {
- if (files[fileId]) {
-     // Check if the file belongs to the user
-     if (files[fileId].user_id === userId) {
-         files[fileId].is_deleted = true;
-         return true;
-     } else {
-         // If the file does not belong to the user, log an error and return false
-         console.log(`User ${userId} does not have permission to delete file ${fileId}`);
-         return false;
-     }
- }
- // Return false if the file does not exist
- return false;
+  return new Promise((resolve, reject) => {
+    const file = files[fileId];
+
+    if (!file) {
+      // Reject the Promise if the file does not exist
+      return reject(false);
+    }
+    // Check if the file belongs to the user
+    if (file.user_id !== userId) {
+      // If the file does not belong to the user, log an error and reject the Promise
+      console.log(`User ${userId} does not have permission to delete file ${fileId}`);
+      return reject(false);
+    }
+
+    // Simulate an asynchronous deletion
+    setTimeout(() => {
+      file.is_deleted = true;
+      // console.log("file.is_deleted after deletion");
+      // console.log(file.is_deleted);
+
+      resolve(true);
+    }, 0);
+  });
 }
 
-
-
+// Example usage:
+async function fileDeletion(userId, fileId) {
+  try {
+    const result = await deleteFile(userId, fileId);
+    console.log("The file deleted successfully"); // true if successful, false otherwise
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 
 async function getMySharedFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
@@ -245,11 +262,6 @@ function permanentDeleteFile(userId, fileId) {
  }
  return false;
 }
-
-
-
-
-
 
 
 
@@ -378,6 +390,5 @@ function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser, LogIn ,getMyFiles,getMyDeletedFiles,getMySharedFiles};
-
+export { registerUser, LogIn ,getMyFiles,getMyDeletedFiles,getMySharedFiles,fileDeletion };
 
