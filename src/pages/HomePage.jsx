@@ -10,6 +10,7 @@ import Item from "../components/Item";
 import FileViewer from "../components/FileViewer";
 import VersionsList from "../components/VersionsList ";
 import "./HomePage.css";
+import { getMyFiles,getMyDeletedFiles,getMySharedFiles } from "../Dal/data.js";
 
 const versionData = [
   {
@@ -30,67 +31,12 @@ const versionData = [
 ];
 
 const Data = {
-  MyFiles: [
-    {
-      id: 1,
-      fileName: "photo.png",
-      lastUpdated: "2022-02-05",
-      isFolder: false,
-      filePath: "../Image/photo.png",
-      is_deleted: false,
-      is_version: true,
-    },
-    { id: 7, 
-      fileName: "file.pdf",
-      lastUpdated: "2022-02-05",
-      isFolder: false, 
-      filePath:"../Image/file.pdf",
-      is_deleted: false,
-      is_version: true},
-    {
-      id: 3,
-      fileName: "photos",
-      lastUpdated: "2022-02-07",
-      isFolder: true,
-      filePath: "../files/photos",
-      is_deleted: false,
-      is_version: false,
-    },
-    {
-      id: 5,
-      fileName: "docs",
-      lastUpdated: "2022-02-06",
-      isFolder: true,
-      filePath: "../files/docs",
-      is_deleted: false,
-      is_version: false,
-    },
-  ],
-  SharedFiles: [
-    {
-      id: 2,
-      fileName: "photos",
-      lastUpdated: "2022-02-06",
-      isFolder: true,
-      filePath: "../shared/photos",
-      is_deleted: false,
-      is_version: false,
-    },
-  ],
-  DeletedFiles: [
-    {
-      id: 4,
-      fileName: "memories.mp4",
-      lastUpdated: "2022-02-05",
-      isFolder: false,
-      filePath: "../Image/memories.mp4",
-      is_deleted: true,
-      is_version: false,
-    },
-  ],
+  MyFiles: getMyFiles(1),
+  SharedFiles: getMySharedFiles(1),
+  DeletedFiles:getMyDeletedFiles(1)
 };
 
-const HomePage = (props) => {
+const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVersion, setisVersion] = useState(true);
   const [showitems, setshowitems] = useState(true);
@@ -159,7 +105,7 @@ const HomePage = (props) => {
     :
     <div className="item-container">
       {currentCategoryData.map((item) => (
-        <Item key={item.id} item={item} showversion={showversion} onSelect={() => handleItemClick(item)} />
+        <Item key={item.file_id} item={item} showversion={showversion} onSelect={() => handleItemClick(item)} />
       ))}
     </div>
   )
