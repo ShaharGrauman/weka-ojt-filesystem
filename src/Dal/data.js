@@ -235,15 +235,33 @@ function permanentDeleteFile(userId, fileId) {
 
 
 
-function checksignin(email, password) {
+async function LogIn(email, password) {
+try{
   for (let key in users) {
-    if (users[key].passwordhash === password && users[key].email === email) {
-      return true;
-
+    if (users[key].email === email) {
+      if (bcrypt.compareSync(password, users[key].passwordhash)) {
+        return true;
+      } else {
+        return false; // Incorrect password
+      }
     }
   }
-  return false;
+  return false; // User not found
+  }
+  catch{
+  console.log("LogIn function not working..")
+
+  }
 }
+
+
+
+
+
+
+
+
+
 
 
 function getFileVersions(userId, fileId, size = 20, page = 1) {
@@ -327,5 +345,5 @@ function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser, checksignin };
+export { registerUser, LogIn };
 
