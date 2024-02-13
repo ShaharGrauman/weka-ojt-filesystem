@@ -234,19 +234,23 @@ function moveFile(userId, fileId, folderId) {
   }
   return false;
 }
-
-function shareFile(userId, fileId, email, permission) {
-  if (files[fileId] && users[email]) {
-    const sharedFileId = Object.keys(sharedFiles).length + 1;
-    sharedFiles[sharedFileId] = {
-      file_id: fileId,
-      shared_with_user_id: users[email].id,
-      shared_by_user_id: userId,
-      permission,
-    };
-    return true;
+async function shareFile(userId, fileId, email, permission) {
+  try {
+    if (files[fileId] && users[email]) {
+      const sharedFileId = Object.keys(sharedFiles).length + 1;
+      sharedFiles[sharedFileId] = {
+        file_id: fileId,
+        shared_with_user_id: users[email].id,
+        shared_by_user_id: userId,
+        permission,
+      };
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('Error occurred while sharing file:', error);
+    throw error;
   }
-  return false;
 }
 
 function renameFile(userId, fileId, newName) {
