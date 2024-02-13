@@ -160,7 +160,7 @@ const HomePage = (props) => {
     :
     <div className="item-container">
       {currentCategoryData.map((item) => (
-        <Item key={item.id} item={item} showversion={showversion} onSelect={() => handleItemClick(item)} />
+        <Item key={item.id} item={item} userId = {1} showversion={showversion} onSelect={() => handleItemClick(item)} />
       ))}
     </div>
   )

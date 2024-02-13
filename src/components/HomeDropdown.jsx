@@ -7,7 +7,7 @@ import RenameFile from "./RenameFile";
 import DeleteModal from "./DeletModal";
 import Download from "./Download";
 
-const HomeDropdown = ({ selectedItem ,showversion}) => {
+const HomeDropdown = ({selectedItem ,showversion,userId}) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
@@ -77,7 +77,7 @@ const HomeDropdown = ({ selectedItem ,showversion}) => {
       ) : null}
 
       {showRenameFile && <RenameFile onClose={handleCloseModal} />}
-      {showdelete && <DeleteModal onClose={handleCloseModal} />}
+      {showdelete && <DeleteModal onClose={handleCloseModal} itemId= {selectedItem.itemId} userId={userId}/>}
 
       {showShare ? <Share onClose={handleCloseModal} /> : null}
       {showDownload ? (
