@@ -77,7 +77,7 @@ const HomeDropdown = ({selectedItem ,showversion,userId}) => {
       ) : null}
 
       {showRenameFile && <RenameFile onClose={handleCloseModal} />}
-      {showdelete && <DeleteModal onClose={handleCloseModal} itemId= {selectedItem.itemId} userId={userId}/>}
+      {showdelete && <DeleteModal onClose={handleCloseModal} itemId= {selectedItem.id} userId={userId}/>}
 
       {showShare ? <Share onClose={handleCloseModal} /> : null}
       {showDownload ? (

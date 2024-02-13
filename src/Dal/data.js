@@ -192,7 +192,7 @@ function renameFile(userId, fileId, newName) {
 //  return false;
 // }
 
-async function deleteFile(userId, fileId) {
+function deleteFile(userId, fileId) {
   return new Promise((resolve, reject) => {
     const file = files[fileId];
 
@@ -210,6 +210,9 @@ async function deleteFile(userId, fileId) {
     // Simulate an asynchronous deletion
     setTimeout(() => {
       file.is_deleted = true;
+      // console.log("file.is_deleted after deletion");
+      // console.log(file.is_deleted);
+
       resolve(true);
     }, 0);
   });
@@ -222,7 +225,7 @@ async function fileDeletion(userId, fileId) {
     console.log("The file deleted successfully"); // true if successful, false otherwise
     return result;
   } catch (error) {
-    console.error("File deleteion is failed!");
+    console.error(error);
   }
 }
 
@@ -356,5 +359,5 @@ function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser,  checksignin,fileDeletion};
+export {registerUser,checksignin,fileDeletion};
 
