@@ -336,8 +336,6 @@ async function getFileDetails(userId, fileId) {
 
 
 
-
-function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1) {
   // Filter files owned by the user
   const userFiles = Object.values(files).filter(file => file.user_id === userId && !file.is_deleted);
   
@@ -358,5 +356,6 @@ function getMyFiles(userId, sortBy = 'name', order = 'desc', size = 20, page = 1
   return userFiles.slice(startIndex, startIndex + size);
 }
 
-export { registerUser, LogIn };
+export { registerUser, checksignin ,getMyFiles,getMyDeletedFiles,getMySharedFiles};
+
 

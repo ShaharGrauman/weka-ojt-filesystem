@@ -5,9 +5,10 @@ import DeletedDropdown from "./DeletedDropdown"
 const Item = ({ item, onSelect,showversion}) => {
 
   const handleItemClick = () => {
-    if (!item.isFolder) {
-      onSelect(item); // Pass the clicked file item to the parent component
-    }
+//     if (!item.isFolder) {
+//       onSelect(item); // Pass the clicked file item to the parent component
+//     }
+      onSelect(item); // Pass the clicked file item to the parent componen
   };
   
   return (
@@ -23,23 +24,18 @@ const Item = ({ item, onSelect,showversion}) => {
         </div>
         <a href="#" onClick={handleItemClick}>
           {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
-          {item.isFolder ? (
-            <i
-              className="lni lni-folder"
-              style={{ fontSize: "2rem", margin: "10px" }}
-            ></i>
-          ) : (
+
             <i
               className="lni lni-empty-file"
               style={{ fontSize: "2rem", margin: "10px" }}
             ></i>
 
-          )}
+
         </a>
 
         <Card.Body>
-          <Card.Title>{item.fileName}</Card.Title>
-          <Card.Text>Last updated: {item.lastUpdated}.</Card.Text>
+          <Card.Title>{item.file_name}</Card.Title>
+          <Card.Text>  Last updated: {item.upload_date ? item.upload_date.toLocaleDateString().toString() : 'Unknown'}.</Card.Text>
         </Card.Body>
      </Card>
    </div>
