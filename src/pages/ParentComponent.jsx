@@ -75,7 +75,6 @@ function ParentComponent() {
                 <h1>About</h1>
                 <small> The web is about saving and sharing your fie
                   File sharing allows users to use software that connects into a network
-                  to search for shared files from other users.File sharing allows users to use software that connects into a network
                   to search for shared files from other users.</small>
               </div>
             </div>
