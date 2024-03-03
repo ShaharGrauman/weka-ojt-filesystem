@@ -1,8 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from models import User
-from mysql_connection import get_database_connection
-from validation import validate_email_format, validate_pass_format,validate_name,add_user
-from authentication import check_email_exist
+from dal.validation import validate_email_format, validate_pass_format,validate_name
+from dal.authentication import check_email_exist,add_user
+
 # Create an instance of the FastAPI class
 app = FastAPI()
 
