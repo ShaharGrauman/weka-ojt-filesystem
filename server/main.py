@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from models import User
 from mysql_connection import get_database_connection
-
+from validation import validate_email_format, validate_pass_format,validate_name,add_user
+from authentication import check_email_exist
 # Create an instance of the FastAPI class
 app = FastAPI()
 
