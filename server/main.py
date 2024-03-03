@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from mysql_connection import get_database_connection
 
 # Create an instance of the FastAPI class
 app = FastAPI()
