@@ -1,10 +1,17 @@
-from fastapi import FastAPI, HTTPException
-from models import User
+from fastapi import FastAPI, HTTPException,Response
+from models import User,LoginRequest
 from dal.validation import validate_email_format, validate_pass_format,validate_name
-from dal.authentication import check_email_exist,add_user
+from dal.authentication import check_email_exist,add_user,get_user_details
+from exceptions import CustomHTTPException
+from cryptography.fernet import Fernet
+import json
 
+
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
 # Create an instance of the FastAPI class
 app = FastAPI()
+
 
 # Define a route using a decorator
 @app.get("/")
@@ -37,3 +44,45 @@ def signup(user: User):
     add_user(user)
 
     return {"msg": "User sign up successfully"}
+
+
+
+
+
+@app.post("/login")
+def login(login_request: LoginRequest, response: Response):
+    email = login_request.email
+    password = login_request.password
+
+    # Check email format validation
+    if not validate_email_format(email):
+        raise HTTPException(status_code=400, detail="Invalid email format")
+
+    # Check password format validation
+    if not validate_pass_format(password):
+        raise HTTPException(status_code=400, detail="Invalid password format")
+
+    # Check if user exists in the database
+    user = get_user_details(email, password)
+
+    if user:
+        user_dict = json.loads(user)
+        # User authentication successful, set cookies for user id
+        user_id = str(user_dict["id"]).encode()
+        encrypted_user_id = cipher_suite.encrypt(user_id).decode()
+
+        # Set encrypted user ID as a cookie
+        response.set_cookie(key="user_id", value=encrypted_user_id)
+
+        # Return success message and user object
+        return {
+            "msg": "User logged in successfully",
+            "User": {
+                "id": user_dict["id"],
+                "username": user_dict["username"],
+                "email": user_dict["email"]
+            }
+        }
+    else:
+        # User not found, raise custom HTTPException
+        raise CustomHTTPException(status_code=404, detail="User not found")
