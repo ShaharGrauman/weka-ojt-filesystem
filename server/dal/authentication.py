@@ -1,4 +1,4 @@
-from dal.mysql_connection import get_database_connection
+from mysql_connection import get_database_connection
 
 connection = get_database_connection()
 
@@ -25,3 +25,17 @@ def add_user(user):
         print("Error adding user:", error)
 
 
+
+def get_user_details(email, password):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+
+    # Fetch user details based on email and plain text password
+    cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+    user = cursor.fetchone()
+
+    # Close cursor and connection
+    cursor.close()
+    connection.close()
+
+    return user
