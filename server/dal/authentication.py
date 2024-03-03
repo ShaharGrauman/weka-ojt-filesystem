@@ -1,4 +1,5 @@
-from mysql_connection import get_database_connection
+from dal.mysql_connection import get_database_connection
+import json
 
 connection = get_database_connection()
 
@@ -37,5 +38,17 @@ def get_user_details(email, password):
     # Close cursor and connection
     cursor.close()
     connection.close()
+    
+    if user:
+        user_dict = {
+            "id": user[0],
+            "username": user[1],
+            "email": user[2],
+            "password":user[3],
+        }
+        # Serialize dictionary to JSON
+        user_json = json.dumps(user_dict)
+        return user_json
+    else:
+        return None
 
-    return user
