@@ -14,7 +14,7 @@ from routes import three_dots
 import json
 from dal.dalFuction import send_email
 from dal.validation import validate_match_password
-from dal.dalFuction import update_user_Password
+from dal.dalFuction import update_Password
 
 
 # Create an instance of the FastAPI class
@@ -144,7 +144,7 @@ def login(token,pass1,pass2):
     #  now we update the data
     email=exite_the_mail_from_the_token(token)
     # update=update_user_Password(email,pass1)
-    if update_user_Password(email,pass1):
+    if update_Password(email,pass1):
          return{"msg" :"update succsfuly"}
     else:
        
