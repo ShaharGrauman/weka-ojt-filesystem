@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from  dal.deleted_options import permanently_delete_file,permanently_delete_folder
-from exceptions import CustomHTTPException
+from server.dal.deleted_options import permanently_delete_file,permanently_delete_folder
+from server.exceptions import CustomHTTPException
 
 
 router = APIRouter()
