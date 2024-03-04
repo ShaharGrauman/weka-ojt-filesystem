@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException,Response
-from models import User,LoginRequest
+from models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name
 from dal.authentication import check_email_exist,add_user,get_user_details
 from exceptions import CustomHTTPException
@@ -26,19 +26,19 @@ def signup(user: User):
 
     # Validate email format
     if not validate_email_format(email):
-        raise HTTPException(status_code=400, detail="Invalid email format")
+        raise CustomHTTPException(status_code=400, detail="Invalid email format")
 
     # Validate password format
     if not validate_pass_format(password):
-        raise HTTPException(status_code=400, detail="Invalid password format")
+        raise CustomHTTPException(status_code=400, detail="Invalid password format")
 
     # Validate name format
     if not validate_name(name):
-        raise HTTPException(status_code=400, detail="Invalid name format")
+        raise CustomHTTPException(status_code=400, detail="Invalid name format")
 
     # Check if email already exists
     if check_email_exist(email):
-        raise HTTPException(status_code=400, detail="Email already exists")
+        raise CustomHTTPException(status_code=400, detail="Email already exists")
 
     # Add user to the database
     add_user(user)
@@ -50,7 +50,7 @@ def signup(user: User):
 
 
 @app.post("/login")
-def login(login_request: LoginRequest, response: Response):
+def login(login_request: User, response: Response):
     email = login_request.email
     password = login_request.password
 
