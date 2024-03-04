@@ -73,7 +73,7 @@ def login(login_request: User, response: Response):
         user_dict = json.loads(user)
         # User authentication successful, set cookies for user id
         user_id = str(user_dict["id"]).encode()
-        encrypted_user_id = cipher.encrypt(user_id).decode()
+        encrypted_user_id = cipher.encrypt(user_id)
 
         # Set encrypted user ID as a cookie
         response.set_cookie(key="user_id", value=encrypted_user_id)
