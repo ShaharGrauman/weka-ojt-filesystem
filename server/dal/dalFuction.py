@@ -5,6 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
+from server.exceptions import CustomHTTPException
 
 
 
@@ -120,5 +121,21 @@ def update_Password(email,password):
     return  True
 
 # update_Password("ekhlass@post.bgu.ac.il","12121212")
-   
-   
+
+
+
+def  get_file_data(file_id,user_id):
+
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    get_query = "SELECT FROM files WHERE id=? AND user_id=?;"
+
+    try:
+        cursor.execute(get_query, (file_id, user_id))
+        file_data = cursor.fetchone()
+        return file_data
+    except Exception as e:
+        connection.rollback()
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
