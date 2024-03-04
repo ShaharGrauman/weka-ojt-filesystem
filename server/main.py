@@ -4,9 +4,14 @@ from models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name
 from dal.authentication import check_email_exist,add_user,get_user_details
 from exceptions import CustomHTTPException
+from cryptography.fernet import Fernet
+from routes import three_dots
+import json
+
 from routes.home_routes import router as home_routes
 from dal.config import cipher
 from routes import three_dots
+import json
 
 
 # Create an instance of the FastAPI class
