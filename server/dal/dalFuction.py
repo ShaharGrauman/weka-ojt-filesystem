@@ -38,6 +38,30 @@ with smtplib.SMTP_SSL('smtp.gmail.com',465,context=context)as smtp:
     smtp.sendmail(email_sender,email_receiver,em.as_string())
 
 
+
+# send email to the recever_email
+def send_email(recever_email,msg):
+   email_sender="filesystem2024@gmail.com"
+   email_password="ejnw zjwu gmfc jzjt"
+   subject="reset your password"
+   body=msg
+   em =EmailMessage()
+   em['From']=email_sender
+   em['To']= recever_email
+   em['Subject']=subject
+   em.set_content(body) 
+   context=ssl.create_default_context()
+
+   with smtplib.SMTP_SSL('smtp.gmail.com',465,context=context)as smtp:
+     smtp.login(email_sender,email_password)
+     smtp.sendmail(email_sender,email_receiver,em.as_string())
+
+
+       
+
+
+
+
 # Function to retrieve myfiles
 def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
     conn = get_database_connection()
@@ -54,3 +78,7 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
 
     # Return the subset of files based on the page
     return my_files[start_index:start_index + 20]
+
+
+
+# send_email("ekhlass@post.bgu.ac.il","welcome")
