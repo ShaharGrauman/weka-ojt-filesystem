@@ -4,6 +4,7 @@ from dal.validation import validate_email_format, validate_pass_format,validate_
 from dal.authentication import check_email_exist,add_user,get_user_details
 from exceptions import CustomHTTPException
 from cryptography.fernet import Fernet
+from routes import three_dots
 import json
 
 
@@ -12,6 +13,7 @@ cipher_suite = Fernet(key)
 # Create an instance of the FastAPI class
 app = FastAPI()
 
+app.include_router(three_dots.router)
 
 # Define a route using a decorator
 @app.get("/")
