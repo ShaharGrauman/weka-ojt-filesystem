@@ -1,5 +1,5 @@
 import json
-from dal.mysql_connection import get_database_connection
+from server.dal.mysql_connection import get_database_connection
 import mysql.connector
 
 connection = get_database_connection()
