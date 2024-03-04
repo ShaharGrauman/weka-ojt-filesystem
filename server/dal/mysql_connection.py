@@ -2,7 +2,6 @@ import mysql.connector
 from .config import host, user, password, database , port
 
 
-
 def get_database_connection():
 
     # Establish a connection to the MySQL server
@@ -18,9 +17,6 @@ def get_database_connection():
     else:
         print("Failed to connect to MySQL database")
     return connection
-
-
-
 
 
 def initialize_db():
