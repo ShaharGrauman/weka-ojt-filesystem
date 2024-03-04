@@ -15,7 +15,7 @@ class File(BaseModel):
     is_deleted: bool = False
     path: str
     upload_date: datetime
-    group_version_id: Optional[int] = None
+    group_version_id: Optional[str] = None
 
 class Folder(BaseModel):
     name: str
