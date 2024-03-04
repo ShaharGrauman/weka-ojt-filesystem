@@ -1,11 +1,11 @@
 from fastapi import FastAPI, HTTPException,Response
 import json
-from server.models import User
-from server.dal.validation import validate_email_format, validate_pass_format,validate_name
-from server.dal.authentication import check_email_exist,add_user,get_user_details
-from server.exceptions import CustomHTTPException
-from server.routes.home_routes import router as home_routes
-from server.dal.config import cipher
+from models import User
+from dal.validation import validate_email_format, validate_pass_format,validate_name
+from dal.authentication import check_email_exist,add_user,get_user_details
+from exceptions import CustomHTTPException
+from routes.home_routes import router as home_routes
+from dal.config import cipher
 
 # Create an instance of the FastAPI class
 app = FastAPI()

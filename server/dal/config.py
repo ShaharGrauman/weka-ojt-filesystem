@@ -1,9 +1,9 @@
 from cryptography.fernet import Fernet
 
-host = 'localhost'
-user = 'root'
-password = 'root'
-database = 'filesystem'
+host="localhost"
+user="root"
+password="Hamad12345"
+database="filesystem"
 port = 3306
 
 

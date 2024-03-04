@@ -1,5 +1,5 @@
-from server.dal.mysql_connection import get_database_connection
-from server.exceptions import CustomHTTPException
+from dal.mysql_connection import get_database_connection
+from exceptions import CustomHTTPException
 
 def permanently_delete_file(file_id,user_id):
 

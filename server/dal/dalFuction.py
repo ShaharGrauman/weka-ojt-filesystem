@@ -2,9 +2,9 @@ import os
 from email.message import EmailMessage
 import ssl
 import smtplib
-from server.dal.mysql_connection import get_database_connection
+from dal.mysql_connection import get_database_connection
 from typing import List
-from server.dal.config import cipher
+from dal.config import cipher
 
 
 

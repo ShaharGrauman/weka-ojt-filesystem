@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from server.dal.dalFuction import get_myfiles
+from dal.dalFuction import get_myfiles
 
 router = APIRouter()
 
