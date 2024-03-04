@@ -68,3 +68,37 @@ def get_MyFile_folders(user_id: int, page: int, sorted_by: str = "upload_date") 
     my_folders = cursor.fetchall()
     # Return the subset of folders based on the page
     return my_folders[start_index:start_index + 20]
+
+def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    # Query to retrieve user's files from MyFile
+    my_files_query = "SELECT * FROM file WHERE user_id = %s AND is_deleted = 0"
+    # Sorting files by upload_date if requested
+    my_files_query += f" ORDER BY {sorted_by} DESC"
+    # Calculate the range of files to return based on the page
+    start_index = (page - 1) * 20
+    # Execute the query with user_id as parameter
+    cursor.execute(my_files_query, (user_id,))
+    my_files = cursor.fetchall()
+    # Return the subset of files based on the page
+    return my_files[start_index:start_index + 20]
+
+def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    # Query to retrieve user's deleted files
+    deleted_files_query = """
+        SELECT * FROM file 
+        WHERE user_id = %s AND is_deleted = 1 
+        ORDER BY {} DESC
+        LIMIT %s OFFSET %s
+    """.format(sorted_by)
+
+    # Calculate offset and limit for pagination
+    limit = 20
+    offset = (page - 1) * limit
+    # Execute the query with user_id, limit, and offset as parameters
+    cursor.execute(deleted_files_query, (user_id, limit, offset))
+    deleted_files = cursor.fetchall()
+    return deleted_files
