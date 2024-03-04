@@ -29,7 +29,7 @@ def send_email(recever_email,msg):
 
    with smtplib.SMTP_SSL('smtp.gmail.com',465,context=context)as smtp:
      smtp.login(email_sender,email_password)
-     smtp.sendmail(email_sender,email_receiver,em.as_string())
+     smtp.sendmail(email_sender,recever_email,em.as_string())
 
 # Function to retrieve myfiles
 def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
@@ -99,3 +99,21 @@ def get_deletedfolders(user_id: int, page: int, sorted_by: str = "upload_date") 
     return deleted_files
 
 # send_email("ekhlass@post.bgu.ac.il","welcome")
+
+
+
+def update_Password(email,password):
+   
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    update_password = """
+       UPDATE users SET password = %s WHERE email = %s LIMIT 1;
+
+    """
+    cursor.execute(update_password, (email, password))
+    update_user = cursor.fetchall()
+    return update_user 
+
+# update_Password("ekhlass@post.bgu.ac.il","12121212")
+   
+   
