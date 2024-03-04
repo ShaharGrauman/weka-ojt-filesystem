@@ -31,3 +31,15 @@ def validate_name(name):
         return True
     else:
         return False
+    
+
+
+
+def validate_match_password(password1,password2):
+  # Check if the the password in match
+    if password1==password2:
+        return True
+    
+    return False
+
+    
