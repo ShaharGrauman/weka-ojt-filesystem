@@ -1,5 +1,5 @@
 from typing import Annotated
-from server.dal.config import cipher
+from dal.config import cipher
 from fastapi import APIRouter, Cookie
 router = APIRouter()
 
