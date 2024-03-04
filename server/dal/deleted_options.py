@@ -1,5 +1,7 @@
 from dal.mysql_connection import get_database_connection
 from exceptions import CustomHTTPException
+from dal.threeDots import update_is_deleted_file,update_is_deleted_folder
+
 
 def permanently_delete_file(file_id,user_id):
 
@@ -51,7 +53,7 @@ def restore_file(file_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    restore_query = "UPDATE files SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = update_is_deleted_file()
 
     try:
         cursor.execute(restore_query, ("0",file_id, user_id))
@@ -68,12 +70,11 @@ def restore_file(file_id,user_id):
         cursor.close()
 
 
-
 def restore_folder(folder_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    restore_query = "UPDATE folders SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = update_is_deleted_folder()
 
     try:
         cursor.execute(restore_query, ("0",folder_id, user_id))
@@ -88,3 +89,5 @@ def restore_folder(folder_id,user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+
+
