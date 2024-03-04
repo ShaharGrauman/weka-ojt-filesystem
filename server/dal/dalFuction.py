@@ -3,11 +3,10 @@ from email.message import EmailMessage
 import ssl
 import smtplib
 from server.dal.mysql_connection import get_database_connection
-from cryptography.fernet import Fernet
 from typing import List
+from server.dal.config import cipher
 
-encryption_key = b'BpthmmKROjL-bMMnZD8h-jye-ZJN6cY7z-QB3ms_qD0='
-cipher = Fernet(encryption_key)
+
 
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
