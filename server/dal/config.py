@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet
 
 host = 'localhost'
 user = 'root'
-password = '1234'
+password = 'root'
 database = 'filesystem'
 port = 3306
 
