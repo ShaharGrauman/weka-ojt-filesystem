@@ -1,21 +1,22 @@
 import mysql.connector
+from .config import host, user, password, database , port
 
 
 
 def get_database_connection():
-    host ='localhost'
-    user ='---'
-    password ='----'
-    database='filesystem'
 
     # Establish a connection to the MySQL server
     connection = mysql.connector.connect(
         host=host,
         user=user,
         password=password,
-        database=database
+        database=database,
+        port=port
     )
-
+    if connection.is_connected():
+        print("Connected to MySQL database")
+    else:
+        print("Failed to connect to MySQL database")
     return connection
 
 
