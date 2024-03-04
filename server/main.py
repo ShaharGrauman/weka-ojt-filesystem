@@ -1,27 +1,20 @@
 from fastapi import FastAPI, HTTPException,Response
-import json
 from models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name 
-from dal.authentication import check_email_exist,add_user,get_user_details,exite_the_mail_from_the_token
+from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
 from exceptions import CustomHTTPException
 from cryptography.fernet import Fernet
-from routes import three_dots
 import json
-
-from routes.home_routes import router as home_routes
-from dal.config import cipher
-from routes import three_dots
-import json
-from dal.dalFuction import send_email
+from dal.dalFuction import send_email,Encrypt_email
 from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
 
 
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
 # Create an instance of the FastAPI class
 app = FastAPI()
-app.include_router(home_routes, prefix="")
 
-app.include_router(three_dots.router)
 
 # Define a route using a decorator
 @app.get("/")
@@ -79,7 +72,7 @@ def login(login_request: User, response: Response):
         user_dict = json.loads(user)
         # User authentication successful, set cookies for user id
         user_id = str(user_dict["id"]).encode()
-        encrypted_user_id = cipher.encrypt(user_id)
+        encrypted_user_id = cipher_suite.encrypt(user_id).decode()
 
         # Set encrypted user ID as a cookie
         response.set_cookie(key="user_id", value=encrypted_user_id)
@@ -103,7 +96,7 @@ def login(login_request: User, response: Response):
 
 
 @app.post ("/forgetpassword")
-def login(user_email):
+def forgotpassword(user_email):
     email = user_email
 
     # Check email format validation
@@ -123,7 +116,7 @@ def login(user_email):
         return{"msg" :"the reset lenke send to your mail"}
     else:
         # User not found, raise custom HTTPException
-        raise CustomHTTPException(status_code=400, detail="problem with connect to the")
+        raise CustomHTTPException(status_code=400, detail="problem with connect to the server")
 
 
 
@@ -132,7 +125,7 @@ def login(user_email):
 
 
 @app.post ("/new_password")
-def login(token,pass1,pass2):
+def new_password(token,pass1,pass2):
 
      # Check password match
     if not validate_match_password(pass1,pass2):
@@ -142,8 +135,7 @@ def login(token,pass1,pass2):
     if not validate_pass_format(pass1):
         raise HTTPException(status_code=400, detail="Invalid password format")
     #  now we update the data
-    email=exite_the_mail_from_the_token(token)
-    # update=update_user_Password(email,pass1)
+    email=decrypt(token)
     if update_Password(email,pass1):
          return{"msg" :"update succsfuly"}
     else:

@@ -26,10 +26,13 @@ def send_email(recever_email,msg):
    em['Subject']=subject
    em.set_content(body) 
    context=ssl.create_default_context()
-
-   with smtplib.SMTP_SSL('smtp.gmail.com',465,context=context)as smtp:
-     smtp.login(email_sender,email_password)
-     smtp.sendmail(email_sender,recever_email,em.as_string())
+   try:
+        with smtplib.SMTP_SSL('smtp.gmail.com',465,context=context)as smtp:
+            smtp.login(email_sender,email_password)
+            smtp.sendmail(email_sender,recever_email,em.as_string())
+        return True
+   except Exception as E:
+        return False
 
 # Function to retrieve myfiles
 def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
@@ -106,13 +109,15 @@ def update_Password(email,password):
    
     connection = get_database_connection()
     cursor = connection.cursor()
+    # cursor.execute("SET sql_safe_updates=0;")
     update_password = """
        UPDATE users SET password = %s WHERE email = %s LIMIT 1;
 
     """
-    cursor.execute(update_password, (email, password))
-    update_user = cursor.fetchall()
-    return update_user 
+    cursor.execute(update_password, (password,email ))
+    connection.commit()
+    # update_user = cursor.fetchall()
+    return  True
 
 # update_Password("ekhlass@post.bgu.ac.il","12121212")
    
