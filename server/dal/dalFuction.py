@@ -100,3 +100,27 @@ def get_deletedfolders(user_id: int, page: int, sorted_by: str = "upload_date") 
     return deleted_files
 
 # send_email("ekhlass@post.bgu.ac.il","welcome")
+
+
+def rename_file(user_id: int, file_id: int, new_name: str) -> bool:
+    connection=get_database_connection()
+    cursor = connection.cursor()
+    try:
+        # Check if the file belongs to the user
+        cursor.execute("SELECT * FROM file WHERE id = %s AND user_id = %s", (file_id, user_id))
+        file = cursor.fetchone()
+
+        if file:
+            # Update the filename in the database
+            cursor.execute("UPDATE file SET name = %s WHERE id = %s", (new_name, file_id))
+            connection.commit()
+            print("File renamed successfully")
+            return True
+        else:
+            print("File not found or doesn't belong to the user")
+            return False
+    except mysql.connector.Error as error:
+        print("Error renaming file:", error)
+        return False
+    finally:
+        cursor.close()

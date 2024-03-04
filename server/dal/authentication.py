@@ -1,4 +1,6 @@
 import json
+
+from fastapi import HTTPException
 from dal.mysql_connection import get_database_connection
 import mysql.connector
 
@@ -23,8 +25,11 @@ def add_user(user):
         cursor.execute(sql, (user.name, user.email, user.password))
         # Commit the transaction
         connection.commit()
+        return True  # Return True only if insertion is successful
     except mysql.connector.Error as error:
         print("Error adding user:", error)
+        raise HTTPException(status_code=500, detail="Error adding user to the database")
+        return False  # Return False in case of failure
 
 
 

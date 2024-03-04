@@ -41,9 +41,13 @@ def signup(user: User):
         raise CustomHTTPException(status_code=400, detail="Email already exists")
 
     # Add user to the database
-    add_user(user)
+    if add_user(user):
+        return {"msg": "User sign up successfully"}
+    else:
+        return {"msg": "User sign up Failed"}
+    
 
-    return {"msg": "User sign up successfully"}
+    
 
 
 
@@ -86,3 +90,7 @@ def login(login_request: User, response: Response):
     else:
         # User not found, raise custom HTTPException
         raise CustomHTTPException(status_code=404, detail="User not found")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="localhost", port=8000)
