@@ -1,22 +1,30 @@
-from fastapi import Depends, FastAPI
-app = FastAPI()
+from fastapi import APIRouter
+from  dal.deleted_options import permanently_delete_file,permanently_delete_folder
+from exceptions import CustomHTTPException
 
 
-# DELETE /deleted/files/{file_id}
-# Description: Delete a file forever.
-# Parameters: File ID.
-# Returns: JSON object containing the status of the delete operation.
-# Security: Requires user authentication.
+router = APIRouter()
 
-# {
-#   "status": "success",
-#   "msg": "File with ID 456 permanently deleted."
-# }
-
-# {
-# "status": "fail",
-# “msg” :"Unable to delete."
-# }
+@router.delete("/deleted/files/{file_id}")
+def delete_file(file_id: int,user_id:int):
+    try:
+        # Check if file deleted
+        result = permanently_delete_file( file_id,user_id)
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 
+@router.delete("/deleted/folders/{folder_id}")
+def delete_folder(folder_id: int,user_id:int):
+    try:
+        # Check if folder deleted
+        result = permanently_delete_folder(folder_id,user_id)
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
