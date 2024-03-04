@@ -1,5 +1,5 @@
 import json
-from server.dal.mysql_connection import get_database_connection
+from dal.mysql_connection import get_database_connection
 import mysql.connector
 
 connection = get_database_connection()
@@ -53,3 +53,5 @@ def get_user_details(email, password):
     else:
         return None
 
+def exite_the_mail_from_the_token(token):
+     return "email"
