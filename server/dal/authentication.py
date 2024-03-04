@@ -53,3 +53,5 @@ def get_user_details(email, password):
     else:
         return None
 
+def exite_the_mail_from_the_token(token):
+     return "email"

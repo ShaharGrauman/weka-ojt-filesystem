@@ -1,10 +1,13 @@
 from fastapi import FastAPI, HTTPException,Response
 from models import User
-from dal.validation import validate_email_format, validate_pass_format,validate_name
-from dal.authentication import check_email_exist,add_user,get_user_details
+from dal.validation import validate_email_format, validate_pass_format,validate_name 
+from dal.authentication import check_email_exist,add_user,get_user_details,exite_the_mail_from_the_token
 from exceptions import CustomHTTPException
 from cryptography.fernet import Fernet
 import json
+from dal.dalFuction import send_email
+from dal.validation import validate_match_password
+from dal.dalFuction import update_user_Password
 
 
 key = Fernet.generate_key()
@@ -86,3 +89,59 @@ def login(login_request: User, response: Response):
     else:
         # User not found, raise custom HTTPException
         raise CustomHTTPException(status_code=404, detail="User not found")
+
+
+
+
+
+
+@app.post ("/forgetpassword")
+def login(user_email):
+    email = user_email
+
+    # Check email format validation
+    if not validate_email_format(email):
+        raise HTTPException(status_code=400, detail="Invalid email format")
+
+   
+   # Check if email  exists
+    if not check_email_exist(email):
+        raise CustomHTTPException(status_code=400, detail="Email not exists")
+
+    # now we send email
+    # the masge we want to send
+    msg="hhhhhhh"
+    if send_email(email,msg):
+        # Return success message 
+        return{"msg" :"the reset lenke send to your mail"}
+    else:
+        # User not found, raise custom HTTPException
+        raise CustomHTTPException(status_code=400, detail="problem with connect to the")
+
+
+
+
+
+
+
+@app.post ("/new_password")
+def login(token,pass1,pass2):
+
+     # Check password match
+    if not validate_match_password(pass1,pass2):
+        raise HTTPException(status_code=400, detail="The password not match")
+
+     # Check password format validation
+    if not validate_pass_format(pass1):
+        raise HTTPException(status_code=400, detail="Invalid password format")
+    #  now we update the data
+    email=exite_the_mail_from_the_token(token)
+    # update=update_user_Password(email,pass1)
+    if update_user_Password(email,pass1):
+         return{"msg" :"update succsfuly"}
+    else:
+       
+        raise CustomHTTPException(status_code=400, detail="cannot update")
+
+
+ 
