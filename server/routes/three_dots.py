@@ -102,7 +102,7 @@ def get_all_folders(folder_id:int,file_id: int,user_id: Annotated[str | None, Co
 
 
 
-@router.update("/move/{folder_id}/{file_id}/{target_folder_id}")
+@router.put("/move/{folder_id}/{file_id}/{target_folder_id}")
 def move_file(folder_id:int,file_id: int,target_folder_id:int,user_id: Annotated[str | None, Cookie()] = None):
     user_id= cipher.decrypt(eval(user_id)).decode()
     try:
