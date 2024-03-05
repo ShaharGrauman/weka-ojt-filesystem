@@ -136,8 +136,12 @@ async function registerUser(name, email, password) {
 // Function to generate a random token
 function generateToken() {
   return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15)
   );
 }
 
@@ -522,7 +526,6 @@ async function getMyFiles(
     console.log(err);
   }
 }
-print(getFileVersions(2));
 
 export {
   registerUser,
