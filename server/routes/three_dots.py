@@ -7,6 +7,8 @@ from fastapi import APIRouter, Cookie
 from dal.validation import validate_email_format
 router = APIRouter()
 from dal.authentication import check_email_exist
+from dal.dalFuction import get_myfolders
+from dal.threeDots import update_file_parent
 
 
 @router.get("/versions/{file_id}")
@@ -84,3 +86,31 @@ def download_file_route(file_id: int):
         return e
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
+
+@router.get("/move/{folder_id}/{file_id}")
+def get_all_folders(folder_id:int,file_id: int,user_id: Annotated[str | None, Cookie()] = None):
+    user_id= cipher.decrypt(eval(user_id)).decode()
+    try:
+        folders = get_myfolders(user_id,1)
+        return folders
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
+
+
+@router.update("/move/{folder_id}/{file_id}/{target_folder_id}")
+def move_file(folder_id:int,file_id: int,target_folder_id:int,user_id: Annotated[str | None, Cookie()] = None):
+    user_id= cipher.decrypt(eval(user_id)).decode()
+    try:
+        result = update_file_parent(file_id,target_folder_id,user_id)
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
+
+

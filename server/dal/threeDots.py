@@ -67,11 +67,11 @@ def delete_folder(folder_id,user_id):
 
 
 def update_is_deleted_file():
-    restore_query = "UPDATE file SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
     return restore_query       
 
 def update_is_deleted_folder():
-    restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id= %s;"
     return restore_query
 
 # rename file
@@ -112,6 +112,27 @@ def download_file(file_id):
         else:
             raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
     except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
+
+
+
+def update_file_parent(file_id,target_folder_id,user_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    update_query = "UPDATE file SET folder_id = %s WHERE id = %s AND user_id = %s"
+
+    try:
+        cursor.execute(update_query, (target_folder_id, file_id, user_id))
+        connection.commit()
+
+        return {
+            "status": "success",
+            "msg": f"File with ID {file_id} moved successfully."
+        }
+    except Exception as e:
+        connection.rollback()
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
