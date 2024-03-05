@@ -1,5 +1,6 @@
 import mysql.connector
 import mysql_details
+
 def get_database_connection():
 
     # Establish a connection to the MySQL server

@@ -7,7 +7,7 @@ def permanently_delete_file(file_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    delete_query = "DELETE FROM files WHERE id=? AND user_id=?;"
+    delete_query = "DELETE FROM file WHERE id=? AND user_id=?;"
 
     try:
         cursor.execute(delete_query, (file_id, user_id))
@@ -28,9 +28,9 @@ def permanently_delete_folder(folder_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    delete_files= "DELETE FROM files WHERE parent_id=? AND user_id=?;"
-    delete_folders= "DELETE FROM folders WHERE parent_id=? AND user_id=?;"
-    delete_query = "DELETE FROM folders WHERE id=? AND user_id=?;"
+    delete_files= "DELETE FROM file WHERE parent_id=? AND user_id=?;"
+    delete_folders= "DELETE FROM folder WHERE parent_id=? AND user_id=?;"
+    delete_query = "DELETE FROM folder WHERE id=? AND user_id=?;"
 
     try:
         cursor.execute(delete_files, (folder_id, user_id))
