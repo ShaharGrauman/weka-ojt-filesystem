@@ -1,5 +1,4 @@
 from dal.mysql_connection import get_database_connection
-from dal.mysql_connection import get_database_connection
 from exceptions import CustomHTTPException
 
 connection = get_database_connection()
@@ -74,3 +73,46 @@ def update_is_deleted_file():
 def update_is_deleted_folder():
     restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id=?;"
     return restore_query
+
+# rename file
+def rename_file(file_id, new_name, user_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    update_query = "UPDATE file SET name = %s WHERE id = %s AND user_id = %s;"
+
+    try:
+        cursor.execute(update_query, (new_name, file_id, user_id))
+        connection.commit()
+
+        return {
+            "status": "success",
+            "msg": f"File with ID {file_id} renamed to {new_name} successfully."
+        }
+    except Exception as e:
+        connection.rollback()
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
+
+
+
+# download file
+
+def download_file(file_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT id FROM file WHERE id = %s;", (file_id,))
+        file_id = cursor.fetchone()
+
+        if file_id:
+            # get the file from aws
+            return file_id[0]  
+        else:
+            raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
+
