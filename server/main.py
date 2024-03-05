@@ -30,14 +30,6 @@ app.include_router(three_dots_router, prefix="")
 
 
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Define a route using a decorator
 @app.get("/")
 def read_root():
