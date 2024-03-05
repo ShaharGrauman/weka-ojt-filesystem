@@ -3,18 +3,17 @@ from models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
 from exceptions import CustomHTTPException
-from cryptography.fernet import Fernet
+from dal.config import cipher
 import json
 from dal.dalFuction import send_email,Encrypt_email
 from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
+from routes.home_routes import router as home_routes
 
 
-key = Fernet.generate_key()
-cipher_suite = Fernet(key)
 # Create an instance of the FastAPI class
 app = FastAPI()
-
+app.include_router(home_routes, prefix="")
 
 # Define a route using a decorator
 @app.get("/")
@@ -72,8 +71,7 @@ def login(login_request: User, response: Response):
         user_dict = json.loads(user)
         # User authentication successful, set cookies for user id
         user_id = str(user_dict["id"]).encode()
-        encrypted_user_id = cipher_suite.encrypt(user_id).decode()
-
+        encrypted_user_id = cipher.encrypt(user_id)
         # Set encrypted user ID as a cookie
         response.set_cookie(key="user_id", value=encrypted_user_id)
 
