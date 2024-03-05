@@ -17,18 +17,18 @@ function Login(props) {
     updateState("False", "True", "False");
   };
 
-  const loginfunction = (e) => {
+  const loginfunction = async (e) => {
     e.preventDefault(); // Prevent default form submission
     const email = e.target.email.value;
     const password = e.target.Password.value;
-    if (LogIn(email, password)) {
-      navigate("/homepage");
-      //       console.log("login successful");
-      //       console.log(email);
-    } else {
-      seterrormsg("Your Password or your email is not correct");
-    }
-  };
+    try {
+        const result = await LogIn(email, password); // Await the LogIn function
+        // If the function resolves successfully, navigate to homepage
+        navigate("/homepage");
+      } catch (error) {
+        seterrormsg("Your Password or your email is not correct");
+      }
+    };
 
   return (
     <div>
