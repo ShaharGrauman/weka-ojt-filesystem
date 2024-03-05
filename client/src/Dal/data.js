@@ -106,25 +106,27 @@ const sharedFolders = {
 
 async function registerUser(name, email, password) {
   try {
-    const usersArray = Object.values(users);
-    const existingUser = usersArray.find((user) => user.email === email);
-    if (existingUser) {
-      return "User with this email already exists.";
+    const response = await fetch("http://127.0.0.1:8000/signup", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      }),
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return "User registered successfully.";
+    } else {
+      throw new Error(data.detail); // Throw error with detail message
     }
-    const id = uuidv4();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = {
-      user_id: id, // Use the uuidv4 generated ID as the user_id
-      username: name,
-      email: email,
-      passwordhash: hashedPassword,
-      reset_token: null,
-    };
-    users[id] = newUser; // Add the new user to the users array
-    console.log(users);
-    return "User registered successfully.";
   } catch (err) {
-    console.log("error", err);
+    console.error("Error registering user:", err);
     throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
