@@ -3,6 +3,7 @@ import { change_password } from '../Dal/data.js';
 
 function ForgotPassword(props) {
   const [Forgotpassword, setForgotpassword] = useState(props.Forgotpassword);
+  const [msg, setmsg] = useState("");
 
   const { updateState } = props;
   const gotologin = () => {
@@ -14,8 +15,8 @@ function ForgotPassword(props) {
     e.preventDefault();
     
      const response=await change_password(e.target[0].value)
-     if(response=="Failed to change password. Please try again.")
-     console.log("Password changed successfully")
+     setmsg(response)
+    
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -32,7 +33,11 @@ function ForgotPassword(props) {
             </div>
           </small>
         </div>
+        <div>
+        <div style={{ color: 'red', fontSize: 15}}>
+          {msg}</div>
         <button type="submit" className="btn btn-primary">confirm</button>
+        </div>
       </div>
     </form>
   );
