@@ -37,9 +37,7 @@ def validate_name(name):
 
 def validate_match_password(password1,password2):
   # Check if the the password in match
-    if password1==password2:
-        return True
+    return password1==password2
     
-    return False
 
     
