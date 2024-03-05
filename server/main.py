@@ -10,7 +10,7 @@ from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
-from routes.tool_bar import router as search_router
+from routes.tool_bar import router as tool_bar_router
 
 # Create an instance of the FastAPI class
 app = FastAPI()
@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(home_routes, prefix="")
-app.include_router(search_router, prefix="")
+app.include_router(tool_bar_router, prefix="")
 
 
 # Define a route using a decorator

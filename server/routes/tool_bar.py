@@ -16,7 +16,9 @@ def search_files(user_id: int = Query(..., description="User ID"),
 
 
 @router.get("/sort")
-def sort_files_route(user_id: int, category: str, criteria: str) -> List[dict]:
+def sort_files_route(user_id: int = Query(..., description="User ID"),
+                     category: str = Query(..., description="Category to sort by"),
+                     criteria: str = Query(..., description="Sorting criteria (asc or desc)")) -> List[dict]:
     # Call the sort_files function to retrieve sorted files
     try:
         sorted_files = sort_files(user_id, category, criteria)
