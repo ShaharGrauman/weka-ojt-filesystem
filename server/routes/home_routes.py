@@ -18,7 +18,7 @@ def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None):
     user_id=cipher.decrypt(eval(user_id)).decode()
     files_category="all"
     try:
-        # Check if folder restored
+        # if (files_category=="home" || files_category=="")
         result = get_file_data(file_id,user_id)
         return result
     except CustomHTTPException as e:

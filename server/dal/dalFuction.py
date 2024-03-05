@@ -5,7 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
-from server.exceptions import CustomHTTPException
+from exceptions import CustomHTTPException
 
 
 
