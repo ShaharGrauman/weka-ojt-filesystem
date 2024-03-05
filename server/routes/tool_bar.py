@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 router = APIRouter()
 from dal.tool_bar import search 
 from dal.tool_bar import search, sort_files  
@@ -7,7 +7,8 @@ from exceptions import CustomHTTPException
 
 
 @router.get("/search")
-def search_files(user_id: int, search_string: str) -> List[dict]:
+def search_files(user_id: int = Query(..., description="User ID"), 
+                 search_string: str = Query(..., description="Search String")) -> List[dict]:
     # Call the search function to retrieve search results
     search_results = search(user_id, search_string)
     

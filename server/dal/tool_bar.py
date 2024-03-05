@@ -5,13 +5,33 @@ from exceptions import CustomHTTPException
 
 connection = get_database_connection()
 
-# search 
+# Define the search function
 def search(user_id: int, search_string: str) -> List[dict]:
+    # Establish a connection to the database
     conn = get_database_connection()
-    cursor = conn.cursor()
-    search_query = "SELECT * FROM (SELECT * FROM file WHERE user_id = %s AND is_deleted = 0 UNION ALL SELECT * FROM folder WHERE user_id = %s AND is_deleted = 0) AS combined WHERE name LIKE %s"
-    cursor.execute(search_query, (user_id, user_id, '%' + search_string + '%'))
+    cursor = conn.cursor(dictionary=True)
+
+    # Define the search query
+    search_query = """
+    SELECT id, name, 'file' AS type
+    FROM file
+    WHERE user_id = %s AND is_deleted = 0 AND name LIKE %s
+    UNION ALL
+    SELECT id, name, 'folder' AS type
+    FROM folder
+    WHERE user_id = %s AND is_deleted = 0 AND name LIKE %s
+    """
+
+    # Execute the search query
+    cursor.execute(search_query, (user_id, '%' + search_string + '%', user_id, '%' + search_string + '%'))
+
+    # Fetch all search results
     search_results = cursor.fetchall()
+
+    # Close the database connection
+    cursor.close()
+    conn.close()
+
     return search_results
 
 
