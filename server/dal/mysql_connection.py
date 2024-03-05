@@ -1,6 +1,6 @@
 import mysql.connector
 from config import host, user, password, database , port
-
+import mysql_details
 
 def get_database_connection():
 
