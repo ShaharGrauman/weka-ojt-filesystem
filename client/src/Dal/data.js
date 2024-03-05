@@ -390,22 +390,30 @@ async function restoreDeletedFile(userId, file_id) {
 }
 
 async function LogIn(email, password) {
-  try {
-    for (let key in users) {
-      if (users[key].email === email) {
-        if (bcrypt.compareSync(password, users[key].passwordhash)) {
-          return true;
-        } else {
-          return false; // Incorrect password
-        }
-      }
+try {
+    const response = await fetch("http://127.0.0.1:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return "User logged in successfully.";
+    } else {
+      throw new Error(data.detail); // Throw error with detail message
     }
-    return false; // User not found
-  } catch {
-    console.log("LogIn function not working..");
+  } catch (err) {
+    console.error("Error logging user:", err);
+    throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
-
 async function getFileVersions(userId, fileId, size = 20, page = 1) {
   try {
     // Check if the user has access to the file
