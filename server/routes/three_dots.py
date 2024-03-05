@@ -5,8 +5,9 @@ from typing import Annotated
 from dal.config import cipher
 from fastapi import APIRouter, Cookie
 from dal.validation import validate_email_format
-router = APIRouter()
 from dal.authentication import check_email_exist
+router = APIRouter()
+
 from dal.dalFuction import get_myfolders
 from dal.threeDots import update_file_parent
 

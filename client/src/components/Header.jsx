@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -6,10 +7,11 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "../css/Header.css";
 
-function Header() {
+function Header({ username }) {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
+        <Navbar.Brand>
           <img
             alt=""
             src="../../image/logo.png"
@@ -18,13 +20,24 @@ function Header() {
             className="d-inline-block align-top"
           />{" "}
           File System
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
             navbarScroll
-          >
+          ></Nav>
+          <Nav>
+            <NavDropdown
+              title={`Welcome, ${username}`}
+              id="navbarScrollingDropdown"
+            >
+              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.3">Logout</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>

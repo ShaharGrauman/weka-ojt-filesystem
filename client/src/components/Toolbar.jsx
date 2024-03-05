@@ -14,13 +14,13 @@ import "../css/Toolbar.css";
 import axios from "axios";
 
 function Toolbar() {
-  const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
+  const [searchTerm, setSearchTerm] = useState([]); // State to store the search term
 
   const handleSearch = () => {
     axios
       .get(`http://localhost:8000/search?user_id=1&search_string=${searchTerm}`)
       .then((response) => {
-        setSearchResults(response.json);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error searching:", error);

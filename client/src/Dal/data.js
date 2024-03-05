@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-
+import { Validate_email_format } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -153,20 +153,33 @@ function sendResetLink(email) {
   return false;
 }
 
-// Function to handle password change
-function changepass(email, newpass) {
-  // Check if there's a user with the specified email
-  const user = Object.values(users).find((user) => user.email === email);
-  if (user) {
-    // Generate a reset token (assuming generateToken function is defined elsewhere)
-    const resetToken = generateToken();
+async function change_password(email) {
+  // chick the foemate of the email
+  if (!Validate_email_format(email)) return "Invalid email format";
 
-    user.reset_token = resetToken;
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/forgetpassword?user_email=${email}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    return true;
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.msg);
+
+      return data.msg; // Assuming the response contains the success message or error details
+    } else {
+      throw new Error("Failed to change password. Please try again."); // Throw an error if the request was not successful
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error; // Re-throw the error to be handled by the caller
   }
-
-  return false;
 }
 
 // Function to retrieve recent files for a user
@@ -213,12 +226,9 @@ function download(userId, fileId) {
   return true;
 }
 
-
 async function getMyFolders(userId, folderId) {
   try {
-    const folders = await axios.get(
-      `http://127.0.0.1:8000/move/${folderId}`
-    );
+    const folders = await axios.get(`http://127.0.0.1:8000/move/${folderId}`);
 
     const userFolders = Object.values(folders).filter(
       (folder) =>
@@ -235,7 +245,7 @@ async function getMyFolders(userId, folderId) {
   }
 }
 
-async function moveFile(userId, fileId, folderId, targetFolderId){
+async function moveFile(userId, fileId, folderId, targetFolderId) {
   try {
     const response = await axios.update(
       `http://127.0.0.1:8000/move/${folderId}/${fileId}/${targetFolderId}`,
@@ -249,7 +259,6 @@ async function moveFile(userId, fileId, folderId, targetFolderId){
     throw error;
   }
 }
-
 
 async function shareFile(userId, fileId, email, permission) {
   try {
@@ -431,32 +440,18 @@ async function LogIn(email, password) {
     throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
-async function getFileVersions(userId, fileId, size = 20, page = 1) {
+
+async function getFileVersions(fileId) {
   try {
-    // Check if the user has access to the file
-    if (files[fileId] && files[fileId].user_id === userId) {
-      // Filter file versions for the specified file
-      const fileVersionsList = await Object.values(fileVersions);
-      const filteredVersions = fileVersionsList.filter(
-        (version) => version.file_id === fileId
-      );
-
-      // Sort file versions by version number in descending order
-      filteredVersions.sort((a, b) => b.version_number - a.version_number);
-
-      // Calculate the start index based on the specified page and size
-      const startIndex = (page - 1) * size;
-
-      // Return a slice of file versions based on the calculated start index and size
-      return filteredVersions.slice(startIndex, startIndex + size);
-    } else {
-      // Return an empty array if the user doesn't have access to the file
-      return [];
+    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    const data = await response.json();
+    return data.versions;
   } catch (error) {
-    // Handle any errors
-    console.error("Error in getFileVersions:", error);
-    throw error;
+    console.error("Error fetching file versions:", error);
+    return [];
   }
 }
 
@@ -549,6 +544,8 @@ export {
   getMySharedFiles,
   fileDeletion,
   restoreDeletedFile,
+  change_password,
+  getFileVersions,
   getMyFolders,
   moveFile,
 };
