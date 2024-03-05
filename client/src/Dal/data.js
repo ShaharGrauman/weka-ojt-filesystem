@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 // Example of making a GET request
 import axios from "axios";
-
+import { Validate_email_format } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -155,7 +155,9 @@ function sendResetLink(email) {
 }
 
 async function change_password(email) {
-  console.log(email);
+  // chick the foemate of the email
+  if (!Validate_email_format(email)) return "Invalid email format";
+
   try {
     const response = await fetch(
       `http://127.0.0.1:8000/forgetpassword?user_email=${email}`,
@@ -169,7 +171,9 @@ async function change_password(email) {
 
     if (response.ok) {
       const data = await response.json();
-      return data; // Assuming the response contains the success message or error details
+      console.log(data.msg);
+
+      return data.msg; // Assuming the response contains the success message or error details
     } else {
       throw new Error("Failed to change password. Please try again."); // Throw an error if the request was not successful
     }
