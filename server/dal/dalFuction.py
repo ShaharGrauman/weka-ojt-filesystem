@@ -5,9 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
-from exceptions import CustomHTTPException
-
-
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
@@ -49,6 +47,8 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
     cursor.execute(my_files_query, (user_id,))
     my_files = cursor.fetchall()
     # Return the subset of files based on the page
+    if conn:
+            conn.close()
     return my_files[start_index:start_index + 20]
 
 def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
@@ -64,6 +64,8 @@ def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> Li
     cursor.execute(my_folders_query, (user_id,))
     my_folders = cursor.fetchall()
     # Return the subset of folders based on the page
+    if conn:
+            conn.close()
     return my_folders[start_index:start_index + 20]
 
 def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
@@ -82,6 +84,8 @@ def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") ->
     # Execute the query with user_id, limit, and offset as parameters
     cursor.execute(deleted_files_query, (user_id, limit, offset))
     deleted_files = cursor.fetchall()
+    if conn:
+            conn.close()
     return deleted_files
 
 def get_deletedfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
@@ -100,6 +104,8 @@ def get_deletedfolders(user_id: int, page: int, sorted_by: str = "upload_date") 
     # Execute the query with user_id, limit, and offset as parameters
     cursor.execute(deleted_files_query, (user_id, limit, offset))
     deleted_files = cursor.fetchall()
+    if conn:
+            conn.close()
     return deleted_files
 
 # send_email("ekhlass@post.bgu.ac.il","welcome")

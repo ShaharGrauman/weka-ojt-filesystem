@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
+// Example of making a GET request
+import axios from "axios";
 
 // Dictionary to store user data with example data
 const users = {
@@ -106,25 +108,27 @@ const sharedFolders = {
 
 async function registerUser(name, email, password) {
   try {
-    const usersArray = Object.values(users);
-    const existingUser = usersArray.find((user) => user.email === email);
-    if (existingUser) {
-      return "User with this email already exists.";
+    const response = await fetch("http://127.0.0.1:8000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return "User registered successfully.";
+    } else {
+      throw new Error(data.detail); // Throw error with detail message
     }
-    const id = uuidv4();
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = {
-      user_id: id, // Use the uuidv4 generated ID as the user_id
-      username: name,
-      email: email,
-      passwordhash: hashedPassword,
-      reset_token: null,
-    };
-    users[id] = newUser; // Add the new user to the users array
-    console.log(users);
-    return "User registered successfully.";
   } catch (err) {
-    console.log("error", err);
+    console.error("Error registering user:", err);
     throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
@@ -304,12 +308,15 @@ function deleteFile(userId, fileId) {
   });
 }
 
-// Example usage:
-async function fileDeletion(userId, fileId) {
+async function fileDeletion(userId, file_id) {
   try {
-    const result = await deleteFile(userId, fileId);
-    console.log("The file deleted successfully"); // true if successful, false otherwise
-    return result;
+    // const result = await delete_file(userId, file_id);
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/files/${file_id}`
+    );
+
+    console.log("The file deleted successfully");
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -369,47 +376,42 @@ async function getMyDeletedFiles(
 }
 
 // Function to restore a deleted file
-function restoreDeletedFile(userId, fileId) {
-  if (
-    files[fileId] &&
-    files[fileId].user_id === userId &&
-    files[fileId].is_deleted
-  ) {
-    files[fileId].is_deleted = false;
+async function restoreDeletedFile(userId, file_id) {
+  try {
+    const response = await axios.update(
+      `http://127.0.0.1:8000/deleted/files/deleted/files/${file_id}/restore`
+    );
 
-    return true;
+    console.log("The file deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
   }
-  return false;
-}
-
-// Function to permanently delete a file
-function permanentDeleteFile(userId, fileId) {
-  if (
-    files[fileId] &&
-    files[fileId].user_id === userId &&
-    files[fileId].is_deleted
-  ) {
-    delete files[fileId];
-
-    return true;
-  }
-  return false;
 }
 
 async function LogIn(email, password) {
   try {
-    for (let key in users) {
-      if (users[key].email === email) {
-        if (bcrypt.compareSync(password, users[key].passwordhash)) {
-          return true;
-        } else {
-          return false; // Incorrect password
-        }
-      }
+    const response = await fetch("http://127.0.0.1:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return "User logged in successfully.";
+    } else {
+      throw new Error(data.detail); // Throw error with detail message
     }
-    return false; // User not found
-  } catch {
-    console.log("LogIn function not working..");
+  } catch (err) {
+    console.error("Error logging user:", err);
+    throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
 
@@ -515,4 +517,5 @@ export {
   getMyDeletedFiles,
   getMySharedFiles,
   fileDeletion,
+  restoreDeletedFile,
 };

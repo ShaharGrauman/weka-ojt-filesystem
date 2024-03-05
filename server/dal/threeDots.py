@@ -1,5 +1,5 @@
 from dal.mysql_connection import get_database_connection
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 connection = get_database_connection()
 

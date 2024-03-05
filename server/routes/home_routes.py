@@ -1,8 +1,8 @@
 from typing import Annotated
 from dal.config import cipher
 from fastapi import APIRouter, Cookie,Path
-from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data
-from exceptions import CustomHTTPException
+from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data,get_deletedfiles,get_deletedfolders
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 router = APIRouter()
 
@@ -12,7 +12,12 @@ async def my_files(user_id: Annotated[str | None, Cookie()] = None):
     files=get_myfiles(user,1)
     folders=get_myfolders(user,1)
     return files+folders
-
+@router.get("/deleted_files")
+async def my_files(user_id: Annotated[str | None, Cookie()] = None):
+    user=cipher.decrypt(eval(user_id)).decode()
+    files=get_deletedfiles(user,1)
+    folders=get_deletedfolders(user,1)
+    return files+folders
 @router.get("/{files_category}/file_id")
 def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
     user_id=cipher.decrypt(eval(user_id)).decode()
