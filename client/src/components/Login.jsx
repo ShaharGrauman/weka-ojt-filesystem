@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import ForgotPassword from '../components/ForgotPassword.jsx';
-import ParentComponent from '../pages/ParentComponent.jsx'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import ForgotPassword from "../components/ForgotPassword.jsx";
+import ParentComponent from "../pages/ParentComponent.jsx";
 import { LogIn } from "../Dal/data.js";
 
 function Login(props) {
   const navigate = useNavigate();
   const { updateState } = props;
-  const[errormsg,seterrormsg]=useState("")
+  const [errormsg, seterrormsg] = useState("");
 
   const gotoforgetpassword = () => {
     updateState("False", "False", "True");
@@ -22,14 +22,11 @@ function Login(props) {
     const email = e.target.email.value;
     const password = e.target.Password.value;
     if (LogIn(email, password)) {
-    navigate("/homepage")
-//       console.log("login successful");
-//       console.log(email);
-
+      navigate("/homepage");
+      //       console.log("login successful");
+      //       console.log(email);
     } else {
-      seterrormsg("Your Password or your email is not correct")
-
-
+      seterrormsg("Your Password or your email is not correct");
     }
   };
 
