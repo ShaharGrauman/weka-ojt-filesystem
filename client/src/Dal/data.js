@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 // Example of making a GET request
 import axios from "axios";
-import {Validate_email_format} from "../Validation/Validation.js";
+import { Validate_email_format } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -156,29 +156,31 @@ function sendResetLink(email) {
 
 async function change_password(email) {
   // chick the foemate of the email
-  if (!Validate_email_format(email))
-       return "Invalid email format"
+  if (!Validate_email_format(email)) return "Invalid email format";
 
-try {
-  const response = await fetch(`http://127.0.0.1:8000/forgetpassword?user_email=${email}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/forgetpassword?user_email=${email}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.msg);
+
+      return data.msg; // Assuming the response contains the success message or error details
+    } else {
+      throw new Error("Failed to change password. Please try again."); // Throw an error if the request was not successful
     }
-  });
-
-  if (response.ok) {
-    const data = await response.json();
-    console.log(data.msg)
-
-    return data.msg; // Assuming the response contains the success message or error details
-  } else {
-    throw new Error('Failed to change password. Please try again.'); // Throw an error if the request was not successful
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error; // Re-throw the error to be handled by the caller
   }
-} catch (error) {
-  console.error('An error occurred:', error);
-  throw error; // Re-throw the error to be handled by the caller
-}
 }
 
 // Function to retrieve recent files for a user
@@ -428,7 +430,7 @@ async function LogIn(email, password) {
 
 async function getFileVersions(fileId) {
   try {
-    const response = await fetch(`/versions/${fileId}`);
+    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -520,6 +522,7 @@ async function getMyFiles(
     console.log(err);
   }
 }
+print(getFileVersions(2));
 
 export {
   registerUser,
@@ -529,5 +532,6 @@ export {
   getMySharedFiles,
   fileDeletion,
   restoreDeletedFile,
-  change_password
+  change_password,
+  getFileVersions,
 };
