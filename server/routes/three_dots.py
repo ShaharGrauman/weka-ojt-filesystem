@@ -2,11 +2,12 @@ from fastapi import  APIRouter,HTTPException
 from  dal.threeDots import get_versions_for_file,delete_file,delete_folder
 from exceptions import CustomHTTPException
 from typing import Annotated
-from server.dal.config import cipher
+from dal.config import cipher
 from fastapi import APIRouter, Cookie
 from dal.validation import validate_email_format
-router = APIRouter()
 from dal.authentication import check_email_exist
+router = APIRouter()
+
 
 
 @router.get("/versions/{file_id}")
