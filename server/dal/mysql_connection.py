@@ -1,12 +1,12 @@
 import mysql.connector
-
+import mysql_details
 def get_database_connection():
 
     # Establish a connection to the MySQL server
     connection = mysql.connector.connect(
         host='localhost',
-        user='root',
-        password='Aa123456aa',
+        user=mysql_details.user,
+        password=mysql_details.password,
         port='3306',
         database='filesystem'
     )
