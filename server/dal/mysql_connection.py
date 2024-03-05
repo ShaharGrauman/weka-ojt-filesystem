@@ -1,5 +1,5 @@
 import mysql.connector
-from .config import host, user, password, database , port
+from config import host, user, password, database , port
 
 
 
