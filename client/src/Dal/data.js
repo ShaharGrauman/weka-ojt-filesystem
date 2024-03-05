@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
-
+// import validate_pass_format from Validation.validation.js
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -104,6 +104,8 @@ const sharedFolders = {
   },
 };
 
+
+
 async function registerUser(name, email, password) {
   try {
     const usersArray = Object.values(users);
@@ -155,19 +157,25 @@ function sendResetLink(email) {
 }
 
 // Function to handle password change
-function changepass(email, newpass) {
-  // Check if there's a user with the specified email
-  const user = Object.values(users).find((user) => user.email === email);
-  if (user) {
-    // Generate a reset token (assuming generateToken function is defined elsewhere)
-    const resetToken = generateToken();
+async function change_password(email) {
+  console.log(email)
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/forgetpassword?user_email=${email}`, {
+      method: 'POST',     
+      
+      headers:  { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
 
-    user.reset_token = resetToken;
-
-    return true;
+    const result = await response.json();
+    if (result) {
+      return "Password changed successfully";
+    } else {
+      return "Failed to change password. Please try again.";
+    }
+  } catch (error) {
+    console.error("Error changing password:");
+    return "An unexpected error occurred. Please try again later.";
   }
-
-  return false;
 }
 
 // Function to retrieve recent files for a user
@@ -534,4 +542,5 @@ export {
   getMyDeletedFiles,
   getMySharedFiles,
   fileDeletion,
+  change_password,
 };

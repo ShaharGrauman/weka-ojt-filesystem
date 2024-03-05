@@ -6,6 +6,9 @@ class User(BaseModel):
     name: Optional[str] = None
     email: str
     password: str
+class email(BaseModel):
+    email: str
+ 
 
 class File(BaseModel):
     name: str

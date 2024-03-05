@@ -1,5 +1,4 @@
 import mysql.connector
-from config import host, user, password, database , port
 
 
 def get_database_connection():
@@ -7,8 +6,8 @@ def get_database_connection():
     # Establish a connection to the MySQL server
     connection = mysql.connector.connect(
         host='localhost',
-        user=mysql_details.user,
-        password=mysql_details.password,
+        user="root",
+        password="root",
         port='3306',
         database='filesystem'
     )
