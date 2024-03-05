@@ -1,6 +1,6 @@
 from fastapi import  APIRouter,HTTPException
 from  dal.threeDots import get_versions_for_file,delete_file,delete_folder
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 from typing import Annotated
 from server.dal.config import cipher
 from fastapi import APIRouter, Cookie
