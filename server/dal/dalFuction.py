@@ -5,9 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
-from exceptions import CustomHTTPException
-
-
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):

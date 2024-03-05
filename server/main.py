@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException,Response
 from dal.models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 import json
 from dal.dalFuction import send_email

@@ -2,7 +2,7 @@ from typing import Annotated
 from dal.config import cipher
 from fastapi import APIRouter, Cookie,Path
 from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 router = APIRouter()
 
