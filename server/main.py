@@ -1,20 +1,30 @@
 from fastapi import FastAPI, HTTPException,Response
-from models import User
+from dal.models import User
 from dal.validation import validate_email_format, validate_pass_format,validate_name 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 import json
-from dal.dalFuction import send_email,Encrypt_email
+from dal.dalFuction import send_email
 from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
+from routes.tool_bar import router as search_routerfrom fastapi.middleware.cors import CORSMiddleware
 
 
 # Create an instance of the FastAPI class
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
 app.include_router(home_routes, prefix="")
+app.include_router(search_router, prefix="")
+
 
 
 app.add_middleware(

@@ -1,8 +1,8 @@
 from typing import Annotated
 from dal.config import cipher
-from fastapi import APIRouter, Cookie
-from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data
-from exceptions import CustomHTTPException
+from fastapi import APIRouter, Cookie,Path
+from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 router = APIRouter()
 
@@ -30,3 +30,15 @@ def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
+@router.get("/{file_category}/{folder_id}")
+async def get_files_or_folders_in_folder(
+    folder_id: int = Path(..., title="The ID of the folder"),
+    file_category: str = Path(..., title="Category of files (myfiles or allFiles)"),
+    user_id: Annotated[str | None, Cookie()] = None
+):
+    user_id=cipher.decrypt(eval(user_id)).decode()
+    if file_category not in ["myfiles", "allFiles"]:
+        return {"error": "Invalid file category"}
+
+    folder_data = get_folder_data(folder_id, user_id)  # Replace user_id with actual user ID
+    return folder_data

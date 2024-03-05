@@ -5,9 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
-from exceptions import CustomHTTPException
-
-
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
@@ -156,3 +154,30 @@ def get_shared_file_data(file_id,user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+
+def get_files_infolder(folder_id, user_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "SELECT id, name, size, upload_date FROM file WHERE folder_id = %s AND user_id = %s AND is_deleted = FALSE"
+    cursor.execute(query, (folder_id, user_id))
+    files = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return files
+
+# Function to get list of folders in a folder
+def get_folders_infolder(folder_id, user_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "SELECT id, name, upload_date FROM folder WHERE parent_folder = %s AND user_id = %s AND is_deleted = FALSE"
+    cursor.execute(query, (folder_id, user_id))
+    folders = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return folders
+
+# Function to get data (files and folders) in a folder
+def get_folder_data(folder_id, user_id):
+    files = get_files_infolder(folder_id, user_id)
+    folders = get_folders_infolder(folder_id, user_id)
+    return {'files': files, 'folders': folders}

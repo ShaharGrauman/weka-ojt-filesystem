@@ -1,5 +1,5 @@
 // Toolbar.js
-import React from "react";
+import React, { useState } from "react"; // Import useState
 import {
   Container,
   Row,
@@ -11,15 +11,37 @@ import {
 } from "react-bootstrap";
 import PlusDropdown from "./PlusOptions";
 import "../css/Toolbar.css";
+import axios from "axios";
 
 function Toolbar() {
+  const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
+
+  const handleSearch = () => {
+    axios
+      .get(`http://localhost:8000/search?user_id=1&search_string=${searchTerm}`)
+      .then((response) => {
+        setSearchResults(response.json);
+      })
+      .catch((error) => {
+        console.error("Error searching:", error);
+      });
+  };
+
   return (
     <Container fluid>
       <Row className="align-items-center justify-content-center mt-4 search-form">
         <Col xs={12} sm={6} md={6} lg={6} xl={6}>
           <Col style={{ display: "flex" }}>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Button variant="outline-success" onClick={handleSearch}>
+              Search
+            </Button>
           </Col>{" "}
         </Col>
         <Col
