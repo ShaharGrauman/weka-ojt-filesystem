@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException, Query
 router = APIRouter()
 from dal.tool_bar import search 
 from dal.tool_bar import search, sort_files  
-from exceptions import CustomHTTPException  
+from common.HTTPExceptions.exceptions import CustomHTTPException
 
 
 @router.get("/search")

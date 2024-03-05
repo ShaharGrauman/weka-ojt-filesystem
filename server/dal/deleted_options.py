@@ -1,5 +1,5 @@
 from dal.mysql_connection import get_database_connection
-from exceptions import CustomHTTPException
+from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.threeDots import update_is_deleted_file,update_is_deleted_folder
 
 
