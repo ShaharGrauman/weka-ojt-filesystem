@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
+// Example of making a GET request
+import axios from "axios";
 
 // Dictionary to store user data with example data
 const users = {
@@ -106,38 +108,46 @@ const sharedFolders = {
 
 async function registerUser(name, email, password) {
   try {
+    // Check if the user already exists in the local client data (assuming users is an object)
     const usersArray = Object.values(users);
     const existingUser = usersArray.find((user) => user.email === email);
+
     if (existingUser) {
       return "User with this email already exists.";
     }
-    const id = uuidv4();
+
+    // Hash the password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Prepare the user data for registration
     const newUser = {
-      user_id: id, // Use the uuidv4 generated ID as the user_id
-      username: name,
+      name: name,
       email: email,
-      passwordhash: hashedPassword,
-      reset_token: null,
+      password: hashedPassword,
     };
-    users[id] = newUser; // Add the new user to the users array
-    console.log(users);
-    return "User registered successfully.";
+
+    // Use axios to send a POST request to the server
+    const response = await axios.post("http://127.0.0.1:8000/signup", newUser);
+
+    // Handle the response from the server
+    if (response.status === 200) {
+      console.log(response.data.msg); // Log success message from the server
+      return "User registered successfully.";
+    } else {
+      console.error(response.data.detail); // Log the error details from the server
+      throw new Error(response.data.detail);
+    }
   } catch (err) {
-    console.log("error", err);
-    throw err; // Re-throwing the error so it can be caught by the caller
+    console.error("Error during registration:", err);
+    throw err;
   }
 }
 
 // Function to generate a random token
 function generateToken() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
 }
 
@@ -248,7 +258,7 @@ async function shareFile(userId, fileId, email, permission) {
     }
     return false;
   } catch (error) {
-    console.error('Error occurred while sharing file:', error);
+    console.error("Error occurred while sharing file:", error);
     throw error;
   }
 }

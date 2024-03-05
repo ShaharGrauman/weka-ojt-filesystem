@@ -9,11 +9,21 @@ from dal.dalFuction import send_email,Encrypt_email
 from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
 from routes.home_routes import router as home_routes
+from fastapi.middleware.cors import CORSMiddleware
 
 
 # Create an instance of the FastAPI class
 app = FastAPI()
 app.include_router(home_routes, prefix="")
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define a route using a decorator
 @app.get("/")
