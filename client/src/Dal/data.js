@@ -376,17 +376,17 @@ async function getMyDeletedFiles(
 }
 
 // Function to restore a deleted file
-function restoreDeletedFile(userId, fileId) {
-  if (
-    files[fileId] &&
-    files[fileId].user_id === userId &&
-    files[fileId].is_deleted
-  ) {
-    files[fileId].is_deleted = false;
+async function restoreDeletedFile(userId, file_id) {
+  try {
+    const response = await axios.update(
+      `http://127.0.0.1:8000/deleted/files/deleted/files/${file_id}/restore`
+    );
 
-    return true;
+    console.log("The file deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
   }
-  return false;
 }
 
 async function LogIn(email, password) {
@@ -531,4 +531,5 @@ export {
   getMyDeletedFiles,
   getMySharedFiles,
   fileDeletion,
+  restoreDeletedFile,
 };
