@@ -11,6 +11,8 @@ from dal.dalFuction import update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
 from routes.tool_bar import router as tool_bar_router
+from routes.three_dots import router as three_dots_router
+
 
 # Create an instance of the FastAPI class
 app = FastAPI()
@@ -23,6 +25,7 @@ app.add_middleware(
 )
 app.include_router(home_routes, prefix="")
 app.include_router(tool_bar_router, prefix="")
+app.include_router(three_dots_router, prefix="")
 
 
 # Define a route using a decorator

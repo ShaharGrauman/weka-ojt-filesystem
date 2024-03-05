@@ -1,8 +1,8 @@
 from fastapi import  APIRouter,HTTPException
-from  dal.threeDots import get_versions_for_file,delete_file,delete_folder
+from  dal.threeDots import get_versions_for_file,delete_file,delete_folder, rename_file, download_file
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from typing import Annotated
-from server.dal.config import cipher
+from dal.config import cipher
 from fastapi import APIRouter, Cookie
 from dal.validation import validate_email_format
 router = APIRouter()
@@ -63,3 +63,24 @@ def share_file(file_id: int,email:str,user_id: Annotated[str | None, Cookie()] =
     # now i do share with file 
 
 
+@router.put("/file/rename/{file_id}")
+def rename_file_route(file_id: int, new_name: str, user_id: Annotated[str | None, Cookie()] = None):
+    user_id = cipher.decrypt(eval(user_id)).decode()
+    try:
+        result = rename_file(file_id, new_name, user_id)
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
+@router.get("/file/download/{file_id}")
+def download_file_route(file_id: int):
+    try:
+        # Get file download logic here
+        result = download_file(file_id)
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
