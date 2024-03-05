@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
 import { ModallBody, ModallFooter, ModallHeader } from "./ModalComponent";
-import restoreDeletedFile from "../Dal/data.js";
+import { restoreDeletedFile } from "../Dal/data.js";
 
 const RestoreModal = ({ onClose, itemId, userId }) => {
   const [show, setShow] = useState(true);
