@@ -1,5 +1,4 @@
 from dal.mysql_connection import get_database_connection
-from dal.mysql_connection import get_database_connection
 from exceptions import CustomHTTPException
 
 connection = get_database_connection()
@@ -68,11 +67,11 @@ def delete_folder(folder_id,user_id):
 
 
 def update_is_deleted_file():
-    restore_query = "UPDATE files SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = "UPDATE file SET is_deleted = %s WHERE id = %sAND user_id=?;"
     return restore_query       
 
 def update_is_deleted_folder():
-    restore_query = "UPDATE folders SET is_deleted = %s WHERE id = %sAND user_id=?;"
+    restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id=?;"
     return restore_query
 
 # rename file
