@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
-// Example of making a GET request
 import axios from "axios";
 import { Validate_email_format } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
@@ -136,12 +135,8 @@ async function registerUser(name, email, password) {
 // Function to generate a random token
 function generateToken() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
 }
 
@@ -231,26 +226,40 @@ function download(userId, fileId) {
   return true;
 }
 
-// Function to get folders owned by the user
-function getMyFolders(userId) {
-  const userFolders = Object.values(folders).filter(
-    (folder) => folder.user_id === userId && !folder.is_deleted
-  );
-  console.log(`Folders owned by user ${userId}: `, userFolders);
-  return userFolders;
+async function getMyFolders(userId, folderId) {
+  try {
+    const folders = await axios.get(`http://127.0.0.1:8000/move/${folderId}`);
+
+    const userFolders = Object.values(folders).filter(
+      (folder) =>
+        folder.user_id === userId &&
+        !folder.is_deleted &&
+        folder.id !== folderId
+    );
+
+    console.log(`Folders owned by user ${userId}: `, userFolders);
+    return userFolders;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
-// Function to move a file to a specified folder
-function moveFile(userId, fileId, folderId) {
-  if (files[fileId] && folders[folderId]) {
-    if (files[fileId].user_id === userId) {
-      // Check if the file belongs to the user
-      files[fileId].folder_id = folderId;
-      return true;
-    }
+async function moveFile(userId, fileId, folderId, targetFolderId) {
+  try {
+    const response = await axios.update(
+      `http://127.0.0.1:8000/move/${folderId}/${fileId}/${targetFolderId}`,
+      { userId }
+    );
+
+    console.log(`File with ID ${fileId} moved successfully.`);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-  return false;
 }
+
 async function shareFile(userId, fileId, email, permission) {
   try {
     if (files[fileId] && users[email]) {
@@ -537,4 +546,6 @@ export {
   restoreDeletedFile,
   change_password,
   getFileVersions,
+  getMyFolders,
+  moveFile,
 };
