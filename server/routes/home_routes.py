@@ -14,8 +14,9 @@ async def my_files(user_id: Annotated[str | None, Cookie()] = None):
     return files+folders
 
 @router.get("/{files_category}/file_id")
-def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None):
+def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
     user_id=cipher.decrypt(eval(user_id)).decode()
+    files_category="home"
     try:
         if (files_category=="home" or files_category=="myfiles" or files_category=="deleted"):
             result = get_file_data(file_id,user_id)
