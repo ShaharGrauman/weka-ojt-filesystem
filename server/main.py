@@ -14,6 +14,7 @@ from routes.tool_bar import router as tool_bar_router
 from routes.three_dots import router as three_dots_router
 
 
+
 # Create an instance of the FastAPI class
 app = FastAPI()
 app.add_middleware(
@@ -27,6 +28,15 @@ app.include_router(home_routes, prefix="")
 app.include_router(tool_bar_router, prefix="")
 app.include_router(three_dots_router, prefix="")
 
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define a route using a decorator
 @app.get("/")

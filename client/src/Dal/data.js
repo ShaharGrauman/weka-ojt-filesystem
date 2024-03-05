@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
+// Example of making a GET request
+import axios from "axios";
 
 // Dictionary to store user data with example data
 const users = {
@@ -107,14 +109,14 @@ const sharedFolders = {
 async function registerUser(name, email, password) {
   try {
     const response = await fetch("http://127.0.0.1:8000/signup", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: name,
         email: email,
-        password: password
+        password: password,
       }),
     });
 
@@ -134,12 +136,8 @@ async function registerUser(name, email, password) {
 // Function to generate a random token
 function generateToken() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
 }
 
@@ -250,7 +248,7 @@ async function shareFile(userId, fileId, email, permission) {
     }
     return false;
   } catch (error) {
-    console.error('Error occurred while sharing file:', error);
+    console.error("Error occurred while sharing file:", error);
     throw error;
   }
 }
@@ -310,12 +308,15 @@ function deleteFile(userId, fileId) {
   });
 }
 
-// Example usage:
-async function fileDeletion(userId, fileId) {
+async function fileDeletion(userId, file_id) {
   try {
-    const result = await deleteFile(userId, fileId);
-    console.log("The file deleted successfully"); // true if successful, false otherwise
-    return result;
+    // const result = await delete_file(userId, file_id);
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/files/${file_id}`
+    );
+
+    console.log("The file deleted successfully");
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -382,20 +383,6 @@ function restoreDeletedFile(userId, fileId) {
     files[fileId].is_deleted
   ) {
     files[fileId].is_deleted = false;
-
-    return true;
-  }
-  return false;
-}
-
-// Function to permanently delete a file
-function permanentDeleteFile(userId, fileId) {
-  if (
-    files[fileId] &&
-    files[fileId].user_id === userId &&
-    files[fileId].is_deleted
-  ) {
-    delete files[fileId];
 
     return true;
   }
