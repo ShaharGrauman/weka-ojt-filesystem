@@ -132,12 +132,8 @@ async function registerUser(name, email, password) {
 // Function to generate a random token
 function generateToken() {
   return (
-    Math.random()
-      .toString(36)
-      .substring(2, 15) +
-    Math.random()
-      .toString(36)
-      .substring(2, 15)
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
   );
 }
 
@@ -248,7 +244,7 @@ async function shareFile(userId, fileId, email, permission) {
     }
     return false;
   } catch (error) {
-    console.error('Error occurred while sharing file:', error);
+    console.error("Error occurred while sharing file:", error);
     throw error;
   }
 }
@@ -417,32 +413,17 @@ async function LogIn(email, password) {
   }
 }
 
-async function getFileVersions(userId, fileId, size = 20, page = 1) {
+async function getFileVersions(fileId) {
   try {
-    // Check if the user has access to the file
-    if (files[fileId] && files[fileId].user_id === userId) {
-      // Filter file versions for the specified file
-      const fileVersionsList = await Object.values(fileVersions);
-      const filteredVersions = fileVersionsList.filter(
-        (version) => version.file_id === fileId
-      );
-
-      // Sort file versions by version number in descending order
-      filteredVersions.sort((a, b) => b.version_number - a.version_number);
-
-      // Calculate the start index based on the specified page and size
-      const startIndex = (page - 1) * size;
-
-      // Return a slice of file versions based on the calculated start index and size
-      return filteredVersions.slice(startIndex, startIndex + size);
-    } else {
-      // Return an empty array if the user doesn't have access to the file
-      return [];
+    const response = await fetch(`/versions/${fileId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+    const data = await response.json();
+    return data.versions;
   } catch (error) {
-    // Handle any errors
-    console.error("Error in getFileVersions:", error);
-    throw error;
+    console.error("Error fetching file versions:", error);
+    return [];
   }
 }
 
