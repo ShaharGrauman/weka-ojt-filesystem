@@ -74,3 +74,23 @@ def update_is_deleted_file():
 def update_is_deleted_folder():
     restore_query = "UPDATE folders SET is_deleted = %s WHERE id = %sAND user_id=?;"
     return restore_query
+
+# rename file
+def rename_file(file_id, new_name, user_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    update_query = "UPDATE files SET name = %s WHERE id = %s AND user_id = %s;"
+
+    try:
+        cursor.execute(update_query, (new_name, file_id, user_id))
+        connection.commit()
+
+        return {
+            "status": "success",
+            "msg": f"File with ID {file_id} renamed to {new_name} successfully."
+        }
+    except Exception as e:
+        connection.rollback()
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
