@@ -154,20 +154,26 @@ function sendResetLink(email) {
   return false;
 }
 
-// Function to handle password change
-function changepass(email, newpass) {
-  // Check if there's a user with the specified email
-  const user = Object.values(users).find((user) => user.email === email);
-  if (user) {
-    // Generate a reset token (assuming generateToken function is defined elsewhere)
-    const resetToken = generateToken();
+async function change_password(email) {
+  console.log(email)
+try {
+  const response = await fetch(`http://127.0.0.1:8000/forgetpassword?user_email=${email}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
 
-    user.reset_token = resetToken;
-
-    return true;
+  if (response.ok) {
+    const data = await response.json();
+    return data; // Assuming the response contains the success message or error details
+  } else {
+    throw new Error('Failed to change password. Please try again.'); // Throw an error if the request was not successful
   }
-
-  return false;
+} catch (error) {
+  console.error('An error occurred:', error);
+  throw error; // Re-throw the error to be handled by the caller
+}
 }
 
 // Function to retrieve recent files for a user
@@ -518,4 +524,5 @@ export {
   getMySharedFiles,
   fileDeletion,
   restoreDeletedFile,
+  change_password
 };

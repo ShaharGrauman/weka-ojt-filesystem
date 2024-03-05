@@ -109,7 +109,7 @@ def login(login_request: User, response: Response):
 
 
 @app.post ("/forgetpassword")
-def forgotpassword(user_email):
+def forgotpassword(user_email: str):
     email = user_email
 
     # Check email format validation
@@ -126,11 +126,10 @@ def forgotpassword(user_email):
     msg="hhhhhhh"
     if send_email(email,msg):
         # Return success message 
-        return{"msg" :"the reset lenke send to your mail"}
+        return {"msg" :"the reset lenke send to your mail"}
     else:
         # User not found, raise custom HTTPException
-        raise CustomHTTPException(status_code=400, detail="problem with connect to the server")
-
+        raise CustomHTTPException(status_code=500, detail="problem with connect to the server")
 
 
 
