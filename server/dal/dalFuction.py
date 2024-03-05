@@ -5,7 +5,7 @@ import smtplib
 from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
-from server.exceptions import CustomHTTPException
+from exceptions import CustomHTTPException
 
 
 
@@ -128,10 +128,27 @@ def  get_file_data(file_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    get_query = "SELECT FROM files WHERE id=? AND user_id=?;"
+    get_query = "SELECT * FROM file WHERE id=? AND user_id=?;"
 
     try:
         cursor.execute(get_query, (file_id, user_id))
+        file_data = cursor.fetchone()
+        return file_data
+    except Exception as e:
+        connection.rollback()
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
+
+
+def get_shared_file_data(file_id,user_id):
+
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    get_query = "Select * From file Where id=? user_id = (SELECT shared_by_user_id FROM SharedFile WHERE file_id=? AND shared_with_user_id=?);"
+
+    try:
+        cursor.execute(get_query, (file_id, file_id, user_id))
         file_data = cursor.fetchone()
         return file_data
     except Exception as e:

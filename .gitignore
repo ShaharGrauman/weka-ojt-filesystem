@@ -1,1 +1,1 @@
-server/dal/config.py
+server/mysql_details.py
