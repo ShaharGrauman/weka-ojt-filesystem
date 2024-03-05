@@ -79,7 +79,7 @@ def update_is_deleted_folder():
 def rename_file(file_id, new_name, user_id):
     connection = get_database_connection()
     cursor = connection.cursor()
-    update_query = "UPDATE files SET name = %s WHERE id = %s AND user_id = %s;"
+    update_query = "UPDATE file SET name = %s WHERE id = %s AND user_id = %s;"
 
     try:
         cursor.execute(update_query, (new_name, file_id, user_id))
@@ -94,3 +94,26 @@ def rename_file(file_id, new_name, user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+
+
+
+# download file
+
+def download_file(file_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute("SELECT id FROM file WHERE id = %s;", (file_id,))
+        file_id = cursor.fetchone()
+
+        if file_id:
+            # get the file from aws
+            return file_id[0]  
+        else:
+            raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        cursor.close()
+
