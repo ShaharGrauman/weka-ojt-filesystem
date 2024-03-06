@@ -17,7 +17,7 @@ def Encrypt_email(email):
 def send_email(recever_email,msg):
    email_sender="filesystem2024@gmail.com"
    email_password="ejnw zjwu gmfc jzjt"
-   subject="reset your password"
+   subject="Reset your password"
    body=msg
    em =EmailMessage()
    em['From']=email_sender

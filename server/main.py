@@ -5,13 +5,14 @@ from dal.authentication import check_email_exist,add_user,get_user_details,decry
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 import json
-from dal.dalFuction import send_email
+from dal.dalFuction import send_email,Encrypt_email
 from dal.validation import validate_match_password
 from dal.dalFuction import update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
 from routes.tool_bar import router as tool_bar_router
 from routes.three_dots import router as three_dots_router
+import urllib.parse
 from routes.fileUpload import router as file_upload
 
 
@@ -125,7 +126,15 @@ def forgotpassword(user_email: str):
 
     # now we send email
     # the masge we want to send
-    msg="hhhhhhh"
+
+
+    ecrybrt_email=Encrypt_email(email)
+    safe_token = urllib.parse.quote(ecrybrt_email, safe='')
+
+    reset_link = f"http://localhost:5173/resetPassword?token={safe_token}"  
+    msg = f"Click the following link to reset your password: {reset_link}"
+
+
     if send_email(email,msg):
         # Return success message 
         return {"msg" :"the reset lenke send to your mail"}
