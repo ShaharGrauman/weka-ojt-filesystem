@@ -61,7 +61,7 @@ const HomeDropdown = ({ selectedItem, showversion, userId }) => {
   };
 
   const handleMove = (targetFolderId) => {
-    moveFile(userId, selectedItem.id, selectedItem.folder_id, targetFolderId);
+    moveFile(userId, selectedItem.id, targetFolderId);
     setShowMoveFile(false);
   };
 

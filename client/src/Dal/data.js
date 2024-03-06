@@ -228,7 +228,7 @@ function download(userId, fileId) {
 
 async function getMyFolders(userId, folderId) {
   try {
-    const folders = await axios.get(`http://127.0.0.1:8000/move/${folderId}`);
+    const folders = await axios.get(`http://127.0.0.1:8000/move`);
 
     const userFolders = Object.values(folders).filter(
       (folder) =>
@@ -245,10 +245,10 @@ async function getMyFolders(userId, folderId) {
   }
 }
 
-async function moveFile(userId, fileId, folderId, targetFolderId) {
+async function moveFile(userId, fileId, targetFolderId) {
   try {
-    const response = await axios.update(
-      `http://127.0.0.1:8000/move/${folderId}/${fileId}/${targetFolderId}`,
+    const response = await axios.put(
+      `http://127.0.0.1:8000/move/${fileId}/${targetFolderId}`,
       { userId }
     );
 
@@ -336,7 +336,6 @@ function deleteFile(userId, fileId) {
 
 async function fileDeletion(userId, file_id) {
   try {
-    // const result = await delete_file(userId, file_id);
     const response = await axios.delete(
       `http://127.0.0.1:8000/deleted/files/${file_id}`
     );
