@@ -12,6 +12,7 @@ from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
 from routes.tool_bar import router as tool_bar_router
 from routes.three_dots import router as three_dots_router
+from routes.fileUpload import router as file_upload
 
 
 
@@ -27,6 +28,7 @@ app.add_middleware(
 app.include_router(home_routes, prefix="")
 app.include_router(tool_bar_router, prefix="")
 app.include_router(three_dots_router, prefix="")
+app.include_router(file_upload, prefix="")
 
 
 
