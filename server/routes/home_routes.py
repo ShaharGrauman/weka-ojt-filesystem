@@ -1,7 +1,7 @@
 from typing import Annotated
 from dal.config import cipher
 from fastapi import APIRouter, Cookie,Path,Request
-from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data,get_deletedfiles,get_deletedfolders
+from dal.dalFuction import get_sharedfiles,get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data,get_deletedfiles,get_deletedfolders
 from common.HTTPExceptions.exceptions import CustomHTTPException
 
 router = APIRouter()
@@ -26,8 +26,8 @@ async def deleted_files(request:Request):
         if user is None:
             raise CustomHTTPException(status_code=400, detail="Useeerrr cookie is missing")
         user_id=cipher.decrypt(eval(user)).decode()
-        files=get_deletedfiles(user,1)
-        folders = get_deletedfolders(user, 1)
+        files=get_deletedfiles(user_id,1)
+        folders = get_deletedfolders(user_id, 1)
         return files+folders
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=str(e))
@@ -61,3 +61,14 @@ async def get_files_or_folders_in_folder(
 
     folder_data = get_folder_data(folder_id, user_id)  # Replace user_id with actual user ID
     return folder_data
+@router.get("/shared_files")
+async def shared_files(request:Request):
+    try:
+        user = request.cookies.get("user_id")
+        if user is None:
+            raise CustomHTTPException(status_code=400, detail="User cookie is missing")
+        user_id=cipher.decrypt(eval(user)).decode()
+        files=get_sharedfiles(user_id,1)
+        return files
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=str(e))

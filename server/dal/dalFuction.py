@@ -6,7 +6,8 @@ from dal.mysql_connection import get_database_connection
 from typing import List
 from dal.config import cipher
 from common.HTTPExceptions.exceptions import CustomHTTPException
-
+from datetime import datetime
+from models import File,Folder
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
    encrypted_email= cipher.encrypt(email.encode())
@@ -189,3 +190,39 @@ def get_folder_data(folder_id, user_id):
     files = get_files_infolder(folder_id, user_id)
     folders = get_folders_infolder(folder_id, user_id)
     return {'files': files, 'folders': folders}
+# Function to retrieve myfiles
+def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    start_index = (page - 1) * 20
+    query = """
+        SELECT * FROM files
+        WHERE id IN (
+            SELECT file_id FROM shared_files
+            WHERE user_id = %s
+        )
+        ORDER BY {} DESC
+        LIMIT %s OFFSET %s
+    """.format(sorted_by)
+    cursor.execute(query, (user_id, 20, start_index))
+    shared_files_data = cursor.fetchall()
+
+    # Process the query results and construct a list of dictionaries representing shared files
+    shared_files = []
+    for file_data in shared_files_data:
+        file = File(
+            id=file_data['id'],
+            name=file_data['name'],
+            user_id=file_data['user_id'],
+            folder_id=file_data['folder_id'],
+            size=file_data['size'],
+            is_deleted=file_data['is_deleted'],
+            path=file_data['path'],
+            upload_date=datetime.strptime(file_data['upload_date'], '%Y-%m-%d %H:%M:%S'),  # Parse datetime string
+            group_version_id=file_data['group_version_id']
+        )
+        shared_files.append(file.dict())
+    if conn:
+            conn.close()
+    return shared_files
