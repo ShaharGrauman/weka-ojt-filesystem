@@ -20,11 +20,18 @@ async def my_files(request:Request):
         raise CustomHTTPException(status_code=500, detail=str(e))
 
 @router.get("/deleted_files")
-async def deleted_files(user_id: Annotated[str | None, Cookie()] = None):
-    user=cipher.decrypt(eval(user_id)).decode()
-    files=get_deletedfiles(user,1)
-    folders=get_deletedfolders(user,1)
-    return files+folders
+async def deleted_files(request:Request):
+    try:
+        user = request.cookies.get("user_id")
+        if user is None:
+            raise CustomHTTPException(status_code=400, detail="Useeerrr cookie is missing")
+        user_id=cipher.decrypt(eval(user)).decode()
+        files=get_deletedfiles(user,1)
+        folders = get_deletedfolders(user, 1)
+        return files+folders
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=str(e))
+
 @router.get("/{files_category}/file_id")
 def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
     user_id=cipher.decrypt(eval(user_id)).decode()
