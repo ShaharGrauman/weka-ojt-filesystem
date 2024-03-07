@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SideBar from "../components/SideBar";
@@ -8,9 +8,10 @@ import Path from "../components/Path";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
 import FileViewer from "../components/FileViewer";
-import VersionsList from "../components/VersionsList ";
+import VersionsList from "../components/VersionsList .jsx";
+
 import "./HomePage.css";
-import { getMyFiles,getMyDeletedFiles,getMySharedFiles } from "../Dal/data.js";
+import { getMyFiles, getMyDeletedFiles, getMySharedFiles } from "../Dal/data.js";
 
 const versionData = [
   {
@@ -30,98 +31,54 @@ const versionData = [
   }
 ];
 
-const Data = {
-  MyFiles: [
-    {
-      id: 1,
-      fileName: "photo.png",
-      lastUpdated: "2022-02-05",
-      isFolder: false,
-      filePath: "../Image/photo.png",
-      is_deleted: false,
-      is_version: true,
-    },
-    { id: 7,
-      fileName: "file.pdf",
-      lastUpdated: "2022-02-05",
-      isFolder: false,
-      filePath:"../Image/file.pdf",
-      is_deleted: false,
-      is_version: true},
-    {
-      id: 3,
-      fileName: "photos",
-      lastUpdated: "2022-02-07",
-      isFolder: true,
-      filePath: "../files/photos",
-      is_deleted: false,
-      is_version: false,
-    },
-    {
-      id: 5,
-      fileName: "docs",
-      lastUpdated: "2022-02-06",
-      isFolder: true,
-      filePath: "../files/docs",
-      is_deleted: false,
-      is_version: false,
-    },
-  ],
-  SharedFiles: [
-    {
-      id: 2,
-      fileName: "photos",
-      lastUpdated: "2022-02-06",
-      isFolder: true,
-      filePath: "../shared/photos",
-      is_deleted: false,
-      is_version: false,
-    },
-  ],
-  DeletedFiles: [
-    {
-      id: 4,
-      fileName: "memories.mp4",
-      lastUpdated: "2022-02-05",
-      isFolder: false,
-      filePath: "../Image/memories.mp4",
-      is_deleted: true,
-      is_version: false,
-    },
-  ],
-//   MyFiles: getMyFiles(1),
-//   SharedFiles: getMySharedFiles(1),
-//   DeletedFiles:getMyDeletedFiles(1)
-};
-
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVersion, setisVersion] = useState(true);
-  const [showitems, setshowitems] = useState(true);
+  const [isVersion, setIsVersion] = useState(true);
+  const [showItems, setShowItems] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [selectedItem, setSelectedItem] = useState(null);
+  const [myFiles, setMyFiles] = useState([]);
+  const [deletedFiles, setDeletedFiles] = useState([]);
+  const [sharedFiles, setSharedFiles] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const myFilesData = await getMyFiles();
+      const deletedFilesData = await getMyDeletedFiles();
+      const sharedFilesData = await getMySharedFiles();
+
+      setMyFiles(myFilesData);
+      setDeletedFiles(deletedFilesData);
+      setSharedFiles(sharedFilesData);
+    };
+
+    fetchData();
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
- const showversion = (items,version) => {
-    setshowitems(items)
-    setisVersion(version);
 
+  const showVersion = (items, version) => {
+    setShowItems(items);
+    setIsVersion(version);
   };
+
   const currentCategoryData =
     selectedCategory === "Home"
-      ? [...Data.MyFiles, ...Data.SharedFiles]
-      : Data[selectedCategory];
+      ? myFiles
+      : selectedCategory === "DeletedFiles"
+      ? deletedFiles
+      : sharedFiles;
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedItem(null);
-    showversion(true,false)
+    showVersion(true, false);
   };
 
   const handleItemClick = (item) => {
-    setSelectedItem(item); // Set the selected item when an item is clicked
+    setSelectedItem(item);
   };
 
   return (
@@ -153,31 +110,32 @@ const HomePage = () => {
         style={{ marginTop: "20px", marginBottom: "20px" }}
         className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
-      <Row className="justify-content-center">
-
-  <Col xs={12} md={9} id="page-content-wrapper">
-    <h1 className="text-center">Main Content</h1>
-{showitems ?
-  (selectedItem ?
-    <FileViewer filePath={selectedItem.filePath} />
-    :
-    <div className="item-container">
-      {currentCategoryData.map((item) => (
-        <Item key={item.file_id} item={item} showversion={showversion} onSelect={() => handleItemClick(item)} />
-      ))}
-    </div>
-  )
-  :
-  (isVersion ?
-    <VersionsList versionData={versionData} />
-    :
-    null
-  )
-}
-
-    <Paginations />
-  </Col>
-</Row>
+        <Row className="justify-content-center">
+          <Col xs={12} md={9} id="page-content-wrapper">
+            <h1 className="text-center">Main Content</h1>
+            {showItems ? (
+              selectedItem ? (
+                <FileViewer filePath={selectedItem.filePath} />
+              ) : currentCategoryData.length > 0 ? (
+                <div className="item-container">
+                  {currentCategoryData.map((item) => (
+                    <Item
+                      key={item.id}
+                      item={item}
+                      showVersion={showVersion}
+                      onSelect={() => handleItemClick(item)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p>No items found.</p>
+              )
+            ) : isVersion ? (
+              <VersionsList versionData={versionData} />
+            ) : null}
+            <Paginations />
+          </Col>
+        </Row>
       </Container>
       <Container className={isOpen ? "sidebar-open" : "sidebar-close"}>
         <Footer />
