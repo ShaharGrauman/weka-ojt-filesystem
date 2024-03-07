@@ -1,7 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-import { Validate_email_format,Validate_match_password } from "../Validation/Validation.js";
+import {
+  Validate_email_format,
+  Validate_match_password,
+} from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -226,18 +229,13 @@ function download(userId, fileId) {
   return true;
 }
 
-async function getMyFolders(userId, folderId) {
+async function getMyFolders(folderId) {
   try {
     const folders = await axios.get(`http://127.0.0.1:8000/move`);
 
     const userFolders = Object.values(folders).filter(
-      (folder) =>
-        folder.user_id === userId &&
-        !folder.is_deleted &&
-        folder.id !== folderId
+      (folder) => !folder.is_deleted && folder.id !== folderId
     );
-
-    console.log(`Folders owned by user ${userId}: `, userFolders);
     return userFolders;
   } catch (error) {
     console.error(error);
@@ -245,11 +243,10 @@ async function getMyFolders(userId, folderId) {
   }
 }
 
-async function moveFile(userId, fileId, targetFolderId) {
+async function moveFile(fileId, targetFolderId) {
   try {
     const response = await axios.put(
-      `http://127.0.0.1:8000/move/${fileId}/${targetFolderId}`,
-      { userId }
+      `http://127.0.0.1:8000/move/${fileId}/${targetFolderId}`
     );
 
     console.log(`File with ID ${fileId} moved successfully.`);
@@ -306,44 +303,71 @@ function renameFile(userId, fileId, newName) {
   return false;
 }
 
-function deleteFile(userId, fileId) {
-  return new Promise((resolve, reject) => {
-    const file = files[fileId];
-
-    if (!file) {
-      // Reject the Promise if the file does not exist
-      return reject(false);
-    }
-    // Check if the file belongs to the user
-    if (file.user_id !== userId) {
-      // If the file does not belong to the user, log an error and reject the Promise
-      console.log(
-        `User ${userId} does not have permission to delete file ${fileId}`
-      );
-      return reject(false);
-    }
-
-    // Simulate an asynchronous deletion
-    setTimeout(() => {
-      file.is_deleted = true;
-      // console.log("file.is_deleted after deletion");
-      // console.log(file.is_deleted);
-
-      resolve(true);
-    }, 0);
-  });
-}
-
-async function fileDeletion(userId, file_id) {
+async function delete_file(file_id) {
   try {
     const response = await axios.delete(
-      `http://127.0.0.1:8000/deleted/files/${file_id}`
+      `http://127.0.0.1:8000/file/${file_id}`
     );
 
     console.log("The file deleted successfully");
     return response;
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+}
+
+// async function delete_folder(folder_id) {
+//   try {
+//     const response = await axios.delete(
+//       `http://127.0.0.1:8000/folder/${folder_id}`
+//     );
+
+//     console.log("The folder deleted successfully");
+//     return response;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+async function delete_folder(folder_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/folder/${folder_id}`
+    );
+    console.log("The folder deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function fileDeletion(file_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/files/${file_id}`
+    );
+
+    console.log("The file permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function folderDeletion(folder_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/folders/${folder_id}`
+    );
+
+    console.log("The folder permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
 
@@ -401,7 +425,7 @@ async function getMyDeletedFiles(
 }
 
 // Function to restore a deleted file
-async function restoreDeletedFile(userId, file_id) {
+async function restoreDeletedFile(file_id) {
   try {
     const response = await axios.update(
       `http://127.0.0.1:8000/deleted/files/deleted/files/${file_id}/restore`
@@ -413,6 +437,21 @@ async function restoreDeletedFile(userId, file_id) {
     console.error(error);
   }
 }
+
+// Function to restore a deleted folder
+async function restoreDeletedFolder(folder_id) {
+  try {
+    const response = await axios.update(
+      `http://127.0.0.1:8000/deleted/files/deleted/files/${folder_id}/restore`
+    );
+
+    console.log("The file deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function LogIn(email, password) {
   try {
     const response = await fetch("http://127.0.0.1:8000/login", {
@@ -534,25 +573,22 @@ async function getMyFiles() {
     throw err;
   }
 }
-async function Update_password(pass1,pass2,token) {
+async function Update_password(pass1, pass2, token) {
   // chick the foemate of the email
-  if (!Validate_match_password(pass1,pass2)) return "Password not match";
+  if (!Validate_match_password(pass1, pass2)) return "Password not match";
 
   try {
-    const response = await fetch(
-      "http://127.0.0.1:8000/new_password",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          pass1: pass1,
-          pass2: pass2,
-          token: token,
-        }),
-      }
-    );
+    const response = await fetch("http://127.0.0.1:8000/new_password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pass1: pass1,
+        pass2: pass2,
+        token: token,
+      }),
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -579,5 +615,9 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
-  Update_password
+  Update_password,
+  delete_file,
+  folderDeletion,
+  delete_folder,
+  restoreDeletedFolder,
 };
