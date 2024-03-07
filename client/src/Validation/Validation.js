@@ -24,9 +24,16 @@ function Validate_email_format(email) {
 }
 
 
+function Validate_match_password(pass1,pass2) {
+    
+   return pass1==pass2
+}
+
+
+
 
 export {
     Validate_email_format,
-   
+    Validate_match_password
   };
   
