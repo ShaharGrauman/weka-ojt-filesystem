@@ -36,14 +36,10 @@ const Item = ({ item, onSelect, showversion }) => {
         </a>
 
         <Card.Body>
-          <Card.Title>{item.file_name}</Card.Title>
+          <Card.Title>{item.name}</Card.Title>
           <Card.Text>
             {" "}
-            Last updated:{" "}
-            {item.upload_date
-              ? item.upload_date.toLocaleDateString().toString()
-              : "Unknown"}
-            .
+            Last updated: {item.upload_date.split("T")[0]}.
           </Card.Text>
         </Card.Body>
       </Card>

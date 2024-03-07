@@ -125,6 +125,7 @@ const HomePage = () => {
                   {currentCategoryData.map((item) => (
                     <Item
                       key={item.id}
+                      id={item.id}
                       item={item}
                       showVersion={showVersion}
                       onSelect={() => handleItemClick(item)}
