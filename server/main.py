@@ -14,7 +14,7 @@ from routes.tool_bar import router as tool_bar_router
 from routes.three_dots import router as three_dots_router
 import urllib.parse
 from routes.fileUpload import router as file_upload
-
+from routes.deleted_route import router as deleted_router
 
 
 # Create an instance of the FastAPI class
@@ -30,7 +30,7 @@ app.include_router(home_routes, prefix="")
 app.include_router(tool_bar_router, prefix="")
 app.include_router(three_dots_router, prefix="")
 app.include_router(file_upload, prefix="")
-
+app.include_router(deleted_router,prefix="")
 
 
 # Define a route using a decorator
