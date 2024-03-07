@@ -17,7 +17,7 @@ def Encrypt_email(email):
 def send_email(recever_email,msg):
    email_sender="filesystem2024@gmail.com"
    email_password="ejnw zjwu gmfc jzjt"
-   subject="reset your password"
+   subject="Reset your password"
    body=msg
    em =EmailMessage()
    em['From']=email_sender
@@ -134,7 +134,7 @@ def  get_file_data(file_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
-    get_query = "SELECT * FROM file WHERE id=? AND user_id=?;"
+    get_query = "SELECT * FROM file WHERE id= %s AND user_id= %s;"
 
     try:
         cursor.execute(get_query, (file_id, user_id))

@@ -6,6 +6,10 @@ class User(BaseModel):
     name: Optional[str] = None
     email: str
     password: str
+class Pass(BaseModel):
+    pass1: str
+    pass2: str
+    token: str
 
 class File(BaseModel):
     name: str
