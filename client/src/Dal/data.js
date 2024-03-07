@@ -327,19 +327,6 @@ async function delete_file(file_id) {
   }
 }
 
-// async function delete_folder(folder_id) {
-//   try {
-//     const response = await axios.delete(
-//       `http://127.0.0.1:8000/folder/${folder_id}`
-//     );
-
-//     console.log("The folder deleted successfully");
-//     return response;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 async function delete_folder(folder_id) {
   try {
     const response = await axios.delete(
