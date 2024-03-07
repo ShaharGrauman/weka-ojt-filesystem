@@ -1,14 +1,15 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File,Request
 from datetime import datetime
 from dal.fileUpload import insert_file_details_to_database,save_uploaded_file_to_s3
+from dal.config import get_user_id
 
 router = APIRouter()
 
 
 @router.post("/file/{folder_id}/upload")
-async def upload_file(folder_id: int, user_id: int, file: UploadFile = File(...)):
+async def upload_file(folder_id: int, request:Request, file: UploadFile = File(...)):
     # Decrypt the session token to get user_id
-
+    user_id=get_user_id(request)
     # Save the file to S3
     file_path = await save_uploaded_file_to_s3(file,user_id)
 

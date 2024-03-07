@@ -51,31 +51,31 @@ def folder_delete(request:Request,folder_id: int):
 
 
 
-@router.post("/share/{file_id}")
-def share_file(file_id: int,email:str,user_id: Annotated[str | None, Cookie()] = None):
-    #check if formate email is write 
-    if not validate_email_format(email):
-        raise HTTPException(status_code=400, detail="Invalid Email format")
-    # check if the email in db
-    if not check_email_exist(email):
-        raise HTTPException(status_code=400, detail="email not in database")
-    # check if the owner of the file is the user that loged in
-    user=cipher.decrypt(eval(user_id)).decode()
+# @router.post("/share/{file_id}")
+# def share_file(file_id: int,email:str,user_id: Annotated[str | None, Cookie()] = None):
+#     #check if formate email is write 
+#     if not validate_email_format(email):
+#         raise HTTPException(status_code=400, detail="Invalid Email format")
+#     # check if the email in db
+#     if not check_email_exist(email):
+#         raise HTTPException(status_code=400, detail="email not in database")
+#     # check if the owner of the file is the user that loged in
+#     user=cipher.decrypt(eval(user_id)).decode()
     
 
-    now i do share with file 
+    # now i do share with file 
 
 
-@router.put("/file/rename/{file_id}")
-def rename_file_route(file_id: int, new_name: str, user_id: Annotated[str | None, Cookie()] = None):
-    user_id = cipher.decrypt(eval(user_id)).decode()
-    try:
-        result = rename_file(file_id, new_name, user_id)
-        return result
-    except CustomHTTPException as e:
-        return e
-    except Exception as e:
-        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+# @router.put("/file/rename/{file_id}")
+# def rename_file_route(file_id: int, new_name: str, user_id: Annotated[str | None, Cookie()] = None):
+#     user_id = cipher.decrypt(eval(user_id)).decode()
+#     try:
+#         result = rename_file(file_id, new_name, user_id)
+#         return result
+#     except CustomHTTPException as e:
+#         return e
+#     except Exception as e:
+#         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 @router.get("/file/download/{file_id}")
 def download_file_route(file_id: int):

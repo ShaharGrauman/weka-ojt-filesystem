@@ -1,10 +1,11 @@
 from typing import List
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query,Request
 router = APIRouter()
 from dal.tool_bar import search 
 from dal.tool_bar import search, sort_files,add_folder  
 from common.HTTPExceptions.exceptions import CustomHTTPException
-
+from dal.config import cipher
+from dal.config import get_user_id
 
 
 @router.get("/search")
@@ -29,8 +30,8 @@ def sort_files_route(user_id: int = Query(..., description="User ID"),
 
 
 @router.post("/folder/{folder_id}/create")
-async def create_folder(folder_id: int, folder_name: str,userid: int):
-    
+async def create_folder(folder_id: int, folder_name: str,request:Request):
+    userid=get_user_id(request)
     try:
         # Call add_folder function to create the folder
         add_folder(folder_name, folder_id,userid)
