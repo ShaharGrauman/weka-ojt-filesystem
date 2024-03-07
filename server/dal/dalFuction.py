@@ -7,7 +7,7 @@ from typing import List
 from dal.config import cipher
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from datetime import datetime
-from dal.models import File,Folder
+from .models import File,Folder
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
    encrypted_email= cipher.encrypt(email.encode())
@@ -35,7 +35,7 @@ def send_email(recever_email,msg):
         return False
 
 # Function to retrieve myfiles
-def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[File]:
     conn = get_database_connection()
     cursor = conn.cursor()
     # Query to retrieve user's files from MyFile
@@ -48,9 +48,24 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
     cursor.execute(my_files_query, (user_id,))
     my_files = cursor.fetchall()
     # Return the subset of files based on the page
+    files = []
+    for file_data in my_files:
+        file = File(
+            id=file_data[0],
+            name=file_data[1],
+            user_id=file_data[2],
+            folder_id=file_data[3],
+            size=file_data[4],
+            is_deleted=bool(file_data[5]),  # Convert to bool
+            path=file_data[6],
+            upload_date=file_data[7],
+            group_version_id=file_data[8]
+        )
+        files.append(file)
+    print(files)
     if conn:
-            conn.close()
-    return my_files[start_index:start_index + 20]
+        conn.close()
+    return files[start_index:start_index + 20]
 
 def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
     conn = get_database_connection()
