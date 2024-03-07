@@ -296,32 +296,25 @@ async function shareFile(userId, fileId, email, permission) {
   }
 }
 
-function renameFile(userId, fileId, newName) {
-  if (files[fileId]) {
-    // Check if the file belongs to the user
-    if (files[fileId].user_id === userId) {
-      // Assuming you want to log the user ID along with the file renaming action
-      console.log(`User ${userId} is renaming file ${fileId} to ${newName}`);
-
-      // Update the file name
-      files[fileId].file_name = newName;
-
-      // Log the renaming action
-      console.log(`File ${fileId} renamed to ${newName}`);
-
-      // Return true to indicate success
-      return true;
-    } else {
-      // If the file does not belong to the user, log an error and return false
-      console.log(
-        `User ${userId} does not have permission to rename file ${fileId}`
-      );
-      return false;
-    }
+async function renameFile(fileId, newName) {
+  try {
+    console.log(newName);
+    const response = await fetch(`http://127.0.0.1:8000/${fileId}/rename?new_file_name=${newName}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // Include cookies in the request
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error renaming file:", error);
+    throw error;
   }
-  // Return false if the file does not exist
-  return false;
-}
+};
+
 
 async function getMySharedFiles() {
   try {
@@ -680,4 +673,5 @@ export {
   download,
   addFolder,
   uploadFile,
+  renameFile,
 };

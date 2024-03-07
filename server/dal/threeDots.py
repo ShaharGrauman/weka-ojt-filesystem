@@ -95,15 +95,13 @@ def update_is_deleted_folder():
     return delete_query
 
 # rename file
-def rename_file(file_id, new_name, user_id):
+def renamefile(file_id, new_name, user_id):
     connection = get_database_connection()
     cursor = connection.cursor()
     update_query = "UPDATE file SET name = %s WHERE id = %s AND user_id = %s;"
-
     try:
         cursor.execute(update_query, (new_name, file_id, user_id))
         connection.commit()
-
         return {
             "status": "success",
             "msg": f"File with ID {file_id} renamed to {new_name} successfully."
@@ -114,9 +112,6 @@ def rename_file(file_id, new_name, user_id):
     finally:
         cursor.close()
         connection.close()
-
-
-
 
 # download file
 

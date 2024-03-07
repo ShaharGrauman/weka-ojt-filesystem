@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import {
+renameFile,
+} from "../Dal/data.js";
 
-const RenameFile = ({ fileName, onClose }) => {
+const RenameFile = ({ fileId,fileName, onClose }) => {
   const handleClose = () => {
     onClose();
   };
 
-  const [newFileName, setNewFileName] = useState(fileName);
+  const [newFileName, setNewFileName] = useState(fileName || "");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event) => {
     setNewFileName(event.target.value);
   };
 
-  const handleRename = () => {
-    handleClose();
+  const handleRename = async () => {
+    setIsLoading(true);
+    try {
+      await renameFile(fileId, newFileName);
+      handleClose();
+    } catch (error) {
+      console.error("Error renaming file:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -31,11 +43,11 @@ const RenameFile = ({ fileName, onClose }) => {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose} disabled={isLoading}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleRename}>
-            Rename
+          <Button variant="primary" onClick={handleRename} disabled={isLoading}>
+                        {isLoading ? "Renaming..." : "Rename"}
           </Button>
         </Modal.Footer>
       </Modal>
