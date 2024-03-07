@@ -567,6 +567,35 @@ async function Update_password(pass1,pass2,token) {
     throw error; // Re-throw the error to be handled by the caller
   }
 }
+
+
+export async function uploadFile(file, folderId) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/file/${folderId}/upload`, {
+      method: 'POST',
+      body: formData,
+      credentials: "include",
+
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('File upload successful:', data);
+      return data;
+    } else {
+      const errorData = await response.json();
+      console.error('File upload failed:', errorData);
+      throw new Error('File upload failed');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+
 export {
   registerUser,
   LogIn,
@@ -579,5 +608,6 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
-  Update_password
+  Update_password,
+
 };
