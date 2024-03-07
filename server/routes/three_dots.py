@@ -1,11 +1,11 @@
-from fastapi import  APIRouter,HTTPException, Cookie,Request
-from  dal.threeDots import get_versions_for_file,delete_file,delete_folder, rename_file, download_file
+from fastapi import APIRouter, HTTPException, Cookie, Request, Path
+from  dal.threeDots import get_versions_for_file,delete_file,delete_folder, download_file
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 from dal.validation import validate_email_format
 from dal.authentication import check_email_exist
 from dal.dalFuction import get_myfolders
-from dal.threeDots import update_file_parent
+from dal.threeDots import update_file_parent,renamefile
 from dal.config import get_user_id
 
 router = APIRouter()
@@ -113,5 +113,17 @@ def move_file(request:Request,file_id: int,target_folder_id:int):
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
+
+@router.put("/{file_id}/rename")
+async def rename_file(request:Request,file_id: int ,new_file_name: str):
+    try:
+        user_id = get_user_id(request)
+        result = renamefile(file_id, new_file_name, user_id)
+        print(f"Renaming file with ID {file_id} to {new_file_name}")
+        return result
+    except CustomHTTPException as e:
+        return e
+    except Exception as e:
+        raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 
