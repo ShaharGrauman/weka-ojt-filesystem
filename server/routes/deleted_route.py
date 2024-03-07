@@ -20,7 +20,7 @@ def delete_file(request:Request,file_id: int):
 
 @router.delete("/deleted/folders/{folder_id}")
 def delete_folder(request:Request,folder_id: int):
-    user_id= cipher.decrypt(eval(user_id)).decode()
+
     try:
         user_id = get_user_id(request)
         # Check if folder deleted
