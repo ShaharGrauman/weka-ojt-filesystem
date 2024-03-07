@@ -212,11 +212,26 @@ function addFile(userId, path, file) {
   return true;
 }
 
-// Function to add a folder to a user's account
-function addFolder(userId, path, folder) {
-  const folderId = Object.keys(folders).length + 1;
-  folders[folderId] = { ...folder, user_id: userId, folder_path: path };
-  return true;
+async function addFolder(folder_id, folder_name) {
+  const url = `http://127.0.0.1:8000/folder/${folder_id}/create?folder_name=${folder_name}`; // Replace with the appropriate URL
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      return true; // Folder created successfully
+    } else {
+      return false; // Folder creation failed
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false; // Request failed
+  }
 }
 
 // Function to handle user logout
@@ -418,38 +433,38 @@ async function getMySharedFiles() {
 
 // Function to get files deleted by the user asynchronously
 async function getMyDeletedFiles() {
-    try {
-        const headers = {
-          "Content-Type": "application/json",
-        };
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
 
-        const response = await fetch("http://127.0.0.1:8000/deleted_files", {
-          method: "GET",
-          headers: headers,
-          credentials: "include", // Include cookies in the request
-        });
+    const response = await fetch("http://127.0.0.1:8000/deleted_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
+    });
 
-        const data = await response.json(); // Parsing response JSON
+    const data = await response.json(); // Parsing response JSON
 
-        if (response.ok) {
-          return data;
-        } else {
-          // Handle non-OK response status codes
-          if (response.status === 400) {
-            // Handle 400 Bad Request error
-            throw new Error("User ID cookie is missing");
-          } else if (response.status === 500) {
-            // Handle 500 Internal Server Error
-            throw new Error("Internal Server Error");
-          } else {
-            // Handle other error cases
-            throw new Error("Unexpected Error");
-          }
-        }
-      } catch (err) {
-        console.error("Error collecting data:", err);
-        throw err;
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
       }
+    }
+  } catch (err) {
+    console.error("Error collecting data:", err);
+    throw err;
+  }
 }
 
 // Function to restore a deleted file
@@ -632,30 +647,31 @@ async function Update_password(pass1, pass2, token) {
   }
 }
 
-
 export async function uploadFile(file, folderId) {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/file/${folderId}/upload`, {
-      method: 'POST',
-      body: formData,
-      credentials: "include",
-
-    });
+    const response = await fetch(
+      `http://127.0.0.1:8000/file/${folderId}/upload`,
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
-      console.log('File upload successful:', data);
+      console.log("File upload successful:", data);
       return data;
     } else {
       const errorData = await response.json();
-      console.error('File upload failed:', errorData);
-      throw new Error('File upload failed');
+      console.error("File upload failed:", errorData);
+      throw new Error("File upload failed");
     }
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error("An error occurred:", error);
     throw error;
   }
 }
@@ -672,11 +688,6 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
+  addFile,
   Update_password,
-
-  delete_file,
-  folderDeletion,
-  delete_folder,
-  restoreDeletedFolder,
-  download,
 };
