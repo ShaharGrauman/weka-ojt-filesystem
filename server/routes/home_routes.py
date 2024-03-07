@@ -9,10 +9,7 @@ router = APIRouter()
 @router.get("/my_files")
 async def my_files(request:Request):
     try:
-        user = request.cookies.get("user_id")
-        if user is None:
-            raise CustomHTTPException(status_code=400, detail="Useeerrr cookie is missing")
-        user_id=cipher.decrypt(eval(user)).decode()
+        user_id=get_user_id(request)
         files=get_myfiles(user_id,1)
         folders=get_myfolders(user_id,1)
         return files+folders
@@ -22,10 +19,7 @@ async def my_files(request:Request):
 @router.get("/deleted_files")
 async def deleted_files(request:Request):
     try:
-        user = request.cookies.get("user_id")
-        if user is None:
-            raise CustomHTTPException(status_code=400, detail="Useeerrr cookie is missing")
-        user_id=cipher.decrypt(eval(user)).decode()
+        user_id=get_user_id(request)
         files=get_deletedfiles(user_id,1)
         folders = get_deletedfolders(user_id, 1)
         return files+folders
@@ -52,11 +46,12 @@ def get_file(request:Request,file_id:int):
 
 @router.get("/{file_category}/{folder_id}")
 async def get_files_or_folders_in_folder(
+    request:Request,
     folder_id: int = Path(..., title="The ID of the folder"),
-    file_category: str = Path(..., title="Category of files (myfiles or allFiles)"),
-    user_id: Annotated[str | None, Cookie()] = None
+    file_category: str = Path(..., title="Category of files (myfiles or allFiles)")
+    
 ):
-    user_id=cipher.decrypt(eval(user_id)).decode()
+    user_id=get_user_id(request)
     if file_category not in ["myfiles", "allFiles"]:
         return {"error": "Invalid file category"}
 
@@ -65,10 +60,7 @@ async def get_files_or_folders_in_folder(
 @router.get("/shared_files")
 async def shared_files(request:Request):
     try:
-        user = request.cookies.get("user_id")
-        if user is None:
-            raise CustomHTTPException(status_code=400, detail="User cookie is missing")
-        user_id=cipher.decrypt(eval(user)).decode()
+        user_id=get_user_id(request)
         files=get_sharedfiles(user_id,1)
         return files
     except Exception as e:
