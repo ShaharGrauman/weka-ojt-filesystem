@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { change_password } from '../Dal/data.js';
+import { Forget_password } from '../Dal/data.js';
 
 function ForgotPassword(props) {
   const [Forgotpassword, setForgotpassword] = useState(props.Forgotpassword);
@@ -14,7 +14,7 @@ function ForgotPassword(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-     const response=await change_password(e.target[0].value)
+     const response=await Forget_password(e.target[0].value)
      setmsg(response)
     
   };

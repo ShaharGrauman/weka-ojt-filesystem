@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException,Response
-from dal.models import User
+from dal.models import User,Pass
 from dal.validation import validate_email_format, validate_pass_format,validate_name 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
 from common.HTTPExceptions.exceptions import CustomHTTPException
@@ -91,7 +91,7 @@ def login(login_request: User, response: Response):
         user_id = str(user_dict["id"]).encode()
         encrypted_user_id = cipher.encrypt(user_id)
         # Set encrypted user ID as a cookie
-        response.set_cookie(key="user_id", value=encrypted_user_id)
+        response.set_cookie(key="user_id", value=encrypted_user_id,samesite="None",secure=True,httponly=True)
 
         # Return success message and user object
         return {
@@ -148,8 +148,10 @@ def forgotpassword(user_email: str):
 
 
 @app.post ("/new_password")
-def new_password(token,pass1,pass2):
-
+def new_password(Pass:Pass):
+    pass1=Pass.pass1
+    pass2=Pass.pass2
+    token=Pass.token
      # Check password match
     if not validate_match_password(pass1,pass2):
         raise HTTPException(status_code=400, detail="The password not match")

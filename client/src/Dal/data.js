@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-import { Validate_email_format } from "../Validation/Validation.js";
+import { Validate_email_format,Validate_match_password } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -153,7 +153,7 @@ function sendResetLink(email) {
   return false;
 }
 
-async function change_password(email) {
+async function Forget_password(email) {
   // chick the foemate of the email
   if (!Validate_email_format(email)) return "Invalid email format";
 
@@ -413,7 +413,6 @@ async function restoreDeletedFile(userId, file_id) {
     console.error(error);
   }
 }
-
 async function LogIn(email, password) {
   try {
     const response = await fetch("http://127.0.0.1:8000/login", {
@@ -421,6 +420,7 @@ async function LogIn(email, password) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: password,
@@ -500,41 +500,73 @@ async function getFileDetails(userId, fileId) {
     throw error; // Re-throw the error for handling elsewhere if needed
   }
 }
-
-async function getMyFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
+async function getMyFiles() {
   try {
-    // Filter files owned by the user
-    const userFiles = await Object.values(files).filter(
-      (file) => file.user_id === userId && !file.is_deleted
-    );
-    userFiles.sort((a, b) => {
-      if (sortBy === "name") {
-        return order === "desc"
-          ? b.file_name.localeCompare(a.file_name)
-          : a.file_name.localeCompare(b.file_name);
-      } else if (sortBy === "date") {
-        return order === "desc"
-          ? new Date(b.upload_date) - new Date(a.upload_date)
-          : new Date(a.upload_date) - new Date(b.upload_date);
-      } else {
-        return 0; // No sorting
-      }
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/my_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
     });
-    // Calculate the start index based on the specified page and size
-    const startIndex = (page - 1) * size;
-    // Return a slice of user files based on the calculated start index and size
-    return userFiles.slice(startIndex, startIndex + size);
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
+      }
+    }
   } catch (err) {
-    console.log(err);
+    console.error("Error collecting data:", err);
+    throw err;
   }
 }
+async function Update_password(pass1,pass2,token) {
+  // chick the foemate of the email
+  if (!Validate_match_password(pass1,pass2)) return "Password not match";
 
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/new_password",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          pass1: pass1,
+          pass2: pass2,
+          token: token,
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.msg);
+
+      return data.msg; // Assuming the response contains the success message or error details
+    } else {
+      throw new Error("Failed to change password. Please try again."); // Throw an error if the request was not successful
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error; // Re-throw the error to be handled by the caller
+  }
+}
 export {
   registerUser,
   LogIn,
@@ -543,8 +575,9 @@ export {
   getMySharedFiles,
   fileDeletion,
   restoreDeletedFile,
-  change_password,
+  Forget_password,
   getFileVersions,
   getMyFolders,
   moveFile,
+  Update_password
 };
