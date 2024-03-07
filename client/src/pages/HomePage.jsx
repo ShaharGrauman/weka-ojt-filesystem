@@ -70,6 +70,8 @@ const HomePage = () => {
 
   const currentCategoryData =
     selectedCategory === "Home"
+      ? [...myFiles, ...sharedFiles]
+      : selectedCategory === "MyFiles"
       ? myFiles
       : selectedCategory === "DeletedFiles"
       ? deletedFiles

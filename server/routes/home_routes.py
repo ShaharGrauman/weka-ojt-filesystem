@@ -61,6 +61,7 @@ async def get_files_or_folders_in_folder(
 async def shared_files(request:Request):
     try:
         user_id=get_user_id(request)
+        print(user_id)
         files=get_sharedfiles(user_id,1)
         return files
     except Exception as e:

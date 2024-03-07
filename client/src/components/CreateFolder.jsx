@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-
-const CreateFolder = ({onClose }) => {
-
-    
+import { addFile } from "../Dal/data.js";
+const CreateFolder = ({ onClose }) => {
   const handleClose = () => {
     onClose();
   };
@@ -14,8 +12,23 @@ const CreateFolder = ({onClose }) => {
     setNewFolderName(event.target.value);
   };
 
-  const handleCreate = () => {
-      handleClose();
+  const handleCreate = async () => {
+    try {
+      // Call the addFolder API
+      const response = await addFile(1, newFolderName); // Assuming folderId is accessible in this scope
+      if (response) {
+        handleClose();
+        // Optionally, you can perform additional actions upon successful folder creation
+        console.log("Folder created successfully");
+      }
+      else {
+        console.error("Failed to create folder");
+        // Optionally, you can display an error message to the user
+      }
+    } catch (error) {
+      console.error("Error creating folder:", error);
+      // Optionally, you can display an error message to the user
+    }
   };
 
   return (
@@ -37,7 +50,7 @@ const CreateFolder = ({onClose }) => {
             Close
           </Button>
           <Button variant="primary" onClick={handleCreate}>
-            Rename
+            Create
           </Button>
         </Modal.Footer>
       </Modal>
