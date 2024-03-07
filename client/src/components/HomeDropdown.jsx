@@ -11,6 +11,7 @@ import {
   delete_folder,
   moveFile,
   getMyFolders,
+  download,
 } from "../Dal/data.js";
 
 const HomeDropdown = ({ selectedItem, showversion }) => {
@@ -79,6 +80,10 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
     }
   };
 
+  const handleDownload = () => {
+    download(selectedItem.id);
+  };
+
   return (
     <div>
       <Dropdown
@@ -112,7 +117,11 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
 
       {showShare ? <Share onClose={handleCloseModal} /> : null}
       {showDownload ? (
-        <Download show={showDownload} onClose={handleCloseModal} />
+        <Download
+          show={showDownload}
+          onClose={handleCloseModal}
+          onDownload={handleDownload}
+        />
       ) : null}
     </div>
   );

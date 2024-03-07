@@ -224,11 +224,6 @@ function logout(email) {
   return true;
 }
 
-// Function to handle file download
-function download(userId, fileId) {
-  return true;
-}
-
 async function getMyFolders(folderId) {
   try {
     const folders = await axios.get(`http://127.0.0.1:8000/move`);
@@ -250,6 +245,21 @@ async function moveFile(fileId, targetFolderId) {
     );
 
     console.log(`File with ID ${fileId} moved successfully.`);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+// Function to handle file download
+async function download(fileId) {
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/file/download/${fileId}`
+    );
+
+    console.log(`File with ID ${fileId} downloaded successfully.`);
     return response;
   } catch (error) {
     console.error(error);
@@ -620,4 +630,5 @@ export {
   folderDeletion,
   delete_folder,
   restoreDeletedFolder,
+  download,
 };

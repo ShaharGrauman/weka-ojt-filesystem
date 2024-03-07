@@ -6,9 +6,6 @@ import DeletedDropdown from "./DeletedDropdown";
 const Item = ({ item, onSelect, showversion }) => {
   const userId = 1;
   const handleItemClick = () => {
-    //     if (!item.isFolder) {
-    //       onSelect(item); // Pass the clicked file item to the parent component
-    //     }
     onSelect(item); // Pass the clicked file item to the parent componen
   };
 
