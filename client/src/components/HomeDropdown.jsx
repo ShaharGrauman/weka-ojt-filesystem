@@ -6,9 +6,15 @@ import Move_file from "./move_file";
 import RenameFile from "./RenameFile";
 import DeleteModal from "./DeletModal";
 import Download from "./Download";
-import { moveFile, getMyFolders } from "../Dal/data.js";
+import {
+  delete_file,
+  delete_folder,
+  moveFile,
+  getMyFolders,
+  download,
+} from "../Dal/data.js";
 
-const HomeDropdown = ({ selectedItem, showversion, userId }) => {
+const HomeDropdown = ({ selectedItem, showversion }) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
@@ -26,19 +32,13 @@ const HomeDropdown = ({ selectedItem, showversion, userId }) => {
     { value: "details", label: "Details" },
   ];
 
-  //    const { updateState } = showversion;
-  //   const showversion = () => {
-  //     // Your conditions here
-  //     updateState(false,true);
-  //   };
-
   const handleOptionSelect = (selectedOption) => {
     if (selectedOption.value === "details") {
       setShowModal(true); // Show the modal when "Details" option is selected
     } else if (selectedOption.value === "share") {
       setShowShare(true);
     } else if (selectedOption.value === "move") {
-      setFolders(getMyFolders(userId, selectedItem.folder_id));
+      setFolders(getMyFolders(selectedItem.folder_id));
       setShowMoveFile(true);
     } else if (selectedOption.value === "rename") {
       setShowRenameFile(true);
@@ -61,8 +61,27 @@ const HomeDropdown = ({ selectedItem, showversion, userId }) => {
   };
 
   const handleMove = (targetFolderId) => {
-    moveFile(userId, selectedItem.id, targetFolderId);
+    moveFile(selectedItem.id, targetFolderId);
     setShowMoveFile(false);
+  };
+
+  const handledelete = () => {
+    const itemName = selectedItem.name;
+    if (
+      itemName &&
+      (itemName.endsWith(".jpg") ||
+        itemName.endsWith(".png") ||
+        itemName.endsWith(".pdf") ||
+        itemName.endsWith(".mp3"))
+    ) {
+      delete_file(selectedItem.id);
+    } else {
+      delete_folder(selectedItem.id);
+    }
+  };
+
+  const handleDownload = () => {
+    download(selectedItem.id);
   };
 
   return (
@@ -91,14 +110,18 @@ const HomeDropdown = ({ selectedItem, showversion, userId }) => {
       {showdelete && (
         <DeleteModal
           onClose={handleCloseModal}
+          onDelete={handledelete}
           itemId={selectedItem.id}
-          userId={userId}
         />
       )}
 
       {showShare ? <Share onClose={handleCloseModal} /> : null}
       {showDownload ? (
-        <Download show={showDownload} onClose={handleCloseModal} />
+        <Download
+          show={showDownload}
+          onClose={handleCloseModal}
+          onDownload={handleDownload}
+        />
       ) : null}
     </div>
   );

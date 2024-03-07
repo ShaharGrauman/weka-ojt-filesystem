@@ -1,17 +1,68 @@
-import React from 'react';
-import Dropdown from './dropdown';
+import React from "react";
+import Dropdown from "./dropdown";
 
-const VersionsDropdown = () => {
+const VersionsDropdown = (itemID) => {
+  const [showdelete, setshowdelete] = useState(false);
+  const [showDownload, setshowDownload] = useState(false);
+
   const versionsOptions = [
-    { value: 'download', label: 'Download' },
-    { value: 'delete', label: 'Delete' },
+    { value: "download", label: "Download" },
+    { value: "delete", label: "Delete" },
   ];
-const handleOptionSelect = (selectedOption) => {
-  // Handle the selected option
-  console.log('Selected option:', selectedOption);
-};
 
-return <Dropdown options={versionsOptions} onSelect={handleOptionSelect} plusIcon={false} />;
+  const handleOptionSelect = (selectedOption) => {
+    if (selectedOption.value === "delete") {
+      setshowdelete(true);
+    } else if (selectedOption.value === "download") {
+      setshowDownload(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setshowdelete(false);
+    setshowDownload(false);
+  };
+
+  const handledelete = (itemID) => {
+    if (
+      selectedItem.name.endsWith(".jpg") ||
+      selectedItem.name.endsWith(".png") ||
+      selectedItem.name.endsWith(".pdf") ||
+      selectedItem.name.endsWith(".mp3")
+    ) {
+      fileDeletion(itemID);
+    } else {
+      folderDeletion(itemID);
+    }
+  };
+
+  const handleDownload = () => {
+    download(itemID);
+  };
+
+  return (
+    <div>
+      <Dropdown
+        options={versionsOptions}
+        onSelect={handleOptionSelect}
+        plusIcon={false}
+      />
+      {showdelete && (
+        <DeleteModal
+          onClose={handleCloseModal}
+          OnDelete={handledelete}
+          itemId={itemID}
+        />
+      )}
+      {showDownload ? (
+        <Download
+          show={showDownload}
+          onClose={handleCloseModal}
+          onDownload={handleDownload}
+        />
+      ) : null}
+    </div>
+  );
 };
 
 export default VersionsDropdown;

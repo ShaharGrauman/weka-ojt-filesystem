@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import Dropdown from "./dropdown";
 import DeletModal from "./DeletModal";
 import RestoreModal from "./RestoreModal";
+import {
+  folderDeletion,
+  fileDeletion,
+  restoreDeletedFolder,
+  restoreDeletedFile,
+} from "../Dal/data.js";
 
-const DeletedDropdown = ({ selectedItem, userId }) => {
+const DeletedDropdown = ({ selectedItem }) => {
   const deletedOptions = [
     { value: "restore", label: "Restore" },
     { value: "delete", label: "Delete" },
@@ -28,6 +34,36 @@ const DeletedDropdown = ({ selectedItem, userId }) => {
     setShowRestore(false);
   };
 
+  const handledelete = () => {
+    const itemName = selectedItem.name;
+    if (
+      itemName &&
+      (itemName.endsWith(".jpg") ||
+        itemName.endsWith(".png") ||
+        itemName.endsWith(".pdf") ||
+        itemName.endsWith(".mp3"))
+    ) {
+      fileDeletion(selectedItem.id);
+    } else {
+      folderDeletion(selectedItem.id);
+    }
+  };
+
+  const handleRestore = () => {
+    const itemName = selectedItem.name;
+    if (
+      itemName &&
+      (itemName.endsWith(".jpg") ||
+        itemName.endsWith(".png") ||
+        itemName.endsWith(".pdf") ||
+        itemName.endsWith(".mp3"))
+    ) {
+      restoreDeletedFile(selectedItem.id);
+    } else {
+      restoreDeletedFolder(selectedItem.id);
+    }
+  };
+
   return (
     <div>
       <Dropdown
@@ -36,18 +72,10 @@ const DeletedDropdown = ({ selectedItem, userId }) => {
         plusIcon={false}
       />
       {showDelete && (
-        <DeletModal
-          onClose={handleCloseModal}
-          itemId={selectedItem.id}
-          userId={userId}
-        />
+        <DeletModal onClose={handleCloseModal} onDelete={handledelete} />
       )}
       {showRestore && (
-        <RestoreModal
-          onClose={handleCloseModal}
-          itemId={selectedItem.id}
-          userId={userId}
-        />
+        <RestoreModal onClose={handleCloseModal} onRestore={handleRestore} />
       )}
     </div>
   );

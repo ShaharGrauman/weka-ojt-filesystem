@@ -23,7 +23,7 @@ async def show_versions(file_id: int):
 
 
 @router.delete("/file/{file_id}")
-def folder_delete(request:Request,file_id: int):
+def file_delete(request:Request,file_id: int):
     try:
         user_id = get_user_id(request)
         # Check if file restored
