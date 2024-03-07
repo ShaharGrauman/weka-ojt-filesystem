@@ -119,7 +119,11 @@ const HomePage = () => {
             <h1 className="text-center">Main Content</h1>
             {showItems ? (
               selectedItem ? (
-                <FileViewer filePath={selectedItem.path} />
+                <FileViewer
+                  fileId={selectedItem.id}
+                  filePath={selectedItem.path}
+                  fileName={selectedItem.name}
+                />
               ) : currentCategoryData.length > 0 ? (
                 <div className="item-container">
                   {currentCategoryData.map((item) => (

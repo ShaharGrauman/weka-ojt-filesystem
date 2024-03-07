@@ -36,6 +36,10 @@ const VersionsDropdown = (itemID) => {
     }
   };
 
+  const handleDownload = () => {
+    download(itemID);
+  };
+
   return (
     <div>
       <Dropdown
@@ -51,7 +55,11 @@ const VersionsDropdown = (itemID) => {
         />
       )}
       {showDownload ? (
-        <Download show={showDownload} onClose={handleCloseModal} />
+        <Download
+          show={showDownload}
+          onClose={handleCloseModal}
+          onDownload={handleDownload}
+        />
       ) : null}
     </div>
   );
