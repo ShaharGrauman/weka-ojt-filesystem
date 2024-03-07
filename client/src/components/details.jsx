@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal'; // Example: Using Bootstrap modal
+import React, { useState } from "react";
+import Modal from "react-bootstrap/Modal"; // Example: Using Bootstrap modal
 
 const FileDetailsModal = ({ showModal, onClose, fileDetails }) => {
   const handleClose = () => {
@@ -17,11 +17,12 @@ const FileDetailsModal = ({ showModal, onClose, fileDetails }) => {
         {/* Add more file details here */}
       </Modal.Body>
       <Modal.Footer>
-        <button className="btn btn-secondary" onClick={handleClose}>Close</button>
+        <button className="btn btn-secondary" onClick={handleClose}>
+          Close
+        </button>
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
 export default FileDetailsModal;
-

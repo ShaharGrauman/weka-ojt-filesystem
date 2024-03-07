@@ -6,7 +6,6 @@ const Move_file = ({ folders, onMove, onClose }) => {
   const [showModal, setShowModal] = useState(true);
   const [selectedFolder, setSelectedFolder] = useState(folders[0]?.id); // Initialize with the first folder
 
-  //   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
     onClose();
@@ -14,6 +13,7 @@ const Move_file = ({ folders, onMove, onClose }) => {
   const handleMove = () => {
     console.log("Moving to folder:", selectedFolder);
     onMove(selectedFolder);
+    setShowModal(false);
   };
 
   const handleRadioButtonChange = (folder_id) => {
@@ -22,10 +22,6 @@ const Move_file = ({ folders, onMove, onClose }) => {
 
   return (
     <div>
-      {/*       <Button variant="primary" onClick={handleShow}> */}
-      {/*         Move */}
-      {/*       </Button> */}
-
       <Modal show={showModal} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Move file to:</Modal.Title>
