@@ -1,20 +1,18 @@
 from fastapi import FastAPI, HTTPException,Response
 from dal.models import User,Pass
-from dal.validation import validate_email_format, validate_pass_format,validate_name 
+from dal.validation import validate_email_format, validate_pass_format,validate_name,validate_match_password 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 import json
-from dal.dalFuction import send_email,Encrypt_email
-from dal.validation import validate_match_password
-from dal.dalFuction import update_Password
+from dal.dalFuction import send_email,Encrypt_email,update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
 from routes.tool_bar import router as tool_bar_router
 from routes.three_dots import router as three_dots_router
 import urllib.parse
 from routes.fileUpload import router as file_upload
-
+from routes.deleted_route import router as deleted_router
 
 
 # Create an instance of the FastAPI class
@@ -30,7 +28,7 @@ app.include_router(home_routes, prefix="")
 app.include_router(tool_bar_router, prefix="")
 app.include_router(three_dots_router, prefix="")
 app.include_router(file_upload, prefix="")
-
+app.include_router(deleted_router,prefix="")
 
 
 # Define a route using a decorator
