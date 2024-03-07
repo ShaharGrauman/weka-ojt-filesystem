@@ -55,10 +55,15 @@ def delete_folder(folder_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
+    delete_folders = "UPDATE folder SET is_deleted = %s WHERE parent_folder = %s AND user_id= %s;"
+    delete_files = "UPDATE file SET is_deleted = %s WHERE folder_id = %s AND user_id= %s;"
     delete_query = update_is_deleted_folder()
 
+
     try:
-        cursor.execute(delete_query, ("1",folder_id, user_id))
+        cursor.execute(delete_folders, (1,folder_id, user_id))
+        cursor.execute(delete_files, (1,folder_id, user_id))
+        cursor.execute(delete_query, (1,folder_id, user_id))
         connection.commit()
 
         return {
@@ -75,12 +80,12 @@ def delete_folder(folder_id,user_id):
 
 
 def update_is_deleted_file():
-    restore_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
-    return restore_query       
+    delete_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
+    return delete_query       
 
 def update_is_deleted_folder():
-    restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id= %s;"
-    return restore_query
+    delete_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id= %s;"
+    return delete_query
 
 # rename file
 def rename_file(file_id, new_name, user_id):
@@ -112,11 +117,10 @@ def download_file(file_id):
 
     try:
         cursor.execute("SELECT id FROM file WHERE id = %s;", (file_id,))
-        file_id = cursor.fetchone()
+        file_path = cursor.fetchone()
 
         if file_id:
-            # get the file from aws
-            return file_id[0]  
+            return file_path  
         else:
             raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
     except Exception as e:
