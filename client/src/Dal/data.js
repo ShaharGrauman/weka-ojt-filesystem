@@ -394,14 +394,14 @@ async function restoreDeletedFile(userId, file_id) {
     console.error(error);
   }
 }
-
 async function LogIn(email, password) {
-try {
+  try {
     const response = await fetch("http://127.0.0.1:8000/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: password,
@@ -420,6 +420,7 @@ try {
     throw err; // Re-throwing the error so it can be caught by the caller
   }
 }
+
 async function getFileVersions(userId, fileId, size = 20, page = 1) {
   try {
     // Check if the user has access to the file
@@ -495,41 +496,40 @@ async function getFileDetails(userId, fileId) {
     throw error; // Re-throw the error for handling elsewhere if needed
   }
 }
-
-async function getMyFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
+async function getMyFiles() {
   try {
-    // Filter files owned by the user
-    const userFiles = await Object.values(files).filter(
-      (file) => file.user_id === userId && !file.is_deleted
-    );
-    userFiles.sort((a, b) => {
-      if (sortBy === "name") {
-        return order === "desc"
-          ? b.file_name.localeCompare(a.file_name)
-          : a.file_name.localeCompare(b.file_name);
-      } else if (sortBy === "date") {
-        return order === "desc"
-          ? new Date(b.upload_date) - new Date(a.upload_date)
-          : new Date(a.upload_date) - new Date(b.upload_date);
-      } else {
-        return 0; // No sorting
-      }
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/my_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
     });
-    // Calculate the start index based on the specified page and size
-    const startIndex = (page - 1) * size;
-    // Return a slice of user files based on the calculated start index and size
-    return userFiles.slice(startIndex, startIndex + size);
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
+      }
+    }
   } catch (err) {
-    console.log(err);
+    console.error("Error collecting data:", err);
+    throw err;
   }
 }
-
 export {
   registerUser,
   LogIn,
