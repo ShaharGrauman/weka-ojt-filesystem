@@ -1,7 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import axios from "axios";
-import { Validate_email_format,Validate_match_password } from "../Validation/Validation.js";
+import {
+  Validate_email_format,
+  Validate_match_password,
+} from "../Validation/Validation.js";
 // Dictionary to store user data with example data
 const users = {
   1: {
@@ -209,11 +212,26 @@ function addFile(userId, path, file) {
   return true;
 }
 
-// Function to add a folder to a user's account
-function addFolder(userId, path, folder) {
-  const folderId = Object.keys(folders).length + 1;
-  folders[folderId] = { ...folder, user_id: userId, folder_path: path };
-  return true;
+async function addFolder(folder_id, folder_name) {
+  const url = `http://127.0.0.1:8000/folder/${folder_id}/create?folder_name=${folder_name}`; // Replace with the appropriate URL
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      return true; // Folder created successfully
+    } else {
+      return false; // Folder creation failed
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return false; // Request failed
+  }
 }
 
 // Function to handle user logout
@@ -534,25 +552,22 @@ async function getMyFiles() {
     throw err;
   }
 }
-async function Update_password(pass1,pass2,token) {
+async function Update_password(pass1, pass2, token) {
   // chick the foemate of the email
-  if (!Validate_match_password(pass1,pass2)) return "Password not match";
+  if (!Validate_match_password(pass1, pass2)) return "Password not match";
 
   try {
-    const response = await fetch(
-      "http://127.0.0.1:8000/new_password",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          pass1: pass1,
-          pass2: pass2,
-          token: token,
-        }),
-      }
-    );
+    const response = await fetch("http://127.0.0.1:8000/new_password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        pass1: pass1,
+        pass2: pass2,
+        token: token,
+      }),
+    });
 
     if (response.ok) {
       const data = await response.json();
@@ -567,6 +582,7 @@ async function Update_password(pass1,pass2,token) {
     throw error; // Re-throw the error to be handled by the caller
   }
 }
+addFolder(1, "assd");
 export {
   registerUser,
   LogIn,
@@ -579,5 +595,6 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
-  Update_password
+  Update_password,
+  addFile,
 };
