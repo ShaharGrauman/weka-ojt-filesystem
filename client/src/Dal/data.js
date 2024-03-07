@@ -381,57 +381,75 @@ async function folderDeletion(folder_id) {
   }
 }
 
-async function getMySharedFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
+async function getMySharedFiles() {
   try {
-    const userSharedFiles = await Object.values(sharedFiles).filter(
-      (file) => file.shared_with_user_id === userId
-    );
-    const sortedFiles = await userSharedFiles.sort((a, b) =>
-      order === "desc" ? b.file_id - a.file_id : a.file_id - b.file_id
-    );
-    const startIndex = (page - 1) * size;
-    return sortedFiles
-      .slice(startIndex, startIndex + size)
-      .map((file) => files[file.file_id]);
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/shared_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
+      }
+    }
   } catch (err) {
-    console.log(err);
+    console.error("Error collecting data:", err);
+    throw err;
   }
 }
 
 // Function to get files deleted by the user asynchronously
-async function getMyDeletedFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
-  return new Promise((resolve, reject) => {
+async function getMyDeletedFiles() {
     try {
-      // Simulate asynchronous operation
-      setTimeout(() => {
-        const userDeletedFiles = Object.values(files).filter(
-          (file) => file.user_id === userId && file.is_deleted
-        );
-        const sortedFiles = userDeletedFiles.sort((a, b) =>
-          order === "desc"
-            ? new Date(b.upload_date) - new Date(a.upload_date)
-            : new Date(a.upload_date) - new Date(b.upload_date)
-        );
-        const startIndex = (page - 1) * size;
-        const slicedFiles = sortedFiles.slice(startIndex, startIndex + size);
-        resolve(slicedFiles);
-      }, 0); // Simulated asynchronous operation
-    } catch (error) {
-      reject(error);
-    }
-  });
+        const headers = {
+          "Content-Type": "application/json",
+        };
+
+        const response = await fetch("http://127.0.0.1:8000/deleted_files", {
+          method: "GET",
+          headers: headers,
+          credentials: "include", // Include cookies in the request
+        });
+
+        const data = await response.json(); // Parsing response JSON
+
+        if (response.ok) {
+          return data;
+        } else {
+          // Handle non-OK response status codes
+          if (response.status === 400) {
+            // Handle 400 Bad Request error
+            throw new Error("User ID cookie is missing");
+          } else if (response.status === 500) {
+            // Handle 500 Internal Server Error
+            throw new Error("Internal Server Error");
+          } else {
+            // Handle other error cases
+            throw new Error("Unexpected Error");
+          }
+        }
+      } catch (err) {
+        console.error("Error collecting data:", err);
+        throw err;
+      }
 }
 
 // Function to restore a deleted file
