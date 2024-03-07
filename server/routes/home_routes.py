@@ -1,8 +1,8 @@
-from typing import Annotated
 from dal.config import cipher
 from fastapi import APIRouter, Cookie,Path,Request
 from dal.dalFuction import get_file_data,get_myfiles,get_myfolders,get_shared_file_data,get_folder_data,get_deletedfiles,get_deletedfolders
 from common.HTTPExceptions.exceptions import CustomHTTPException
+from dal.config import get_user_id
 
 router = APIRouter()
 
@@ -33,10 +33,10 @@ async def deleted_files(request:Request):
         raise CustomHTTPException(status_code=500, detail=str(e))
 
 @router.get("/{files_category}/file_id")
-def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
-    user_id=cipher.decrypt(eval(user_id)).decode()
+def get_file(request:Request,file_id:int):
     files_category="home"
     try:
+        user_id = get_user_id(request)
         if (files_category=="home" or files_category=="myfiles" or files_category=="deleted"):
             result = get_file_data(file_id,user_id)
             return result
@@ -48,6 +48,7 @@ def get_file(file_id:int,user_id: Annotated[str | None, Cookie()] = None,):
         return e
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
 
 @router.get("/{file_category}/{folder_id}")
 async def get_files_or_folders_in_folder(

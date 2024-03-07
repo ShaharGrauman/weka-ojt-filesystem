@@ -1,13 +1,12 @@
-from fastapi import  APIRouter,HTTPException
+from fastapi import  APIRouter,HTTPException, Cookie,Request
 from  dal.threeDots import get_versions_for_file,delete_file,delete_folder, rename_file, download_file
 from common.HTTPExceptions.exceptions import CustomHTTPException
-from typing import Annotated
 from dal.config import cipher
-from fastapi import APIRouter, Cookie
 from dal.validation import validate_email_format
 from dal.authentication import check_email_exist
 from dal.dalFuction import get_myfolders
 from dal.threeDots import update_file_parent
+from dal.config import get_user_id
 
 router = APIRouter()
 
@@ -24,9 +23,9 @@ async def show_versions(file_id: int):
 
 
 @router.delete("/file/{file_id}")
-def folder_delete(file_id: int,user_id: Annotated[str | None, Cookie()] = None):
-    user_id= cipher.decrypt(eval(user_id)).decode()
+def folder_delete(request:Request,file_id: int):
     try:
+        user_id = get_user_id(request)
         # Check if file restored
         result = delete_file( file_id,user_id)
         return result
@@ -38,9 +37,9 @@ def folder_delete(file_id: int,user_id: Annotated[str | None, Cookie()] = None):
 
 
 @router.delete("/folder/{folder_id}")
-def folder_delete(folder_id: int,user_id: Annotated[str | None, Cookie()] = None):
-    user_id= cipher.decrypt(eval(user_id)).decode()
+def folder_delete(request:Request,folder_id: int):
     try:
+        user_id = get_user_id(request)
         # Check if folder restored
         result = delete_folder( folder_id,user_id)
         return result
@@ -64,7 +63,7 @@ def share_file(file_id: int,email:str,user_id: Annotated[str | None, Cookie()] =
     user=cipher.decrypt(eval(user_id)).decode()
     
 
-    # now i do share with file 
+    now i do share with file 
 
 
 @router.put("/file/rename/{file_id}")
@@ -91,9 +90,9 @@ def download_file_route(file_id: int):
 
 
 @router.get("/move")
-def get_all_folders(folder_id:int,file_id: int,user_id: Annotated[str | None, Cookie()] = None):
-    user_id= cipher.decrypt(eval(user_id)).decode()
+def get_all_folders(request:Request,folder_id:int,file_id: int):
     try:
+        user_id = get_user_id(request)
         folders = get_myfolders(user_id,1)
         return folders
     except CustomHTTPException as e:
@@ -104,9 +103,9 @@ def get_all_folders(folder_id:int,file_id: int,user_id: Annotated[str | None, Co
 
 
 @router.put("/move/{file_id}/{target_folder_id}")
-def move_file(file_id: int,target_folder_id:int,user_id: Annotated[str | None, Cookie()] = None):
-    user_id= cipher.decrypt(eval(user_id)).decode()
+def move_file(request:Request,file_id: int,target_folder_id:int):
     try:
+        user_id = get_user_id(request)
         result = update_file_parent(file_id,target_folder_id,user_id)
         return result
     except CustomHTTPException as e:

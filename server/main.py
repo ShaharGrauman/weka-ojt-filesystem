@@ -1,13 +1,11 @@
 from fastapi import FastAPI, HTTPException,Response
 from dal.models import User,Pass
-from dal.validation import validate_email_format, validate_pass_format,validate_name 
+from dal.validation import validate_email_format, validate_pass_format,validate_name,validate_match_password 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 import json
-from dal.dalFuction import send_email,Encrypt_email
-from dal.validation import validate_match_password
-from dal.dalFuction import update_Password
+from dal.dalFuction import send_email,Encrypt_email,update_Password
 from routes.home_routes import router as home_routes
 from fastapi.middleware.cors import CORSMiddleware
 from routes.tool_bar import router as tool_bar_router
