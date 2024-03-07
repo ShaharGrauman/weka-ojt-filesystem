@@ -49,16 +49,24 @@ def delete_file(file_id,user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+        connection.close()
 
 
-def delete_folder(folder_id,user_id):
 
+def delete_folder(folder_id, user_id):
     connection = get_database_connection()
     cursor = connection.cursor()
-    delete_query = update_is_deleted_folder()
+
+    delete_folders_query = "UPDATE folder SET is_deleted = %s WHERE parent_folder = %s AND user_id = %s;"
+    delete_files_query = "UPDATE file SET is_deleted = %s WHERE folder_id = %s AND user_id = %s;"
 
     try:
-        cursor.execute(delete_query, ("1",folder_id, user_id))
+
+        cursor.execute(delete_folders_query, (1, folder_id, user_id))
+        cursor.execute(delete_files_query, (1, folder_id, user_id))
+        cursor.execute(update_is_deleted_folder(), (1, folder_id, user_id))
+
+        # Commit the transaction
         connection.commit()
 
         return {
@@ -66,21 +74,25 @@ def delete_folder(folder_id,user_id):
             "msg": f"Folder with ID {folder_id} deleted successfully."
         }
     except Exception as e:
+        # Rollback the transaction on error
         connection.rollback()
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+        connection.close()
+
+
 
 
 
 
 def update_is_deleted_file():
-    restore_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
-    return restore_query       
+    delete_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
+    return delete_query       
 
 def update_is_deleted_folder():
-    restore_query = "UPDATE folder SET is_deleted = %s WHERE id = %sAND user_id= %s;"
-    return restore_query
+    delete_query = "UPDATE folder SET is_deleted = %s WHERE id = %s AND user_id = %s;"
+    return delete_query
 
 # rename file
 def renamefile(file_id, new_name, user_id):
@@ -99,6 +111,8 @@ def renamefile(file_id, new_name, user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+        connection.close()
+
 # download file
 
 def download_file(file_id):
@@ -107,17 +121,18 @@ def download_file(file_id):
 
     try:
         cursor.execute("SELECT id FROM file WHERE id = %s;", (file_id,))
-        file_id = cursor.fetchone()
+        file_path = cursor.fetchone()
 
         if file_id:
-            # get the file from aws
-            return file_id[0]  
+            return file_path  
         else:
             raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+        connection.close()
+
 
 
 
@@ -139,4 +154,6 @@ def update_file_parent(file_id,target_folder_id,user_id):
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     finally:
         cursor.close()
+        connection.close()
+
 

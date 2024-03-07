@@ -6,107 +6,107 @@ import {
   Validate_match_password,
 } from "../Validation/Validation.js";
 // Dictionary to store user data with example data
-const users = {
-  1: {
-    user_id: 1,
-    username: "user1",
-    email: "user1@example.com",
-    passwordhash:
-      "$2a$10$VlR1BYH1H54kKDlmL/ts/.BkCnf4eEioVVnhRUUQWA6nRQNngRwPW",
-    reset_token: null,
-  },
-  2: {
-    user_id: 2,
-    username: "user2",
-    email: "user2@example.com",
-    passwordhash: "654321",
-    reset_token: null,
-  },
-};
+// const users = {
+//   1: {
+//     user_id: 1,
+//     username: "user1",
+//     email: "user1@example.com",
+//     passwordhash:
+//       "$2a$10$VlR1BYH1H54kKDlmL/ts/.BkCnf4eEioVVnhRUUQWA6nRQNngRwPW",
+//     reset_token: null,
+//   },
+//   2: {
+//     user_id: 2,
+//     username: "user2",
+//     email: "user2@example.com",
+//     passwordhash: "654321",
+//     reset_token: null,
+//   },
+// };
 
-// Dictionary to store file data with example data
-const files = {
-  1: {
-    file_id: 1,
-    file_name: "file1.txt",
-    user_id: 1,
-    folder_id: 1,
-    size: 1024,
-    is_deleted: false,
-    is_version: false,
-    file_path: "/path/to/file1.txt",
-    upload_date: new Date("2023-01-15"),
-  },
-  2: {
-    file_id: 2,
-    file_name: "file2.pdf",
-    user_id: 1,
-    folder_id: 2,
-    size: 2048,
-    is_deleted: false,
-    is_version: false,
-    file_path: "/path/to/file2.pdf",
-    upload_date: new Date("2023-02-28"),
-  },
-  3: {
-    file_id: 3,
-    file_name: "file3.jpg",
-    user_id: 2,
-    folder_id: null,
-    size: 4096,
-    is_deleted: false,
-    is_version: false,
-    file_path: "/path/to/file3.jpg",
-    upload_date: new Date("2023-03-10"),
-  },
-};
+// // Dictionary to store file data with example data
+// const files = {
+//   1: {
+//     file_id: 1,
+//     file_name: "file1.txt",
+//     user_id: 1,
+//     folder_id: 1,
+//     size: 1024,
+//     is_deleted: false,
+//     is_version: false,
+//     file_path: "/path/to/file1.txt",
+//     upload_date: new Date("2023-01-15"),
+//   },
+//   2: {
+//     file_id: 2,
+//     file_name: "file2.pdf",
+//     user_id: 1,
+//     folder_id: 2,
+//     size: 2048,
+//     is_deleted: false,
+//     is_version: false,
+//     file_path: "/path/to/file2.pdf",
+//     upload_date: new Date("2023-02-28"),
+//   },
+//   3: {
+//     file_id: 3,
+//     file_name: "file3.jpg",
+//     user_id: 2,
+//     folder_id: null,
+//     size: 4096,
+//     is_deleted: false,
+//     is_version: false,
+//     file_path: "/path/to/file3.jpg",
+//     upload_date: new Date("2023-03-10"),
+//   },
+// };
 
-// Dictionary to store folder data with example data
-const folders = {
-  1: {
-    folder_name: "Folder 1",
-    user_id: 1,
-    parent_folder: null,
-    is_deleted: false,
-    folder_path: "/path/to/Folder1",
-    upload_date: new Date("2023-01-2"),
-  },
-  2: {
-    folder_name: "Folder 2",
-    user_id: 1,
-    parent_folder: null,
-    is_deleted: false,
-    folder_path: "/path/to/Folder2",
-    upload_date: new Date("2023-01-1"),
-  },
-};
+// // Dictionary to store folder data with example data
+// const folders = {
+//   1: {
+//     folder_name: "Folder 1",
+//     user_id: 1,
+//     parent_folder: null,
+//     is_deleted: false,
+//     folder_path: "/path/to/Folder1",
+//     upload_date: new Date("2023-01-2"),
+//   },
+//   2: {
+//     folder_name: "Folder 2",
+//     user_id: 1,
+//     parent_folder: null,
+//     is_deleted: false,
+//     folder_path: "/path/to/Folder2",
+//     upload_date: new Date("2023-01-1"),
+//   },
+// };
 
-// Dictionary to store file version data with example data
-const fileVersions = {
-  1: { file_id: 1, version_number: 1, upload_date: new Date("2023-04-10") },
-  2: { file_id: 2, version_number: 1, upload_date: new Date("2023-05-10") },
-  3: { file_id: 1, version_number: 2, upload_date: new Date("2023-06-10") },
-};
+// // Dictionary to store file version data with example data
+// const fileVersions = {
+//   1: { file_id: 1, version_number: 1, upload_date: new Date("2023-04-10") },
+//   2: { file_id: 2, version_number: 1, upload_date: new Date("2023-05-10") },
+//   3: { file_id: 1, version_number: 2, upload_date: new Date("2023-06-10") },
+// };
 
-// Dictionary to store shared file data with example data
-const sharedFiles = {
-  1: {
-    file_id: 1,
-    shared_with_user_id: 2,
-    shared_by_user_id: 1,
-    permission: "read",
-  },
-};
+// // Dictionary to store shared file data with example data
+// const sharedFiles = {
+//   1: {
+//     file_id: 1,
+//     shared_with_user_id: 2,
+//     shared_by_user_id: 1,
+//     permission: "read",
+//   },
+// };
 
-// Dictionary to store shared folder data with example data
-const sharedFolders = {
-  1: {
-    folder_id: 1,
-    shared_with_user_id: 2,
-    shared_by_user_id: 1,
-    permission: "read",
-  },
-};
+// // Dictionary to store shared folder data with example data
+// const sharedFolders = {
+//   1: {
+//     folder_id: 1,
+//     shared_with_user_id: 2,
+//     shared_by_user_id: 1,
+//     permission: "read",
+//   },
+// };
 
 async function registerUser(name, email, password) {
   try {
@@ -234,11 +234,6 @@ async function addFolder(folder_id, folder_name) {
   }
 }
 
-// Function to handle user logout
-function logout(email) {
-  return true;
-}
-
 async function getMyFolders(folderId) {
   try {
     const folders = await axios.get(`http://127.0.0.1:8000/move`);
@@ -270,7 +265,7 @@ async function moveFile(fileId, targetFolderId) {
 // Function to handle file download
 async function download(fileId) {
   try {
-    const response = await axios.put(
+    const response = await axios.get(
       `http://127.0.0.1:8000/file/download/${fileId}`
     );
 
@@ -320,74 +315,6 @@ async function renameFile(fileId, newName) {
   }
 };
 
-
-async function delete_file(file_id) {
-  try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/file/${file_id}`
-    );
-
-    console.log("The file deleted successfully");
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-// async function delete_folder(folder_id) {
-//   try {
-//     const response = await axios.delete(
-//       `http://127.0.0.1:8000/folder/${folder_id}`
-//     );
-
-//     console.log("The folder deleted successfully");
-//     return response;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-async function delete_folder(folder_id) {
-  try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/folder/${folder_id}`
-    );
-    console.log("The folder deleted successfully");
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-async function fileDeletion(file_id) {
-  try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/deleted/files/${file_id}`
-    );
-
-    console.log("The file permanently deleted successfully");
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-async function folderDeletion(folder_id) {
-  try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/deleted/folders/${folder_id}`
-    );
-
-    console.log("The folder permanently deleted successfully");
-    return response;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
 
 async function getMySharedFiles() {
   try {
@@ -457,6 +384,61 @@ async function getMyDeletedFiles() {
   } catch (err) {
     console.error("Error collecting data:", err);
     throw err;
+  }
+}
+
+async function delete_file(file_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/file/${file_id}`
+    );
+
+    console.log("The file deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function delete_folder(folder_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/folder/${folder_id}`
+    );
+    console.log("The folder deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function fileDeletion(file_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/files/${file_id}`
+    );
+
+    console.log("The file permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function folderDeletion(folder_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/folders/${folder_id}`
+    );
+
+    console.log("The folder permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 }
 
@@ -590,7 +572,7 @@ async function getMyFiles() {
     const data = await response.json(); // Parsing response JSON
 
     if (response.ok) {
-      return data;
+      return response;
     } else {
       // Handle non-OK response status codes
       if (response.status === 400) {
@@ -609,6 +591,7 @@ async function getMyFiles() {
     throw err;
   }
 }
+
 async function Update_password(pass1, pass2, token) {
   // chick the foemate of the email
   if (!Validate_match_password(pass1, pass2)) return "Password not match";
@@ -640,7 +623,7 @@ async function Update_password(pass1, pass2, token) {
   }
 }
 
-export async function uploadFile(file, folderId) {
+async function uploadFile(file, folderId) {
   const formData = new FormData();
   formData.append("file", file);
 
@@ -676,17 +659,19 @@ export {
   getMyDeletedFiles,
   getMySharedFiles,
   fileDeletion,
+  folderDeletion,
+  delete_file,
+  delete_folder,
   restoreDeletedFile,
+  restoreDeletedFolder,
   Forget_password,
   getFileVersions,
   getMyFolders,
   moveFile,
   addFile,
   Update_password,
-  delete_file,
-  folderDeletion,
-  delete_folder,
-  restoreDeletedFolder,
   download,
+  addFolder,
+  uploadFile,
   renameFile,
 };
