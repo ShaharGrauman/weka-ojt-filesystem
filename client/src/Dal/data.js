@@ -239,23 +239,13 @@ function logout(email) {
   return true;
 }
 
-// Function to handle file download
-function download(userId, fileId) {
-  return true;
-}
-
-async function getMyFolders(userId, folderId) {
+async function getMyFolders(folderId) {
   try {
     const folders = await axios.get(`http://127.0.0.1:8000/move`);
 
     const userFolders = Object.values(folders).filter(
-      (folder) =>
-        folder.user_id === userId &&
-        !folder.is_deleted &&
-        folder.id !== folderId
+      (folder) => !folder.is_deleted && folder.id !== folderId
     );
-
-    console.log(`Folders owned by user ${userId}: `, userFolders);
     return userFolders;
   } catch (error) {
     console.error(error);
@@ -263,14 +253,28 @@ async function getMyFolders(userId, folderId) {
   }
 }
 
-async function moveFile(userId, fileId, targetFolderId) {
+async function moveFile(fileId, targetFolderId) {
   try {
     const response = await axios.put(
-      `http://127.0.0.1:8000/move/${fileId}/${targetFolderId}`,
-      { userId }
+      `http://127.0.0.1:8000/move/${fileId}/${targetFolderId}`
     );
 
     console.log(`File with ID ${fileId} moved successfully.`);
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+// Function to handle file download
+async function download(fileId) {
+  try {
+    const response = await axios.put(
+      `http://127.0.0.1:8000/file/download/${fileId}`
+    );
+
+    console.log(`File with ID ${fileId} downloaded successfully.`);
     return response;
   } catch (error) {
     console.error(error);
@@ -324,102 +328,147 @@ function renameFile(userId, fileId, newName) {
   return false;
 }
 
-function deleteFile(userId, fileId) {
-  return new Promise((resolve, reject) => {
-    const file = files[fileId];
-
-    if (!file) {
-      // Reject the Promise if the file does not exist
-      return reject(false);
-    }
-    // Check if the file belongs to the user
-    if (file.user_id !== userId) {
-      // If the file does not belong to the user, log an error and reject the Promise
-      console.log(
-        `User ${userId} does not have permission to delete file ${fileId}`
-      );
-      return reject(false);
-    }
-
-    // Simulate an asynchronous deletion
-    setTimeout(() => {
-      file.is_deleted = true;
-      // console.log("file.is_deleted after deletion");
-      // console.log(file.is_deleted);
-
-      resolve(true);
-    }, 0);
-  });
-}
-
-async function fileDeletion(userId, file_id) {
+async function delete_file(file_id) {
   try {
     const response = await axios.delete(
-      `http://127.0.0.1:8000/deleted/files/${file_id}`
+      `http://127.0.0.1:8000/file/${file_id}`
     );
 
     console.log("The file deleted successfully");
     return response;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
 
-async function getMySharedFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
+// async function delete_folder(folder_id) {
+//   try {
+//     const response = await axios.delete(
+//       `http://127.0.0.1:8000/folder/${folder_id}`
+//     );
+
+//     console.log("The folder deleted successfully");
+//     return response;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+async function delete_folder(folder_id) {
   try {
-    const userSharedFiles = await Object.values(sharedFiles).filter(
-      (file) => file.shared_with_user_id === userId
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/folder/${folder_id}`
     );
-    const sortedFiles = await userSharedFiles.sort((a, b) =>
-      order === "desc" ? b.file_id - a.file_id : a.file_id - b.file_id
+    console.log("The folder deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function fileDeletion(file_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/files/${file_id}`
     );
-    const startIndex = (page - 1) * size;
-    return sortedFiles
-      .slice(startIndex, startIndex + size)
-      .map((file) => files[file.file_id]);
+
+    console.log("The file permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function folderDeletion(folder_id) {
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/deleted/folders/${folder_id}`
+    );
+
+    console.log("The folder permanently deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function getMySharedFiles() {
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/shared_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
+      }
+    }
   } catch (err) {
-    console.log(err);
+    console.error("Error collecting data:", err);
+    throw err;
   }
 }
 
 // Function to get files deleted by the user asynchronously
-async function getMyDeletedFiles(
-  userId,
-  sortBy = "name",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
-  return new Promise((resolve, reject) => {
-    try {
-      // Simulate asynchronous operation
-      setTimeout(() => {
-        const userDeletedFiles = Object.values(files).filter(
-          (file) => file.user_id === userId && file.is_deleted
-        );
-        const sortedFiles = userDeletedFiles.sort((a, b) =>
-          order === "desc"
-            ? new Date(b.upload_date) - new Date(a.upload_date)
-            : new Date(a.upload_date) - new Date(b.upload_date)
-        );
-        const startIndex = (page - 1) * size;
-        const slicedFiles = sortedFiles.slice(startIndex, startIndex + size);
-        resolve(slicedFiles);
-      }, 0); // Simulated asynchronous operation
-    } catch (error) {
-      reject(error);
+async function getMyDeletedFiles() {
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch("http://127.0.0.1:8000/deleted_files", {
+      method: "GET",
+      headers: headers,
+      credentials: "include", // Include cookies in the request
+    });
+
+    const data = await response.json(); // Parsing response JSON
+
+    if (response.ok) {
+      return data;
+    } else {
+      // Handle non-OK response status codes
+      if (response.status === 400) {
+        // Handle 400 Bad Request error
+        throw new Error("User ID cookie is missing");
+      } else if (response.status === 500) {
+        // Handle 500 Internal Server Error
+        throw new Error("Internal Server Error");
+      } else {
+        // Handle other error cases
+        throw new Error("Unexpected Error");
+      }
     }
-  });
+  } catch (err) {
+    console.error("Error collecting data:", err);
+    throw err;
+  }
 }
 
 // Function to restore a deleted file
-async function restoreDeletedFile(userId, file_id) {
+async function restoreDeletedFile(file_id) {
   try {
     const response = await axios.update(
       `http://127.0.0.1:8000/deleted/files/deleted/files/${file_id}/restore`
@@ -431,6 +480,21 @@ async function restoreDeletedFile(userId, file_id) {
     console.error(error);
   }
 }
+
+// Function to restore a deleted folder
+async function restoreDeletedFolder(folder_id) {
+  try {
+    const response = await axios.update(
+      `http://127.0.0.1:8000/deleted/files/deleted/files/${folder_id}/restore`
+    );
+
+    console.log("The file deleted successfully");
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 async function LogIn(email, password) {
   try {
     const response = await fetch("http://127.0.0.1:8000/login", {
@@ -582,7 +646,36 @@ async function Update_password(pass1, pass2, token) {
     throw error; // Re-throw the error to be handled by the caller
   }
 }
-addFolder(1, "assd");
+
+export async function uploadFile(file, folderId) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/file/${folderId}/upload`,
+      {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("File upload successful:", data);
+      return data;
+    } else {
+      const errorData = await response.json();
+      console.error("File upload failed:", errorData);
+      throw new Error("File upload failed");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error;
+  }
+}
+
 export {
   registerUser,
   LogIn,
@@ -595,6 +688,6 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
-  Update_password,
   addFile,
+  Update_password,
 };

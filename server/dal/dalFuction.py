@@ -7,7 +7,7 @@ from typing import List
 from dal.config import cipher
 from common.HTTPExceptions.exceptions import CustomHTTPException
 from datetime import datetime
-from dal.models import File,Folder
+from .models import File,Folder
 # witch do encrypt for the mail to send it to the user in the token
 def Encrypt_email(email):
    encrypted_email= cipher.encrypt(email.encode())
@@ -35,7 +35,7 @@ def send_email(recever_email,msg):
         return False
 
 # Function to retrieve myfiles
-def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[File]:
     conn = get_database_connection()
     cursor = conn.cursor()
     # Query to retrieve user's files from MyFile
@@ -48,9 +48,23 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
     cursor.execute(my_files_query, (user_id,))
     my_files = cursor.fetchall()
     # Return the subset of files based on the page
+    files = []
+    for file_data in my_files:
+        file = File(
+            id=file_data[0],
+            name=file_data[1],
+            user_id=file_data[2],
+            folder_id=file_data[3],
+            size=file_data[4],
+            is_deleted=bool(file_data[5]),  # Convert to bool
+            path=file_data[6],
+            upload_date=file_data[7],
+            group_version_id=file_data[8]
+        )
+        files.append(file)
     if conn:
-            conn.close()
-    return my_files[start_index:start_index + 20]
+        conn.close()
+    return files[start_index:start_index + 20]
 
 def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
     conn = get_database_connection()
@@ -69,7 +83,7 @@ def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> Li
             conn.close()
     return my_folders[start_index:start_index + 20]
 
-def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[File]:
     conn = get_database_connection()
     cursor = conn.cursor()
     # Query to retrieve user's deleted files
@@ -85,9 +99,23 @@ def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") ->
     # Execute the query with user_id, limit, and offset as parameters
     cursor.execute(deleted_files_query, (user_id, limit, offset))
     deleted_files = cursor.fetchall()
+    files = []
+    for file_data in deleted_files:
+        file = File(
+            id=file_data[0],
+            name=file_data[1],
+            user_id=file_data[2],
+            folder_id=file_data[3],
+            size=file_data[4],
+            is_deleted=bool(file_data[5]),  # Convert to bool
+            path=file_data[6],
+            upload_date=file_data[7],
+            group_version_id=file_data[8]
+        )
+        files.append(file)
     if conn:
-            conn.close()
-    return deleted_files
+        conn.close()
+    return files
 
 def get_deletedfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
     conn = get_database_connection()
@@ -191,15 +219,14 @@ def get_folder_data(folder_id, user_id):
     folders = get_folders_infolder(folder_id, user_id)
     return {'files': files, 'folders': folders}
 # Function to retrieve myfiles
-def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
-
+def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[File]:
     conn = get_database_connection()
     cursor = conn.cursor()
     start_index = (page - 1) * 20
     query = """
-        SELECT * FROM files
+        SELECT * FROM file
         WHERE id IN (
-            SELECT file_id FROM shared_files
+            SELECT file_id FROM sharedfile
             WHERE user_id = %s
         )
         ORDER BY {} DESC
@@ -207,8 +234,9 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
     """.format(sorted_by)
     cursor.execute(query, (user_id, 20, start_index))
     shared_files_data = cursor.fetchall()
-
     # Process the query results and construct a list of dictionaries representing shared files
+    if shared_files_data is None:
+        return []
     shared_files = []
     for file_data in shared_files_data:
         file = File(

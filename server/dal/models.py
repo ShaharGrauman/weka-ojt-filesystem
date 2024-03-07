@@ -12,6 +12,7 @@ class Pass(BaseModel):
     token: str
 
 class File(BaseModel):
+    id:int
     name: str
     user_id: int
     folder_id: Optional[int] = None
@@ -22,6 +23,7 @@ class File(BaseModel):
     group_version_id: Optional[str] = None
 
 class Folder(BaseModel):
+    id: int
     name: str
     user_id: int
     parent_folder: Optional[int] = None

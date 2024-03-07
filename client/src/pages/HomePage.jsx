@@ -11,24 +11,28 @@ import FileViewer from "../components/FileViewer";
 import VersionsList from "../components/VersionsList .jsx";
 
 import "./HomePage.css";
-import { getMyFiles, getMyDeletedFiles, getMySharedFiles } from "../Dal/data.js";
+import {
+  getMyFiles,
+  getMyDeletedFiles,
+  getMySharedFiles,
+} from "../Dal/data.js";
 
 const versionData = [
   {
     number: 1,
     date: "2023-01-15",
-    dropdownItems: ["Download", "View Details", "Delete"]
+    dropdownItems: ["Download", "View Details", "Delete"],
   },
   {
     number: 2,
     date: "2023-02-20",
-    dropdownItems: ["Download", "View Details"]
+    dropdownItems: ["Download", "View Details"],
   },
   {
     number: 3,
     date: "2023-03-25",
-    dropdownItems: ["Download", "View Details", "Share"]
-  }
+    dropdownItems: ["Download", "View Details", "Share"],
+  },
 ];
 
 const HomePage = () => {
@@ -66,6 +70,8 @@ const HomePage = () => {
 
   const currentCategoryData =
     selectedCategory === "Home"
+      ? [...myFiles, ...sharedFiles]
+      : selectedCategory === "MyFiles"
       ? myFiles
       : selectedCategory === "DeletedFiles"
       ? deletedFiles
@@ -115,12 +121,17 @@ const HomePage = () => {
             <h1 className="text-center">Main Content</h1>
             {showItems ? (
               selectedItem ? (
-                <FileViewer filePath={selectedItem.filePath} />
+                <FileViewer
+                  fileId={selectedItem.id}
+                  filePath={selectedItem.path}
+                  fileName={selectedItem.name}
+                />
               ) : currentCategoryData.length > 0 ? (
                 <div className="item-container">
                   {currentCategoryData.map((item) => (
                     <Item
                       key={item.id}
+                      id={item.id}
                       item={item}
                       showVersion={showVersion}
                       onSelect={() => handleItemClick(item)}
