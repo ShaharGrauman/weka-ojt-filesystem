@@ -74,10 +74,16 @@ def restore_folder(folder_id,user_id):
 
     connection = get_database_connection()
     cursor = connection.cursor()
+
+    restore_folders = "UPDATE folder SET is_deleted = %s WHERE parent_folder = %s AND user_id= %s;"
+    restore_files = "UPDATE file SET is_deleted = %s WHERE folder_id = %s AND user_id= %s;"
     restore_query = update_is_deleted_folder()
 
+
     try:
-        cursor.execute(restore_query, ("0",folder_id, user_id))
+        cursor.execute(restore_folders, (0,folder_id, user_id))
+        cursor.execute(restore_files, (0,folder_id, user_id))
+        cursor.execute(restore_query, (0,folder_id, user_id))
         connection.commit()
 
         return {
