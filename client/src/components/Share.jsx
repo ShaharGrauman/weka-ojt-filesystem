@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import {share_file_with_user} from "../Dal/data.js"
 
-const Share = ({ onClose }) => {
+const Share = ({ onClose ,selectedItem}) => {
   const [showModal, setShowModal] = useState(true);
   const [email, setEmail] = useState("");
 
@@ -12,8 +13,12 @@ const Share = ({ onClose }) => {
 
   const handleEmailChange = (e) => setEmail(e.target.value);
 
-  const handleShareFile = () => {
+   const handleShareFile =async() => {
+    const response=await share_file_with_user(selectedItem,email)
+
+    console.log(response)
     handleCloseModal();
+
   };
 
   return (

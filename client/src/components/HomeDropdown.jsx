@@ -37,6 +37,7 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
       setShowModal(true); // Show the modal when "Details" option is selected
     } else if (selectedOption.value === "share") {
       setShowShare(true);
+      console.log(selectedItem)
     } else if (selectedOption.value === "move") {
       setFolders(getMyFolders(selectedItem.folder_id));
       setShowMoveFile(true);
@@ -121,7 +122,7 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
         />
       )}
 
-      {showShare ? <Share onClose={handleCloseModal} /> : null}
+      {showShare ? <Share onClose={handleCloseModal} selectedItem={selectedItem} /> : null}
 
       {showDownload ? (
         <Download

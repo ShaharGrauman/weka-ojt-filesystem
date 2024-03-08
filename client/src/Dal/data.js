@@ -592,7 +592,7 @@ async function getMyFiles() {
 }
 
 async function Update_password(pass1, pass2, token) {
-  // chick the foemate of the email
+  // chick the match  of the passwords
   if (!Validate_match_password(pass1, pass2)) return "Password not match";
 
   try {
@@ -651,6 +651,39 @@ async function uploadFile(file, folderId) {
   }
 }
 
+
+async function share_file_with_user(selectedItem, email) {
+  // Check the format of the email
+  if (!Validate_email_format(email)) return "Email format is not correct.";
+
+  const file_id = selectedItem.id;
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/share/${file_id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        file_id: file_id,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.msg);
+      return data.msg; // Assuming the response contains the success message or error details
+    } else {
+      const errorData = await response.json();
+      throw new Error(`Failed to share file. Server returned ${response.status}: ${errorData.detail}`);
+    }
+  } catch (error) {
+    console.error("An error occurred:", error.message);
+    throw error; // Re-throw the error to be handled by the caller
+  }
+}
+
+
 export {
   registerUser,
   LogIn,
@@ -673,4 +706,5 @@ export {
   addFolder,
   uploadFile,
   renameFile,
+  share_file_with_user
 };

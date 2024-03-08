@@ -2,6 +2,11 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+
+class Shared(BaseModel):
+    email: str
+    file_id: int
+
 class User(BaseModel):
     name: Optional[str] = None
     email: str
