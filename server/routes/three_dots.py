@@ -4,9 +4,10 @@ from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 from dal.validation import validate_email_format
 from dal.authentication import check_email_exist
-from dal.dalFuction import get_myfolders
+from dal.dalFuction import get_myfolders,owner_of_file,send_email
 from dal.threeDots import update_file_parent,renamefile
 from dal.config import get_user_id
+from dal.models import Shared
 
 router = APIRouter()
 
@@ -51,20 +52,29 @@ def folder_delete(request:Request,folder_id: int):
 
 
 
-# @router.post("/share/{file_id}")
-# def share_file(file_id: int,email:str,user_id: Annotated[str | None, Cookie()] = None):
-#     #check if formate email is write 
-#     if not validate_email_format(email):
-#         raise HTTPException(status_code=400, detail="Invalid Email format")
-#     # check if the email in db
-#     if not check_email_exist(email):
-#         raise HTTPException(status_code=400, detail="email not in database")
-#     # check if the owner of the file is the user that loged in
-#     user=cipher.decrypt(eval(user_id)).decode()
+@router.post("/share/{file_id}")
+def share_file(request:Request,share: Shared):
+    user_id=get_user_id(request)
+
+    email= share.email
+    file_id= share.file_id
+    print(email)
+    #check if formate email is write 
+    if not validate_email_format(email):
+        raise HTTPException(status_code=400, detail="Invalid Email format")
+    # check if the email in db
+    if not check_email_exist(email):
+        raise HTTPException(status_code=400, detail="email not in database")
+    # check if the owner of the file is the user that loged in
+
+    user=cipher.decrypt(eval(user_id)).decode()
+    print(user)
+    # validate owner of the file
+    if not owner_of_file(user,file_id):
+        raise HTTPException(status_code=400, detail="your not the owner of the file")
+    msg="hi, x shared file with you "
+    send_email(email,msg)
     
-
-    # now i do share with file 
-
 
 # @router.put("/file/rename/{file_id}")
 # def rename_file_route(file_id: int, new_name: str, user_id: Annotated[str | None, Cookie()] = None):
