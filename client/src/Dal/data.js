@@ -569,10 +569,9 @@ async function getMyFiles() {
       credentials: "include", // Include cookies in the request
     });
 
-    const data = await response.json(); // Parsing response JSON
-
     if (response.ok) {
-      return response;
+      const data = await response.json(); // Parsing response JSON
+      return data; // Return the parsed data
     } else {
       // Handle non-OK response status codes
       if (response.status === 400) {
