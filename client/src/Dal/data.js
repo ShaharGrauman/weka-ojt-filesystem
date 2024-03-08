@@ -639,7 +639,7 @@ async function uploadFile(file, folderId) {
     if (response.ok) {
       const data = await response.json();
       console.log("File upload successful:", data);
-      return data;
+      return "File upload successful";
     } else {
       const errorData = await response.json();
       console.error("File upload failed:", errorData);
