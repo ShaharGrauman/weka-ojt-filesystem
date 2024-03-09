@@ -58,7 +58,7 @@ const HomePage = () => {
       setSharedFiles(sharedFilesData);
     };
     fetchData();
-  }, []);
+  }, [myFiles, deletedFiles, sharedFiles]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -83,6 +83,7 @@ const HomePage = () => {
     setShowVersions(false);
     setSelectedCategory(category);
     setSelectedItem(null);
+    setShowItems(true)
   };
 
   const handleItemClick = (item) => {
@@ -145,7 +146,7 @@ const HomePage = () => {
               )
             ) : showVersions ? (
               <VersionsList item={selectedItem} />
-            ) : <p>{showVersions}</p>
+            ) : <p>no versions found</p>
             }
             <Paginations />
           </Col>
