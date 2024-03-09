@@ -8,7 +8,7 @@ import Path from "../components/Path";
 import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
 import FileViewer from "../components/FileViewer";
-import VersionsList from "../components/VersionsList .jsx";
+import VersionsList from "../components/VersionsList.jsx";
 
 import "./HomePage.css";
 import {
@@ -37,13 +37,15 @@ const versionData = [
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVersion, setIsVersion] = useState(true);
+//   const [isVersion, setIsVersion] = useState(true);
   const [showItems, setShowItems] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [selectedItem, setSelectedItem] = useState(null);
   const [myFiles, setMyFiles] = useState([]);
   const [deletedFiles, setDeletedFiles] = useState([]);
   const [sharedFiles, setSharedFiles] = useState([]);
+  const [showVersions, setShowVersions] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +57,6 @@ const HomePage = () => {
       setDeletedFiles(deletedFilesData);
       setSharedFiles(sharedFilesData);
     };
-
     fetchData();
   }, []);
 
@@ -63,11 +64,12 @@ const HomePage = () => {
     setIsOpen(!isOpen);
   };
 
-  const showVersion = (items, version) => {
-    setShowItems(items);
-    setIsVersion(version);
+  const showVersion = (item) => {
+    setSelectedItem(item);
+    setShowVersions(true);
+    setShowItems(false);
+    console.log("1234")
   };
-
   const currentCategoryData =
     selectedCategory === "Home"
       ? [...myFiles, ...sharedFiles]
@@ -78,12 +80,13 @@ const HomePage = () => {
       : sharedFiles;
 
   const handleCategorySelect = (category) => {
+    setShowVersions(false);
     setSelectedCategory(category);
     setSelectedItem(null);
-    showVersion(true, false);
   };
 
   const handleItemClick = (item) => {
+    setShowVersions(false);
     setSelectedItem(item);
   };
 
@@ -132,7 +135,7 @@ const HomePage = () => {
                       key={item.id}
                       id={item.id}
                       item={item}
-                      showVersion={showVersion}
+                      showVersion={() => showVersion(item)}
                       onSelect={() => handleItemClick(item)}
                     />
                   ))}
@@ -140,9 +143,10 @@ const HomePage = () => {
               ) : (
                 <p>No items found.</p>
               )
-            ) : isVersion ? (
-              <VersionsList versionData={versionData} />
-            ) : null}
+            ) : showVersions ? (
+              <VersionsList item={selectedItem} />
+            ) : <p>{showVersions}</p>
+            }
             <Paginations />
           </Col>
         </Row>

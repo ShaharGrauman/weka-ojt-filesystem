@@ -3,11 +3,11 @@ import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
 import DeletedDropdown from "./DeletedDropdown";
 
-const Item = ({ item, onSelect, showversion }) => {
-  const userId = 1;
+const Item = ({ item, onSelect, showVersion}) => {
   const handleItemClick = () => {
     onSelect(item); // Pass the clicked file item to the parent componen
   };
+
   const isFile = item.name.includes('.');
   return (
     <div>
@@ -20,7 +20,7 @@ const Item = ({ item, onSelect, showversion }) => {
           {item.is_deleted ? (
             <DeletedDropdown selectedItem={item} />
           ) : (
-            <HomeDropdown selectedItem={item} showversion={showversion} />
+            <HomeDropdown selectedItem={item} showVersions={showVersion} />
           )}
         </div>
         <a href="#" onClick={handleItemClick}>
