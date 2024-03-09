@@ -14,7 +14,7 @@ import {
   download,renameFile
 } from "../Dal/data.js";
 
-const HomeDropdown = ({ selectedItem, showversion }) => {
+const HomeDropdown = ({ selectedItem, showVersions }) => {
   const [showMoveFile, setShowMoveFile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showRenameFile, setShowRenameFile] = useState(false);
@@ -48,7 +48,7 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
     } else if (selectedOption.value === "download") {
       setshowDownload(true);
     } else if (selectedOption.value === "versions") {
-      showversion(false, true);
+      showVersions(selectedItem.id);
     }
   };
 

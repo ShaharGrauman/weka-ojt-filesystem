@@ -498,13 +498,21 @@ async function LogIn(email, password) {
 }
 
 async function getFileVersions(fileId) {
+    console.log(fileId)
   try {
-    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`);
+    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`
+    , {
+    method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    return data.versions;
+    return data;
   } catch (error) {
     console.error("Error fetching file versions:", error);
     return [];
