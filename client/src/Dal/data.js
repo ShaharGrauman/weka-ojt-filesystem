@@ -262,7 +262,7 @@ async function moveFile(fileId, targetFolderId) {
   }
 }
 
-// Function to handle file download
+// // Function to handle file download
 async function download(fileId) {
   try {
     const response = await axios.get(
@@ -277,6 +277,52 @@ async function download(fileId) {
   }
 }
 
+// async function download(fileId) {
+//   try {
+//     // Fetch file information (path and filename) from the server
+//     const fileInfoResponse = await axios.get(
+//       `http://127.0.0.1:8000/file/download/${fileId}`
+//     );
+
+//     if (
+//       fileInfoResponse &&
+//       fileInfoResponse.data &&
+//       fileInfoResponse.data.path &&
+//       fileInfoResponse.data.filename
+//     ) {
+//       const { path, filename } = fileInfoResponse.data;
+
+//       // Fetch the file content
+//       const fileContentResponse = await axios.get(path, {
+//         responseType: "arraybuffer",
+//       });
+
+//       // Create a Blob from the file content
+//       const blob = new Blob([fileContentResponse.data], {
+//         type: fileContentResponse.headers["content-type"],
+//       });
+
+//       // Create a download link
+//       const downloadLink = document.createElement("a");
+//       downloadLink.href = window.URL.createObjectURL(blob);
+//       downloadLink.download = filename; // Set the filename
+//       document.body.appendChild(downloadLink);
+
+//       // Trigger the download
+//       downloadLink.click();
+
+//       // Remove the download link
+//       document.body.removeChild(downloadLink);
+
+//       console.log(`File with ID ${fileId} downloaded successfully.`);
+//     } else {
+//       console.error("Invalid response format from the server.");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }
 async function shareFile(userId, fileId, email, permission) {
   try {
     if (files[fileId] && users[email]) {
@@ -299,13 +345,16 @@ async function shareFile(userId, fileId, email, permission) {
 async function renameFile(fileId, newName) {
   try {
     console.log(newName);
-    const response = await fetch(`http://127.0.0.1:8000/${fileId}/rename?new_file_name=${newName}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // Include cookies in the request
-    });
+    const response = await fetch(
+      `http://127.0.0.1:8000/${fileId}/rename?new_file_name=${newName}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Include cookies in the request
+      }
+    );
     const data = await response.json();
     console.log(data);
     return data;
@@ -313,8 +362,7 @@ async function renameFile(fileId, newName) {
     console.error("Error renaming file:", error);
     throw error;
   }
-};
-
+}
 
 async function getMySharedFiles() {
   try {
@@ -651,7 +699,6 @@ async function uploadFile(file, folderId) {
   }
 }
 
-
 async function share_file_with_user(selectedItem, email) {
   // Check the format of the email
   if (!Validate_email_format(email)) return "Email format is not correct.";
@@ -675,14 +722,15 @@ async function share_file_with_user(selectedItem, email) {
       return data.msg; // Assuming the response contains the success message or error details
     } else {
       const errorData = await response.json();
-      throw new Error(`Failed to share file. Server returned ${response.status}: ${errorData.detail}`);
+      throw new Error(
+        `Failed to share file. Server returned ${response.status}: ${errorData.detail}`
+      );
     }
   } catch (error) {
     console.error("An error occurred:", error.message);
     throw error; // Re-throw the error to be handled by the caller
   }
 }
-
 
 export {
   registerUser,
@@ -706,5 +754,5 @@ export {
   addFolder,
   uploadFile,
   renameFile,
-  share_file_with_user
+  share_file_with_user,
 };

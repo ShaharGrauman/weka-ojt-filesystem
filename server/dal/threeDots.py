@@ -30,6 +30,7 @@ def get_versions_for_file(file_id):
 
 
 
+
 def delete_file(file_id,user_id):
 
     connection = get_database_connection()
@@ -83,12 +84,10 @@ def delete_folder(folder_id, user_id):
 
 
 
-
-
-
 def update_is_deleted_file():
     delete_query = "UPDATE file SET is_deleted = %s WHERE id = %s AND user_id= %s;"
-    return delete_query       
+    return delete_query
+
 
 def update_is_deleted_folder():
     delete_query = "UPDATE folder SET is_deleted = %s WHERE id = %s AND user_id = %s;"
@@ -115,16 +114,16 @@ def renamefile(file_id, new_name, user_id):
 
 # download file
 
-def download_file(file_id):
+def download_file(file_id, user_id):
     connection = get_database_connection()
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT id FROM file WHERE id = %s;", (file_id,))
+        cursor.execute("SELECT path FROM file WHERE id = %s AND user_id = %s;", (file_id,))
         file_path = cursor.fetchone()
 
-        if file_id:
-            return file_path  
+        if file_path:
+            return file_path[0]  # Assuming path is the first column in the result
         else:
             raise CustomHTTPException(status_code=404, detail=f"File with ID {file_id} not found.")
     except Exception as e:
@@ -132,8 +131,6 @@ def download_file(file_id):
     finally:
         cursor.close()
         connection.close()
-
-
 
 
 def update_file_parent(file_id,target_folder_id,user_id):
