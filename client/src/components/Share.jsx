@@ -5,6 +5,7 @@ import {share_file_with_user} from "../Dal/data.js"
 const Share = ({ onClose ,selectedItem}) => {
   const [showModal, setShowModal] = useState(true);
   const [email, setEmail] = useState("");
+  const [msg, setmsg] = useState("");
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -15,9 +16,12 @@ const Share = ({ onClose ,selectedItem}) => {
 
    const handleShareFile =async() => {
     const response=await share_file_with_user(selectedItem,email)
+    setmsg(response)
 
-    console.log(response)
-    handleCloseModal();
+    setTimeout(() => {
+      handleCloseModal();
+    }, 3000);
+   
 
   };
 
@@ -40,6 +44,8 @@ const Share = ({ onClose ,selectedItem}) => {
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
+              <div style={{ color: 'red', fontSize: 15}}>
+              {msg}</div>
             </Form.Group>
           </Form>
         </Modal.Body>

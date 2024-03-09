@@ -139,7 +139,7 @@ def forgotpassword(user_email: str):
     msg = f"Click the following link to reset your password: {reset_link}"
 
 
-    if send_email(email,msg):
+    if send_email(email,msg,"Reset Your Password"):
         # Return success message 
         return {"msg" :"the reset lenke send to your mail"}
     else:

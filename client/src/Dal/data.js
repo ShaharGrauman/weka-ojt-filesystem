@@ -715,6 +715,7 @@ async function share_file_with_user(selectedItem, email) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/share/${file_id}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -726,8 +727,9 @@ async function share_file_with_user(selectedItem, email) {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.msg);
-      return data.msg; // Assuming the response contains the success message or error details
+      
+      console.log(data);
+      return data; // Assuming the response contains the success message or error details
     } else {
       const errorData = await response.json();
       throw new Error(
