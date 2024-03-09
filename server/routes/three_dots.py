@@ -4,7 +4,7 @@ from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 from dal.validation import validate_email_format
 from dal.authentication import check_email_exist
-from dal.dalFuction import get_myfolders,owner_of_file,send_email
+from dal.dalFuction import get_myfolders,owner_of_file,send_email,email_owner
 from dal.threeDots import update_file_parent,renamefile
 from dal.config import get_user_id
 from dal.models import Shared
@@ -58,6 +58,8 @@ def share_file(request:Request,share: Shared):
 
     email= share.email
     file_id= share.file_id
+    print(user_id)
+
     print(email)
     #check if formate email is write 
     if not validate_email_format(email):
@@ -67,13 +69,25 @@ def share_file(request:Request,share: Shared):
         raise HTTPException(status_code=400, detail="email not in database")
     # check if the owner of the file is the user that loged in
 
-    user=cipher.decrypt(eval(user_id)).decode()
-    print(user)
+    # user=cipher.decrypt(eval(user_id)).decode()
+    # print(user)
     # validate owner of the file
-    if not owner_of_file(user,file_id):
+    if not owner_of_file(user_id,file_id):
         raise HTTPException(status_code=400, detail="your not the owner of the file")
-    msg="hi, x shared file with you "
-    send_email(email,msg)
+    
+    # get the name of the owner of the file
+    email_owne=email_owner(user_id) 
+    print(email_owne)
+    login_link = f"http://localhost:5173/"  
+
+    msg = f"hi, {email_owne} shared a file with you. Enter the website to see the file: {login_link}"    
+    subject="Shared file"
+    if send_email(email,msg,subject):
+        return "The file has been shared"
+    else:
+        
+            return "something went wrong,try again later"
+
     
 
 # @router.put("/file/rename/{file_id}")
