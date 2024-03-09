@@ -5,9 +5,15 @@ import DeletedDropdown from "./DeletedDropdown";
 
 const Item = ({ item, onSelect, showversion }) => {
   const userId = 1;
+  let isFile = false;
+
   const handleItemClick = () => {
     onSelect(item); // Pass the clicked file item to the parent componen
   };
+
+  if (item && item.name) {
+    isFile = item.name.includes(".");
+  }
 
   return (
     <div>
@@ -36,7 +42,8 @@ const Item = ({ item, onSelect, showversion }) => {
           <Card.Title>{item.name}</Card.Title>
           <Card.Text>
             {" "}
-            Last updated: {item.upload_date.split("T")[0]}.
+            Last updated:{" "}
+            {item.upload_date ? item.upload_date.split("T")[0] : "N/A"}.
           </Card.Text>
         </Card.Body>
       </Card>
