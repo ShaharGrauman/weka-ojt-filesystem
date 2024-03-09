@@ -21,7 +21,7 @@ const Sidebar = ({ onSelect, isOpen, toggleSidebar }) => {
   return (
     <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
       <button className="toggle-btn" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} style={{ color: "#000033" }} />
+        <FontAwesomeIcon icon={faBars} style={{ color: "#fff" }} />
       </button>
       <ul className="list-unstyled components">
         <li>
@@ -61,8 +61,8 @@ const Sidebar = ({ onSelect, isOpen, toggleSidebar }) => {
         className={`logout-btn ${isOpen ? "open" : "closed"}`}
         onClick={toggleLogoutModal}
       >
-        <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "#000033" }} />
-        <span className="logout-name" style={{ color: "#000033" }}>
+        <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "#fff" }} />
+        <span className="logout-name" style={{ color: "#fff" }}>
           Logout
         </span>
       </button>

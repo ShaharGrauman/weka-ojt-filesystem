@@ -18,5 +18,5 @@
 }
 
 .path-component .breadcrumb-item:first-child {
-  color: #6c757d; /* Color for the first breadcrumb item */
+  color: #000000; /* Color for the first breadcrumb item */
 }

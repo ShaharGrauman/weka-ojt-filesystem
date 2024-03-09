@@ -17,12 +17,12 @@
 
 /* Style for the search input and button */
 .search-form .form-control {
-  border-color: #ced4da; /* Border color */
+  border-color: #0099ff; /* Border color */
 }
 
 .search-form .btn-outline-success {
-  color: #28a745; /* Text color */
-  border-color: #28a745; /* Border color */
+  color: #000000; /* Text color */
+  border-color: #0099ff; /* Border color */
 }
 
 .search-form .btn-outline-success:hover {
@@ -33,8 +33,8 @@
 
 /* Style for the Sort dropdown */
 .sort-dropdown .dropdown-toggle {
-  background-color: #007bff; /* Background color */
-  border-color: #007bff; /* Border color */
+  background-color: #0099ff; /* Background color */
+  border-color: #0099ff; /* Border color */
 }
 
 .sort-dropdown .dropdown-toggle:hover {
@@ -43,7 +43,7 @@
 }
 
 .sort-dropdown .dropdown-menu {
-  background-color: #f8f9fa; /* Background color of the dropdown menu */
+  background-color: #fcf9f9; /* Background color of the dropdown menu */
 }
 
 .sort-dropdown .dropdown-item {
@@ -51,5 +51,5 @@
 }
 
 .sort-dropdown .dropdown-item:hover {
-  background-color: #dee2e6; /* Background color on hover */
+  background-color: #72aef2; /* Background color on hover */
 }
