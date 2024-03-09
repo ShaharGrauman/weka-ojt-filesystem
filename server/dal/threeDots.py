@@ -63,9 +63,9 @@ def delete_folder(folder_id, user_id):
 
     try:
 
-        cursor.execute(delete_folders_query, (1, folder_id, user_id))
-        cursor.execute(delete_files_query, (1, folder_id, user_id))
-        cursor.execute(update_is_deleted_folder(), (1, folder_id, user_id))
+        cursor.execute(delete_folders_query, ("1", folder_id, user_id))
+        cursor.execute(delete_files_query, ("1", folder_id, user_id))
+        cursor.execute(update_is_deleted_folder(), ("1", folder_id, user_id))
 
         # Commit the transaction
         connection.commit()

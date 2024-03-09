@@ -3,12 +3,18 @@ import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
 import DeletedDropdown from "./DeletedDropdown";
 
-const Item = ({ item, onSelect, showVersion}) => {
+const Item = ({ item, onSelect, showVersion }) => {
+  const userId = 1;
+  let isFile = false;
+
   const handleItemClick = () => {
     onSelect(item); // Pass the clicked file item to the parent componen
   };
 
-  const isFile = item.name.includes('.');
+  if (item && item.name) {
+    isFile = item.name.includes(".");
+  }
+
   return (
     <div>
       <link
@@ -24,7 +30,7 @@ const Item = ({ item, onSelect, showVersion}) => {
           )}
         </div>
         <a href="#" onClick={handleItemClick}>
-            {isFile ? (
+          {isFile ? (
             <i
               className="lni lni-empty-file"
               style={{ fontSize: "2rem", margin: "10px" }}
@@ -41,7 +47,8 @@ const Item = ({ item, onSelect, showVersion}) => {
           <Card.Title>{item.name}</Card.Title>
           <Card.Text>
             {" "}
-            Last updated: {item.upload_date.split("T")[0]}.
+            Last updated:{" "}
+            {item.upload_date ? item.upload_date.split("T")[0] : "N/A"}.
           </Card.Text>
         </Card.Body>
       </Card>

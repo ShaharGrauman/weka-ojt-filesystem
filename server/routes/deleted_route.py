@@ -33,7 +33,7 @@ def delete_folder(request:Request,folder_id: int):
 
 
 
-@router.put("/deleted/files/{file_id}/restore")
+@router.put("/deleted/files/restore/{file_id}")
 def file_restore(request:Request,file_id: int):
     try:
         user_id = get_user_id(request)
@@ -45,7 +45,7 @@ def file_restore(request:Request,file_id: int):
     except Exception as e:
         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     
-@router.put("/deleted/folders/{folder_id}/restore")
+@router.put("/deleted/folders/restore/{folder_id}")
 def folder_restore(request:Request,folder_id: int):
     try:
         user_id = get_user_id(request)
