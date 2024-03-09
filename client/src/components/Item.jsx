@@ -26,7 +26,7 @@ const Item = ({ item, onSelect, showversion }) => {
           {item.is_deleted ? (
             <DeletedDropdown selectedItem={item} />
           ) : (
-            <HomeDropdown selectedItem={item} showversion={showversion} />
+            <HomeDropdown selectedItem={item} showVersions={showVersion} />
           )}
         </div>
         <a href="#" onClick={handleItemClick}>

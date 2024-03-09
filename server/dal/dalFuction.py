@@ -30,10 +30,10 @@ def owner_of_file(user_id,file_id):
 
 
 # send email to the recever_email
-def send_email(recever_email,msg):
+def send_email(recever_email,msg,subject):
    email_sender="filesystem2024@gmail.com"
    email_password="ejnw zjwu gmfc jzjt"
-   subject="Reset your password"
+   subject=subject
    body=msg
    em =EmailMessage()
    em['From']=email_sender
@@ -269,3 +269,24 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
     if conn:
             conn.close()
     return shared_files
+
+
+
+
+def email_owner(user_id):
+    with get_database_connection() as conn, conn.cursor() as cursor:
+        query = "SELECT email FROM users WHERE id = %s"
+        cursor.execute(query, (user_id,))
+        email = cursor.fetchone()
+    return email[0] if email else None
+
+def get_username(user_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "SELECT username FROM users WHERE id = %s "
+    cursor.execute(query, (user_id,))  # Pass user_id as a tuple
+    result = cursor.fetchone()
+    if result:
+        return result[0]  # Assuming username is in the first column of the result
+    else:
+        return None

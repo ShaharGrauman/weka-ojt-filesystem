@@ -546,13 +546,21 @@ async function LogIn(email, password) {
 }
 
 async function getFileVersions(fileId) {
+    console.log(fileId)
   try {
-    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`);
+    const response = await fetch(`http://127.0.0.1:8000/versions/${fileId}`
+    , {
+    method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    return data.versions;
+    return data;
   } catch (error) {
     console.error("Error fetching file versions:", error);
     return [];
@@ -707,6 +715,7 @@ async function share_file_with_user(selectedItem, email) {
   try {
     const response = await fetch(`http://127.0.0.1:8000/share/${file_id}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -718,8 +727,9 @@ async function share_file_with_user(selectedItem, email) {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data.msg);
-      return data.msg; // Assuming the response contains the success message or error details
+      
+      console.log(data);
+      return data; // Assuming the response contains the success message or error details
     } else {
       const errorData = await response.json();
       throw new Error(
@@ -731,6 +741,36 @@ async function share_file_with_user(selectedItem, email) {
     throw error; // Re-throw the error to be handled by the caller
   }
 }
+async function get_name() {
+    console.log("123")
+    try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        const response = await fetch("http://127.0.0.1:8000/getName", {
+          method: "GET",
+          headers: headers,
+          credentials: "include", // Include cookies in the request
+        });
+        console.log("5666")
+
+        if (response.ok) {
+          const data = await response.json(); // Parsing response JSON
+          return data; // Return the parsed data
+        } else {
+          if (response.status === 400) {
+            // Handle 400 Bad Request error
+            throw new Error("User ID cookie is missing");
+          } else {
+            throw new Error("Unexpected Error");
+          }
+        }
+    } catch (err) {
+        console.error("Error collecting data:", err);
+        throw err;
+    }
+}
+
 
 export {
   registerUser,
@@ -755,4 +795,5 @@ export {
   uploadFile,
   renameFile,
   share_file_with_user,
+  get_name,
 };
