@@ -30,12 +30,17 @@ const Item = ({ item, onSelect, showversion }) => {
           )}
         </div>
         <a href="#" onClick={handleItemClick}>
-          {/* Render folder icon if isFolder is true, otherwise render empty file icon */}
-
-          <i
-            className="lni lni-empty-file"
-            style={{ fontSize: "2rem", margin: "10px" }}
-          ></i>
+          {isFile ? (
+            <i
+              className="lni lni-empty-file"
+              style={{ fontSize: "2rem", margin: "10px" }}
+            ></i>
+          ) : (
+            <i
+              className="lni lni-folder"
+              style={{ fontSize: "2rem", margin: "10px" }}
+            ></i>
+          )}
         </a>
 
         <Card.Body>

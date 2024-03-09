@@ -262,7 +262,7 @@ async function moveFile(fileId, targetFolderId) {
   }
 }
 
-// Function to handle file download
+// // Function to handle file download
 async function download(fileId) {
   try {
     const response = await axios.get(
@@ -277,6 +277,52 @@ async function download(fileId) {
   }
 }
 
+// async function download(fileId) {
+//   try {
+//     // Fetch file information (path and filename) from the server
+//     const fileInfoResponse = await axios.get(
+//       `http://127.0.0.1:8000/file/download/${fileId}`
+//     );
+
+//     if (
+//       fileInfoResponse &&
+//       fileInfoResponse.data &&
+//       fileInfoResponse.data.path &&
+//       fileInfoResponse.data.filename
+//     ) {
+//       const { path, filename } = fileInfoResponse.data;
+
+//       // Fetch the file content
+//       const fileContentResponse = await axios.get(path, {
+//         responseType: "arraybuffer",
+//       });
+
+//       // Create a Blob from the file content
+//       const blob = new Blob([fileContentResponse.data], {
+//         type: fileContentResponse.headers["content-type"],
+//       });
+
+//       // Create a download link
+//       const downloadLink = document.createElement("a");
+//       downloadLink.href = window.URL.createObjectURL(blob);
+//       downloadLink.download = filename; // Set the filename
+//       document.body.appendChild(downloadLink);
+
+//       // Trigger the download
+//       downloadLink.click();
+
+//       // Remove the download link
+//       document.body.removeChild(downloadLink);
+
+//       console.log(`File with ID ${fileId} downloaded successfully.`);
+//     } else {
+//       console.error("Invalid response format from the server.");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }
 async function shareFile(userId, fileId, email, permission) {
   try {
     if (files[fileId] && users[email]) {
@@ -296,31 +342,26 @@ async function shareFile(userId, fileId, email, permission) {
   }
 }
 
-function renameFile(userId, fileId, newName) {
-  if (files[fileId]) {
-    // Check if the file belongs to the user
-    if (files[fileId].user_id === userId) {
-      // Assuming you want to log the user ID along with the file renaming action
-      console.log(`User ${userId} is renaming file ${fileId} to ${newName}`);
-
-      // Update the file name
-      files[fileId].file_name = newName;
-
-      // Log the renaming action
-      console.log(`File ${fileId} renamed to ${newName}`);
-
-      // Return true to indicate success
-      return true;
-    } else {
-      // If the file does not belong to the user, log an error and return false
-      console.log(
-        `User ${userId} does not have permission to rename file ${fileId}`
-      );
-      return false;
-    }
+async function renameFile(fileId, newName) {
+  try {
+    console.log(newName);
+    const response = await fetch(
+      `http://127.0.0.1:8000/${fileId}/rename?new_file_name=${newName}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // Include cookies in the request
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error renaming file:", error);
+    throw error;
   }
-  // Return false if the file does not exist
-  return false;
 }
 
 async function getMySharedFiles() {
@@ -576,11 +617,9 @@ async function getMyFiles() {
       credentials: "include", // Include cookies in the request
     });
 
-    // const data = await response.json(); // Parsing response JSON
-
     if (response.ok) {
       const data = await response.json(); // Parsing response JSON
-      return data;
+      return data; // Return the parsed data
     } else {
       // Handle non-OK response status codes
       if (response.status === 400) {
@@ -601,7 +640,7 @@ async function getMyFiles() {
 }
 
 async function Update_password(pass1, pass2, token) {
-  // chick the foemate of the email
+  // chick the match  of the passwords
   if (!Validate_match_password(pass1, pass2)) return "Password not match";
 
   try {
@@ -648,7 +687,7 @@ async function uploadFile(file, folderId) {
     if (response.ok) {
       const data = await response.json();
       console.log("File upload successful:", data);
-      return data;
+      return "File upload successful";
     } else {
       const errorData = await response.json();
       console.error("File upload failed:", errorData);
@@ -657,6 +696,39 @@ async function uploadFile(file, folderId) {
   } catch (error) {
     console.error("An error occurred:", error);
     throw error;
+  }
+}
+
+async function share_file_with_user(selectedItem, email) {
+  // Check the format of the email
+  if (!Validate_email_format(email)) return "Email format is not correct.";
+
+  const file_id = selectedItem.id;
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/share/${file_id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        file_id: file_id,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.msg);
+      return data.msg; // Assuming the response contains the success message or error details
+    } else {
+      const errorData = await response.json();
+      throw new Error(
+        `Failed to share file. Server returned ${response.status}: ${errorData.detail}`
+      );
+    }
+  } catch (error) {
+    console.error("An error occurred:", error.message);
+    throw error; // Re-throw the error to be handled by the caller
   }
 }
 
@@ -681,4 +753,6 @@ export {
   download,
   addFolder,
   uploadFile,
+  renameFile,
+  share_file_with_user,
 };

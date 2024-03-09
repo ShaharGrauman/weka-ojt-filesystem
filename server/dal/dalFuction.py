@@ -14,6 +14,21 @@ def Encrypt_email(email):
    return encrypted_email
 
 
+# check if the owner fo the file in the user who login
+def owner_of_file(user_id,file_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    owners_query = "SELECT id FROM file WHERE user_id = %s AND id = %s"
+    cursor.execute(owners_query, (user_id, file_id))
+    my_folders = cursor.fetchall()
+    conn.commit()
+    if my_folders :
+      return True 
+    else:  
+     return False
+
+
+
 # send email to the recever_email
 def send_email(recever_email,msg):
    email_sender="filesystem2024@gmail.com"

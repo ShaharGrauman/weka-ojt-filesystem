@@ -118,7 +118,6 @@ const HomePage = () => {
       >
         <Row className="justify-content-center">
           <Col xs={12} md={9} id="page-content-wrapper">
-            <h1 className="text-center">Main Content</h1>
             {showItems ? (
               selectedItem ? (
                 <FileViewer

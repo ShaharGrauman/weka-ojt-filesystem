@@ -23,6 +23,7 @@ const FileViewer = ({ fileId, filePath, fileName }) => {
 
   const handleDownload = () => {
     download(fileId);
+    handleCloseModal();
   };
 
   const displayFile = (filePath, fileName) => {
@@ -55,7 +56,6 @@ const FileViewer = ({ fileId, filePath, fileName }) => {
             <p>{fileName}</p>
             <video controls className="w-100">
               <source src={filePath} type="video/mp4" />
-              Your browser does not support the video tag.
             </video>
             <button
               type="button"
@@ -72,13 +72,7 @@ const FileViewer = ({ fileId, filePath, fileName }) => {
     } else {
       setFileContent(
         <>
-          <embed
-            src={filePath}
-            type="application/pdf"
-            width="100%"
-            height="600px"
-          />
-          {/* <p>Unsupported file type. Cannot display the file. you can download it</p> */}
+          <embed type="application/pdf" width="100%" height="600px" />
           <p>
             Unsupported file type. Cannot display the file. you can{" "}
             <button
@@ -101,6 +95,7 @@ const FileViewer = ({ fileId, filePath, fileName }) => {
           show={showDownload}
           onClose={handleCloseModal}
           onDownload={handleDownload}
+          downloadUrl={filePath}
         />
       )}
     </div>

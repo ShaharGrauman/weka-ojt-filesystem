@@ -12,6 +12,7 @@ import {
   moveFile,
   getMyFolders,
   download,
+  renameFile,
 } from "../Dal/data.js";
 
 const HomeDropdown = ({ selectedItem, showversion }) => {
@@ -37,8 +38,12 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
       setShowModal(true); // Show the modal when "Details" option is selected
     } else if (selectedOption.value === "share") {
       setShowShare(true);
+      console.log(selectedItem);
     } else if (selectedOption.value === "move") {
-      setFolders(getMyFolders(selectedItem.folder_id));
+      getMyFolders(selectedItem.folder_id).then((foldersData) => {
+        setFolders(foldersData);
+        setShowMoveFile(true);
+      });
       setShowMoveFile(true);
     } else if (selectedOption.value === "rename") {
       setShowRenameFile(true);
@@ -67,13 +72,7 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
 
   const handledelete = () => {
     const itemName = selectedItem.name;
-    if (
-      itemName &&
-      (itemName.endsWith(".jpg") ||
-        itemName.endsWith(".png") ||
-        itemName.endsWith(".pdf") ||
-        itemName.endsWith(".mp3"))
-    ) {
+    if (itemName && itemName.includes(".")) {
       delete_file(selectedItem.id);
     } else {
       delete_folder(selectedItem.id);
@@ -106,7 +105,10 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
         />
       ) : null}
 
-      {showRenameFile && <RenameFile onClose={handleCloseModal} />}
+      {showRenameFile && (
+        <RenameFile fileId={selectedItem.id} onClose={handleCloseModal} />
+      )}
+
       {showdelete && (
         <DeleteModal
           onClose={handleCloseModal}
@@ -115,12 +117,16 @@ const HomeDropdown = ({ selectedItem, showversion }) => {
         />
       )}
 
-      {showShare ? <Share onClose={handleCloseModal} /> : null}
+      {showShare ? (
+        <Share onClose={handleCloseModal} selectedItem={selectedItem} />
+      ) : null}
+
       {showDownload ? (
         <Download
           show={showDownload}
           onClose={handleCloseModal}
           onDownload={handleDownload}
+          downloadUrl={selectedItem.path}
         />
       ) : null}
     </div>

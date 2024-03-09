@@ -61,7 +61,7 @@ def restore_file(file_id,user_id):
     restore_query = update_is_deleted_file()
 
     try:
-        cursor.execute(restore_query, ("0",file_id, user_id))
+        cursor.execute(restore_query, (0,file_id, user_id))
         connection.commit()
 
         return {
