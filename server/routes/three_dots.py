@@ -4,7 +4,7 @@ from common.HTTPExceptions.exceptions import CustomHTTPException
 from dal.config import cipher
 from dal.validation import validate_email_format
 from dal.authentication import check_email_exist
-from dal.dalFuction import get_myfolders,owner_of_file,send_email,email_owner
+from dal.dalFuction import get_myfolders,owner_of_file,send_email,email_owner,get_userid,do_share
 from dal.threeDots import update_file_parent,renamefile
 from dal.config import get_user_id
 from dal.models import Shared
@@ -78,6 +78,12 @@ def share_file(request:Request,share: Shared):
     # get the name of the owner of the file
     email_owne=email_owner(user_id) 
     print(email_owne)
+    Shared_with=get_userid(email)
+    print(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
+    print(Shared_with)
+
+
+    do_share(Shared_with,user_id,file_id)
     login_link = f"http://localhost:5173/"  
 
     msg = f"hi, {email_owne} shared a file with you. Enter the website to see the file: {login_link}"    

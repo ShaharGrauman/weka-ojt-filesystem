@@ -22,6 +22,8 @@ def owner_of_file(user_id,file_id):
     cursor.execute(owners_query, (user_id, file_id))
     my_folders = cursor.fetchall()
     conn.commit()
+    conn.close()
+
     if my_folders :
       return True 
     else:  
@@ -167,6 +169,8 @@ def update_Password(email,password):
     """
     cursor.execute(update_password, (password,email ))
     connection.commit()
+    connection.close()
+
     # update_user = cursor.fetchall()
     return  True
 
@@ -272,12 +276,23 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
 
 
 
+def get_userid(email):
+    with get_database_connection() as conn, conn.cursor() as cursor:
+        query = "SELECT id FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
+        result = cursor.fetchone()
+    conn.close()
+
+    return result[0] if result else None
 
 def email_owner(user_id):
     with get_database_connection() as conn, conn.cursor() as cursor:
         query = "SELECT email FROM users WHERE id = %s"
         cursor.execute(query, (user_id,))
         email = cursor.fetchone()
+
+    conn.close()
+    
     return email[0] if email else None
 
 def get_username(user_id):
@@ -290,3 +305,19 @@ def get_username(user_id):
         return result[0]  # Assuming username is in the first column of the result
     else:
         return None
+
+
+
+def do_share(shared_with_id,owner_id,file_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "INSERT INTO sharedfile ( file_id, shared_by_user_id, shared_with_user_id) VALUES (%s,%s,%s) "
+
+    cursor.execute(query, (file_id,owner_id,shared_with_id))
+    conn.commit()
+    conn.close()
+
+   
+
+
+
