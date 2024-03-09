@@ -1,12 +1,12 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const Download = ({ show, onClose, onDownload }) => {
+const Download = ({ show, onClose, onDownload, downloadUrl }) => {
   const handleDownload = () => {
-    window.location.href = downloadUrl;
     onDownload();
+    window.location.href = downloadUrl;
+    onClose();
   };
-
   const handleClose = () => {
     onClose();
   };

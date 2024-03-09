@@ -273,10 +273,20 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
 
 
 
-# get the email of the owner of the file
 def email_owner(user_id):
     with get_database_connection() as conn, conn.cursor() as cursor:
         query = "SELECT email FROM users WHERE id = %s"
         cursor.execute(query, (user_id,))
         email = cursor.fetchone()
     return email[0] if email else None
+
+def get_username(user_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "SELECT username FROM users WHERE id = %s "
+    cursor.execute(query, (user_id,))  # Pass user_id as a tuple
+    result = cursor.fetchone()
+    if result:
+        return result[0]  # Assuming username is in the first column of the result
+    else:
+        return None
