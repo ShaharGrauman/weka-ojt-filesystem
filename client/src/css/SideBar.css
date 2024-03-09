@@ -7,8 +7,8 @@
   height: 100%;
   width: 160px;
   min-height: 100vh;
-  background-color: #ededed;
-  color: #000033;
+  background-color: #72aef2;
+  color: #ffffff;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
 .toggle-btn {
   background: none;
   border: none;
-  color: #ededed;
+  color: #ffffff;
   font-size: 1.5rem;
   padding: 10px;
   cursor: pointer;
@@ -40,7 +40,7 @@
 }
 
 .list-unstyled li:hover {
-  background-color: #444;
+  background-color: #9ac3f0;
 }
 
 .list-unstyled li a {
@@ -97,7 +97,7 @@
 }
 
 .logout-btn:hover {
-  background-color: #444;
+  background-color: #ffffff;
 }
 
 @media (min-width: 768px) {

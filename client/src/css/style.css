@@ -102,7 +102,7 @@ a.sidebar-link:hover {
 
 .deleteMessage {
   display: none;
-  color: green;
+  color: #0099ff;
   font-weight: bold;
 }
 
