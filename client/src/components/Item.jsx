@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import HomeDropdown from "./HomeDropdown";
 import DeletedDropdown from "./DeletedDropdown";
 
-const Item = ({ item, onSelect, showversion }) => {
+const Item = ({ item, onSelect, showVersion }) => {
   const userId = 1;
   let isFile = false;
 
