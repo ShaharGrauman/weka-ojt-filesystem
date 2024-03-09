@@ -699,7 +699,6 @@ async function share_file_with_user(selectedItem, email) {
   }
 }
 async function get_name() {
-  console.log("123");
   try {
     const headers = {
       "Content-Type": "application/json",
@@ -709,7 +708,6 @@ async function get_name() {
       headers: headers,
       credentials: "include", // Include cookies in the request
     });
-    console.log("5666");
 
     if (response.ok) {
       const data = await response.json(); // Parsing response JSON
