@@ -271,7 +271,13 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
     return shared_files
 
 
+def get_userid(email):
+    with get_database_connection() as conn, conn.cursor() as cursor:
+        query = "SELECT id FROM users WHERE email = %s"
+        cursor.execute(query, (email,))
+        result = cursor.fetchone()
 
+    return result[0] if result else None
 
 def email_owner(user_id):
     with get_database_connection() as conn, conn.cursor() as cursor:
@@ -290,3 +296,17 @@ def get_username(user_id):
         return result[0]  # Assuming username is in the first column of the result
     else:
         return None
+
+
+def do_share(shared_with_id,owner_id,file_id):
+    conn = get_database_connection()
+    cursor = conn.cursor()
+    query = "INSERT INTO sharedfile ( file_id, shared_by_user_id, shared_with_user_id) VALUES (%s,%s,%s) "
+
+    cursor.execute(query, (file_id,owner_id,shared_with_id))
+    conn.commit()
+ 
+   
+
+
+
