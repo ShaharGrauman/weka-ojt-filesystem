@@ -102,7 +102,7 @@ const HomePage = () => {
       setSharedFiles(sharedFilesData);
     };
     fetchData();
-  }, [myFiles, deletedFiles, sharedFiles]);
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -213,7 +213,7 @@ const HomePage = () => {
                 <div className="item-container">
                   {currentItems.map((item) => (
                     <Item
-                      key={item.id}
+                      key={index}
                       id={item.id}
                       item={item}
                       showVersion={() => showVersion(item)}
