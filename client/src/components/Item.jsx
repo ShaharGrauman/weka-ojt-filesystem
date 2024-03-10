@@ -44,13 +44,14 @@ const Item = ({ item, onSelect, showVersion }) => {
         </a>
 
         <Card.Body>
-          <Card.Title>{item.name}
-
-          </Card.Title>
+          <Card.Title>{item.name}</Card.Title>
           <Card.Text>
             {" "}
             Last updated:{" "}
-            {item.upload_date ? item.upload_date.split("T")[0] : "N/A"}.
+            {item.upload_date ? item.upload_date.split("T")[0] : "N/A"}
+          </Card.Text>
+          <Card.Text>
+            {item.upload_date ? item.upload_date.split("T")[1] : "N/A"}
           </Card.Text>
         </Card.Body>
       </Card>
