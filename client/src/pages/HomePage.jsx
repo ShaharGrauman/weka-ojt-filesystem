@@ -85,7 +85,7 @@ const HomePage = () => {
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
       );
     } else if (criteria === "date") {
-      sortedData.sort((a, b) => (a.upload_date > b.upload_date ? 1 : -1));
+      sortedData.sort((a, b) => (a.upload_date < b.upload_date ? 1 : -1));
     }
     setSortedFiles(sortedData); // Update the state with sorted data
     console.log(sortedData);
