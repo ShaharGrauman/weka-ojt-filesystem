@@ -9,6 +9,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import Item from "../components/Item";
 import FileViewer from "../components/FileViewer";
 import VersionsList from "../components/VersionsList.jsx";
+import { get_name } from "../Dal/data.js"; // Importing getFileVersions function
+import axios from "axios";
 
 import "./HomePage.css";
 import {
@@ -47,6 +49,32 @@ const HomePage = () => {
   const [showVersions, setShowVersions] = useState(false);
   const [sortBy, setSortBy] = useState(""); // Track the sorting criteria
   const [sortedFiles, setSortedFiles] = useState([]); // Store the sorted list of files
+  const [searchFiles, setsearchFiles] = useState([]); // Store the sorted list of files
+  const [username, setUsername] = useState("");
+
+  const fetchUsername = async () => {
+    // Example: fetch username from an API
+    const response = await get_name();
+    setUsername(response);
+  };
+
+  // Call fetchUsername when component mounts
+  useEffect(() => {
+    fetchUsername();
+  }, []);
+
+  const handleSearch = (searchTerm) => {
+    axios
+      .get(
+        `http://localhost:8000/search?username=${username}&search_string=${searchTerm}`
+      )
+      .then((response) => {
+        setsearchFiles(response.data);
+      })
+      .catch((error) => {
+        console.error("Error searching:", error);
+      });
+  };
 
   const handleSort = (criteria) => {
     setSortBy(criteria);
@@ -115,7 +143,7 @@ const HomePage = () => {
         style={{ marginTop: "20px", marginBottom: "20px" }}
         className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
-        <Toolbar onSort={handleSort} />
+        <Toolbar onSort={handleSort} onSearch={handleSearch} />
       </Container>
 
       <Container
@@ -146,6 +174,18 @@ const HomePage = () => {
               ) : sortedFiles.length > 0 ? (
                 <div className="item-container">
                   {sortedFiles.map((item) => (
+                    <Item
+                      key={item.id}
+                      id={item.id}
+                      item={item}
+                      showVersion={() => showVersion(item)}
+                      onSelect={() => handleItemClick(item)}
+                    />
+                  ))}
+                </div>
+              ) : searchFiles.length > 0 ? (
+                <div className="item-container">
+                  {searchFiles.map((item) => (
                     <Item
                       key={item.id}
                       id={item.id}

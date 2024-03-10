@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 from dal.mysql_connection import get_database_connection
 from dal.mysql_connection import get_database_connection
 from common.HTTPExceptions.exceptions import CustomHTTPException
@@ -7,33 +7,37 @@ import mysql
 connection = get_database_connection()
 
 # Define the search function
-def search(user_id: int, search_string: str) -> List[dict]:
-    # Establish a connection to the database
-    conn = get_database_connection()
-    cursor = conn.cursor(dictionary=True)
+def search(username: str, search_string: str) -> List[dict]:
+    try:
+        # Establish a connection to the database
+        with get_database_connection() as conn:
+            cursor = conn.cursor(dictionary=True)
 
-    # Define the search query
-    search_query = """
-    SELECT id, name, 'file' AS type
-    FROM file
-    WHERE user_id = %s AND is_deleted = 0 AND name LIKE %s
-    UNION ALL
-    SELECT id, name, 'folder' AS type
-    FROM folder
-    WHERE user_id = %s AND is_deleted = 0 AND name LIKE %s
-    """
+            # Define the search query
+            search_query = """
+            SELECT id, name, 'file' AS type
+            FROM file
+            WHERE user_id = (SELECT id FROM users WHERE username = %s) 
+                AND is_deleted = 0 
+                AND name LIKE %s
+            UNION ALL
+            SELECT id, name, 'folder' AS type
+            FROM folder
+            WHERE user_id = (SELECT id FROM users WHERE username = %s) 
+                AND is_deleted = 0 
+                AND name LIKE %s;
+            """
 
-    # Execute the search query
-    cursor.execute(search_query, (user_id, '%' + search_string + '%', user_id, '%' + search_string + '%'))
+            # Execute the search query
+            cursor.execute(search_query, (username, '%' + search_string + '%', username, '%' + search_string + '%'))
 
-    # Fetch all search results
-    search_results = cursor.fetchall()
+            # Fetch all search results
+            search_results = cursor.fetchall()
 
-    # Close the database connection
-    cursor.close()
-    conn.close()
-
-    return search_results
+            return search_results
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return []
 
 
 # Sorting function
