@@ -20,10 +20,8 @@ const DeletedDropdown = ({ selectedItem }) => {
   const handleOptionSelect = (selectedOption) => {
     switch (selectedOption.value) {
       case "restore":
-        console.log("Restoring item:", selectedItem);
         setShowRestore(true);
       case "delete":
-        console.log("Permanently deleting item:", selectedItem);
         setShowDelete(true);
       default:
         break;
@@ -49,7 +47,8 @@ const DeletedDropdown = ({ selectedItem }) => {
     ".ppt",
     ".xls",
     ".xlsx",
-    ".mp4"
+    ".mp4",
+    ".webp",
   ]; // Add more extensions as needed
 
   // Get the file extension
@@ -80,7 +79,8 @@ const DeletedDropdown = ({ selectedItem }) => {
     ".ppt",
     ".xls",
     ".xlsx",
-    ".mp4"
+    ".mp4",
+    ".webp",
   ]; // Add more extensions as needed
 
   // Get the file extension
