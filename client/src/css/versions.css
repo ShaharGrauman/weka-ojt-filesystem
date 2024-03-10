@@ -10,13 +10,13 @@ body {
 
 /* Global styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'center', sans-serif;
 }
 
 .container {
     background-color: #f8f9fa;
 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px #007bff3a;
 }
 
 h1 {
@@ -26,7 +26,7 @@ h1 {
 /* Table styles */
 .row {
     border-bottom: 1px solid #dee2e6;
-    padding: 10px 0;
+    padding: 1px ;
 }
 
 .col-3 {
