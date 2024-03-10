@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropdown from "./Dropdown"; // Make sure to import Dropdown component properly
+import Dropdown from "./dropdown"; // Make sure to import Dropdown component properly
 import Share from "./Share";
 import FileDetailsModal from "./details"
 

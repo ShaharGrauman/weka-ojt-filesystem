@@ -16,5 +16,3 @@ def get_database_connection():
     else:
         print("Failed to connect to MySQL database")
     return connection
-
-

@@ -343,7 +343,7 @@ async function delete_file(file_id) {
       credentials: "include", // Include cookies in the request
     });
 
-    console.log(response);
+    console.log("File deleted successfully:", response);
     return response;
   } catch (error) {
     console.error(error);
@@ -361,7 +361,7 @@ async function delete_folder(folder_id) {
       credentials: "include", // Include cookies in the request
     });
 
-    console.log(response);
+    console.log("Folder deleted successfully:", response);
     return response;
   } catch (error) {
     console.error(error);
@@ -382,8 +382,8 @@ async function fileDeletion(file_id) {
       }
     );
 
-    console.log("File permanently deleted successfully:", response.data);
-    return response.data;
+    console.log("File permanently deleted successfully:", response);
+    return response;
   } catch (error) {
     console.error("Error deleting file:", error);
     throw error;
@@ -402,8 +402,8 @@ async function folderDeletion(folder_id) {
           credentials: "include", // Include cookies in the request
         }
       );
-    console.log("Folder permanently deleted successfully:", response.data);
-    return response.data;
+    console.log("Folder permanently deleted successfully:", response);
+    return response;
   } catch (error) {
     console.error("Error deleting folder:", error);
     throw error;
@@ -421,7 +421,7 @@ async function restoreDeletedFile(file_id) {
       credentials: "include", // Include cookies in the request
       });
 
-      console.log(response);
+      console.log("File restored successfully:", response);
       return response;
   } catch (error) {
     console.error(error);
@@ -439,7 +439,7 @@ async function restoreDeletedFolder(folder_id) {
     credentials: "include", // Include cookies in the request
   });
 
-    console.log(response);
+    console.log("Folder restored successfully:", response);
     return response;
   } catch (error) {
     console.error(error);
