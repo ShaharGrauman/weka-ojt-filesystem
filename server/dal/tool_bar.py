@@ -19,13 +19,13 @@ def search(username: str, search_string: str) -> List[dict]:
             FROM file
             WHERE user_id = (SELECT id FROM users WHERE username = %s) 
                 AND is_deleted = 0 
-                AND name LIKE CONCAT(%s, '%')
+                AND LOWER(name) LIKE CONCAT(LOWER(%s), '%')
             UNION ALL
             SELECT id, name, 'folder' AS type
             FROM folder
             WHERE user_id = (SELECT id FROM users WHERE username = %s) 
                 AND is_deleted = 0 
-                AND name LIKE CONCAT(%s, '%');
+                AND LOWER(name) LIKE CONCAT(LOWER(%s), '%');
             """
 
             # Execute the search query
