@@ -68,6 +68,7 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
     files = []
     for file_data in my_files:
         file = File(
+            
             id=file_data[0],
             name=file_data[1],
             user_id=file_data[2],
@@ -83,7 +84,7 @@ def get_myfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List
         conn.close()
     return files[start_index:start_index + 20]
 
-def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[dict]:
+def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> List[Folder]:
     conn = get_database_connection()
     cursor = conn.cursor()
     # Query to retrieve user's folders from MyFile
@@ -95,10 +96,23 @@ def get_myfolders(user_id: int, page: int, sorted_by: str = "upload_date") -> Li
     # Execute the query with user_id as parameter
     cursor.execute(my_folders_query, (user_id,))
     my_folders = cursor.fetchall()
+    folders = []
+    for folder_data in my_folders:
+        folder = Folder(      
+            id=folder_data[0],
+            name=folder_data[1],
+            user_id=folder_data[2],
+
+            parent_folder=folder_data[3],
+            is_deleted=bool(folder_data[4]),  # Convert to bool
+            path=folder_data[5],
+            upload_date=folder_data[6],
+        )
+        folders.append(folder)
     # Return the subset of folders based on the page
     if conn:
-            conn.close()
-    return my_folders[start_index:start_index + 20]
+            conn.close()      
+    return folders[start_index:start_index + 20]
 
 def get_deletedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> List[File]:
     conn = get_database_connection()
