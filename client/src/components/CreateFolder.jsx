@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import { addFile } from "../Dal/data.js";
+import { addFolder } from "../Dal/data.js";
 const CreateFolder = ({ onClose }) => {
   const handleClose = () => {
     onClose();
@@ -15,7 +15,7 @@ const CreateFolder = ({ onClose }) => {
   const handleCreate = async () => {
     try {
       // Call the addFolder API
-      const response = await addFile(1, newFolderName); // Assuming folderId is accessible in this scope
+      const response = await addFolder(1, newFolderName); // Assuming folderId is accessible in this scope
       if (response) {
         handleClose();
         // Optionally, you can perform additional actions upon successful folder creation
