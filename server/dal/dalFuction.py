@@ -311,9 +311,9 @@ def get_username(user_id):
 def do_share(shared_with_id,owner_id,file_id):
     conn = get_database_connection()
     cursor = conn.cursor()
-    query = "INSERT INTO sharedfile ( file_id, shared_by_user_id, shared_with_user_id) VALUES (%s,%s,%s) "
+    query = "INSERT INTO sharedfile ( file_id, shared_by_user_id, shared_with_user_id,permission) VALUES (%s,%s,%s,%s) "
 
-    cursor.execute(query, (file_id,owner_id,shared_with_id))
+    cursor.execute(query, (file_id,owner_id,shared_with_id,"read"))
     conn.commit()
     conn.close()
 

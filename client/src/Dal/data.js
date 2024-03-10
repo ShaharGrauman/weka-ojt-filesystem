@@ -206,18 +206,17 @@ function getRecentFiles(
 }
 
 // Function to add a file to a user's account
-function addFile(userId, path, file) {
-  const fileId = Object.keys(files).length + 1;
-  files[fileId] = { ...file, user_id: userId, file_path: path };
-  return true;
-}
+// function addFile(userId, path, file) {
+//   const fileId = Object.keys(files).length + 1;
+//   files[fileId] = { ...file, user_id: userId, file_path: path };
+//   return true;
+// }
 
 async function addFolder(folder_id, folder_name) {
-  const url = `http://127.0.0.1:8000/folder/${folder_id}/create?folder_name=${folder_name}`; // Replace with the appropriate URL
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`http://127.0.0.1:8000/folder/${folder_id}/create?folder_name=${folder_name}`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -742,7 +741,6 @@ export {
   getFileVersions,
   getMyFolders,
   moveFile,
-  addFile,
   Update_password,
   download,
   addFolder,
