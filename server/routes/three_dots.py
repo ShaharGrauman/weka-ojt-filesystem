@@ -96,22 +96,10 @@ def share_file(request:Request,share: Shared):
 
     
 
-# @router.put("/file/rename/{file_id}")
-# def rename_file_route(file_id: int, new_name: str, user_id: Annotated[str | None, Cookie()] = None):
-#     user_id = cipher.decrypt(eval(user_id)).decode()
-#     try:
-#         result = rename_file(file_id, new_name, user_id)
-#         return result
-#     except CustomHTTPException as e:
-#         return e
-#     except Exception as e:
-#         raise CustomHTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
-
 @router.get("/file/download/{file_id}")
 def download_file_route(request:Request,file_id: int):
     try:
         user_id=get_user_id(request)
-        # Get file download logic here
         result = download_file(file_id, user_id)
         return result
     except CustomHTTPException as e:

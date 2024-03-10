@@ -35,33 +35,65 @@ const DeletedDropdown = ({ selectedItem }) => {
   };
 
   const handledelete = () => {
-    const itemName = selectedItem.name;
-    if (
-      itemName &&
-      (itemName.endsWith(".jpg") ||
-        itemName.endsWith(".png") ||
-        itemName.endsWith(".pdf") ||
-        itemName.endsWith(".mp3"))
-    ) {
-      fileDeletion(selectedItem.id);
-    } else {
-      folderDeletion(selectedItem.id);
-    }
+  const itemName = selectedItem.name;
+  const allowedExtensions = [
+    ".jpg",
+    ".png",
+    ".pdf",
+    ".mp3",
+    ".doc",
+    ".docx",
+    ".web",
+    ".pptx",
+    ".jpeg",
+    ".ppt",
+    ".xls",
+    ".xlsx",
+    ".mp4"
+  ]; // Add more extensions as needed
+
+  // Get the file extension
+  const fileExtension = itemName.slice(
+    ((itemName.lastIndexOf(".") - 1) >>> 0) + 2
+  );
+
+  // Check if the file extension is in the allowed list
+  if (allowedExtensions.includes(`.${fileExtension}`)) {
+    fileDeletion(selectedItem.id);
+  } else {
+    folderDeletion(selectedItem.id);
+  }
   };
 
   const handleRestore = () => {
-    const itemName = selectedItem.name;
-    if (
-      itemName &&
-      (itemName.endsWith(".jpg") ||
-        itemName.endsWith(".png") ||
-        itemName.endsWith(".pdf") ||
-        itemName.endsWith(".mp3"))
-    ) {
-      restoreDeletedFile(selectedItem.id);
-    } else {
-      restoreDeletedFolder(selectedItem.id);
-    }
+  const itemName = selectedItem.name;
+  const allowedExtensions = [
+    ".jpg",
+    ".png",
+    ".pdf",
+    ".mp3",
+    ".doc",
+    ".docx",
+    ".web",
+    ".pptx",
+    ".jpeg",
+    ".ppt",
+    ".xls",
+    ".xlsx",
+    ".mp4"
+  ]; // Add more extensions as needed
+
+  // Get the file extension
+  const fileExtension = itemName.slice(
+    ((itemName.lastIndexOf(".") - 1) >>> 0) + 2
+  );
+
+  // Check if the file extension is in the allowed list
+  if (allowedExtensions.includes(`.${fileExtension}`)) {
+    restoreDeletedFile(selectedItem.id);
+  } else {
+    restoreDeletedFolder(selectedItem.id);
+  }
   };
 
   return (
