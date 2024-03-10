@@ -213,7 +213,7 @@ const HomePage = () => {
                 <div className="item-container">
                   {currentItems.map((item) => (
                     <Item
-                      key={index}
+                      key={item.id}
                       id={item.id}
                       item={item}
                       showVersion={() => showVersion(item)}
