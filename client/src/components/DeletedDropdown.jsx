@@ -10,6 +10,24 @@ import {
 } from "../Dal/data.js";
 
 const DeletedDropdown = ({ selectedItem }) => {
+  const ALLOWED_EXTENSIONS = [
+    ".jpg",
+    ".png",
+    ".pdf",
+    ".mp3",
+    ".doc",
+    ".docx",
+    ".web",
+    ".pptx",
+    ".jpeg",
+    ".ppt",
+    ".xls",
+    ".xlsx",
+    ".mp4",
+    ".webp",
+    ".csv",
+  ];
+
   const deletedOptions = [
     { value: "restore", label: "Restore" },
     { value: "delete", label: "Delete" },
@@ -34,30 +52,11 @@ const DeletedDropdown = ({ selectedItem }) => {
 
   const handledelete = () => {
   const itemName = selectedItem.name;
-  const allowedExtensions = [
-    ".jpg",
-    ".png",
-    ".pdf",
-    ".mp3",
-    ".doc",
-    ".docx",
-    ".web",
-    ".pptx",
-    ".jpeg",
-    ".ppt",
-    ".xls",
-    ".xlsx",
-    ".mp4",
-    ".webp",
-  ]; // Add more extensions as needed
-
-  // Get the file extension
   const fileExtension = itemName.slice(
     ((itemName.lastIndexOf(".") - 1) >>> 0) + 2
   );
 
-  // Check if the file extension is in the allowed list
-  if (allowedExtensions.includes(`.${fileExtension}`)) {
+  if (ALLOWED_EXTENSIONS.includes(`.${fileExtension}`)) {
     fileDeletion(selectedItem.id);
   } else {
     folderDeletion(selectedItem.id);
@@ -66,22 +65,6 @@ const DeletedDropdown = ({ selectedItem }) => {
 
   const handleRestore = () => {
   const itemName = selectedItem.name;
-  const allowedExtensions = [
-    ".jpg",
-    ".png",
-    ".pdf",
-    ".mp3",
-    ".doc",
-    ".docx",
-    ".web",
-    ".pptx",
-    ".jpeg",
-    ".ppt",
-    ".xls",
-    ".xlsx",
-    ".mp4",
-    ".webp",
-  ]; // Add more extensions as needed
 
   // Get the file extension
   const fileExtension = itemName.slice(
@@ -89,7 +72,7 @@ const DeletedDropdown = ({ selectedItem }) => {
   );
 
   // Check if the file extension is in the allowed list
-  if (allowedExtensions.includes(`.${fileExtension}`)) {
+  if (ALLOWED_EXTENSIONS.includes(`.${fileExtension}`)) {
     restoreDeletedFile(selectedItem.id);
   } else {
     restoreDeletedFolder(selectedItem.id);
