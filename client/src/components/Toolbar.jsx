@@ -13,18 +13,12 @@ import PlusDropdown from "./PlusOptions";
 import "../css/Toolbar.css";
 import axios from "axios";
 
-function Toolbar({ onSort }) {
+function Toolbar({ onSort, onSearch }) {
   const [searchTerm, setSearchTerm] = useState([]); // State to store the search term
 
-  const handleSearch = () => {
-    axios
-      .get(`http://localhost:8000/search?user_id=1&search_string=${searchTerm}`)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error searching:", error);
-      });
+  const handleSearchSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+    onSearch(searchTerm); // Pass the search term to the parent component
   };
 
   return (
@@ -39,7 +33,7 @@ function Toolbar({ onSort }) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button variant="outline-success" onClick={handleSearch}>
+            <Button variant="outline-success" onClick={handleSearchSubmit}>
               Search
             </Button>
           </Col>{" "}

@@ -135,26 +135,8 @@ async function registerUser(name, email, password) {
   }
 }
 
-// Function to generate a random token
-function generateToken() {
-  return (
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15)
-  );
-}
 
-// Function to send an email with a password reset link
-function sendResetLink(email) {
-  if (users[email]) {
-    const resetToken = generateToken();
-    users[email].reset_token = resetToken;
-    console.log(
-      `Email sent to ${email} with password reset link: /new_password?t=${resetToken}`
-    );
-    return true;
-  }
-  return false;
-}
+
 
 async function Forget_password(email) {
   // chick the foemate of the email
@@ -185,25 +167,7 @@ async function Forget_password(email) {
   }
 }
 
-// Function to retrieve recent files for a user
-function getRecentFiles(
-  userId,
-  sortBy = "date",
-  order = "desc",
-  size = 20,
-  page = 1
-) {
-  const userFiles = Object.values(files).filter(
-    (file) => file.user_id === userId && !file.is_deleted
-  );
-  const sortedFiles = userFiles.sort((a, b) =>
-    order === "desc"
-      ? new Date(b.upload_date) - new Date(a.upload_date)
-      : new Date(a.upload_date) - new Date(b.upload_date)
-  );
-  const startIndex = (page - 1) * size;
-  return sortedFiles.slice(startIndex, startIndex + size);
-}
+
 
 // Function to add a file to a user's account
 // function addFile(userId, path, file) {
@@ -276,24 +240,7 @@ async function download(fileId) {
   }
 }
 
-async function shareFile(userId, fileId, email, permission) {
-  try {
-    if (files[fileId] && users[email]) {
-      const sharedFileId = Object.keys(sharedFiles).length + 1;
-      sharedFiles[sharedFileId] = {
-        file_id: fileId,
-        shared_with_user_id: users[email].id,
-        shared_by_user_id: userId,
-        permission,
-      };
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.error("Error occurred while sharing file:", error);
-    throw error;
-  }
-}
+
 
 async function renameFile(fileId, newName) {
   try {

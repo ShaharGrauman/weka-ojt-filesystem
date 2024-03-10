@@ -44,7 +44,9 @@ const Item = ({ item, onSelect, showVersion }) => {
         </a>
 
         <Card.Body>
-          <Card.Title>{item.name}</Card.Title>
+          <Card.Title>{item.name}
+
+          </Card.Title>
           <Card.Text>
             {" "}
             Last updated:{" "}

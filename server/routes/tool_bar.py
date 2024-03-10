@@ -9,10 +9,10 @@ from dal.config import get_user_id
 
 
 @router.get("/search")
-def search_files(user_id: int = Query(..., description="User ID"), 
+def search_files(username: str = Query(..., description="User ID"), 
                  search_string: str = Query(..., description="Search String")) -> List[dict]:
     # Call the search function to retrieve search results
-    search_results = search(user_id, search_string)
+    search_results = search(username, search_string)
     
     return search_results
 
