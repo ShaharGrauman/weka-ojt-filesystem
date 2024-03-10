@@ -260,30 +260,29 @@ def get_sharedfiles(user_id: int, page: int, sorted_by: str = "upload_date") -> 
         SELECT * FROM file
         WHERE id IN (
             SELECT file_id FROM sharedfile
-            WHERE user_id = %s
+            WHERE shared_with_user_id = %s
         )
         ORDER BY {} DESC
         LIMIT %s OFFSET %s
     """.format(sorted_by)
     cursor.execute(query, (user_id, 20, start_index))
     shared_files_data = cursor.fetchall()
-    # Process the query results and construct a list of dictionaries representing shared files
     if shared_files_data is None:
         return []
     shared_files = []
     for file_data in shared_files_data:
         file = File(
-            id=file_data['id'],
-            name=file_data['name'],
-            user_id=file_data['user_id'],
-            folder_id=file_data['folder_id'],
-            size=file_data['size'],
-            is_deleted=file_data['is_deleted'],
-            path=file_data['path'],
-            upload_date=datetime.strptime(file_data['upload_date'], '%Y-%m-%d %H:%M:%S'),  # Parse datetime string
-            group_version_id=file_data['group_version_id']
+            id=file_data[0],
+            name=file_data[1],
+            user_id=file_data[2],
+            folder_id=file_data[3],
+            size=file_data[4],
+            is_deleted=file_data[5],
+            path=file_data[6],
+            upload_date=file_data[7],
+            group_version_id=file_data[8]
         )
-        shared_files.append(file.dict())
+        shared_files.append(file)
     if conn:
             conn.close()
     return shared_files

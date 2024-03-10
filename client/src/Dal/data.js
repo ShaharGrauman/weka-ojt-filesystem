@@ -275,10 +275,8 @@ async function getMySharedFiles() {
       headers: headers,
       credentials: "include", // Include cookies in the request
     });
-
-    const data = await response.json(); // Parsing response JSON
-
     if (response.ok) {
+      const data = await response.json(); // Parsing response JSON
       return data;
     } else {
       // Handle non-OK response status codes
@@ -312,9 +310,9 @@ async function getMyDeletedFiles() {
       credentials: "include", // Include cookies in the request
     });
 
-    const data = await response.json(); // Parsing response JSON
 
     if (response.ok) {
+      const data = await response.json(); // Parsing response JSON
       return data;
     } else {
       // Handle non-OK response status codes
@@ -553,9 +551,8 @@ async function getMyFiles() {
       headers: headers,
       credentials: "include", // Include cookies in the request
     });
-
     if (response.ok) {
-      const data = await response.json(); // Parsing response JSON
+      const data = await response.json();
       return data; // Return the parsed data
     } else {
       // Handle non-OK response status codes
@@ -697,7 +694,25 @@ async function get_name() {
     throw err;
   }
 }
-
+async function logout() {
+    try {
+        const headers = {
+          "Content-Type": "application/json",
+        };
+        const response = await fetch("http://127.0.0.1:8000/logout", {
+          method: "POST",
+          headers: headers,
+        });
+        if (response.ok) {
+          const data = await response.json(); // Parsing response JSON
+          return data; // Return the parsed data
+        } else {
+            throw new Error("Unexpected Error");
+        }
+    } catch (err) {
+        throw err;
+    }
+}
 export {
   registerUser,
   LogIn,
@@ -721,4 +736,5 @@ export {
   renameFile,
   share_file_with_user,
   get_name,
+  logout,
 };

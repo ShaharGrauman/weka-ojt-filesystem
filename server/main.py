@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException,Response,Request
+from fastapi import FastAPI, HTTPException, Response, Request, Depends
 from dal.models import User,Pass
 from dal.validation import validate_email_format, validate_pass_format,validate_name,validate_match_password 
 from dal.authentication import check_email_exist,add_user,get_user_details,decrypt
@@ -13,6 +13,7 @@ from routes.three_dots import router as three_dots_router
 import urllib.parse
 from routes.fileUpload import router as file_upload
 from routes.deleted_route import router as deleted_router
+from fastapi.security import OAuth2PasswordBearer
 
 
 # Create an instance of the FastAPI class
@@ -30,6 +31,7 @@ app.include_router(three_dots_router, prefix="")
 app.include_router(file_upload, prefix="")
 app.include_router(deleted_router,prefix="")
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Define a route using a decorator
 @app.get("/")
@@ -41,7 +43,9 @@ def get_name(request:Request):
     user_name=get_username(user_id)
     print(user_name)
     return user_name
-
+@app.post("/logout")
+def logout():
+    return {"message": "bye bye"}
 @app.post("/signup")
 def signup(user: User):
     name = user.name

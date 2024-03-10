@@ -102,7 +102,7 @@ const HomePage = () => {
       setSharedFiles(sharedFilesData);
     };
     fetchData();
-  }, [myFiles, deletedFiles, sharedFiles]);
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -199,9 +199,9 @@ const HomePage = () => {
                 </div>
               ) : currentCategoryData.length > 0 ? (
                 <div className="item-container">
-                  {currentCategoryData.map((item) => (
+                  {currentCategoryData.map((item,index) => (
                     <Item
-                      key={item.id}
+                      key={index}
                       id={item.id}
                       item={item}
                       showVersion={() => showVersion(item)}
