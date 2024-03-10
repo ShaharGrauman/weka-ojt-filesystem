@@ -51,6 +51,8 @@ const HomePage = () => {
   const [sortedFiles, setSortedFiles] = useState([]); // Store the sorted list of files
   const [searchFiles, setsearchFiles] = useState([]); // Store the sorted list of files
   const [username, setUsername] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; // Define items per page
 
   const fetchUsername = async () => {
     // Example: fetch username from an API
@@ -78,7 +80,6 @@ const HomePage = () => {
 
   const handleSort = (criteria) => {
     setSortBy(criteria);
-    console.log(currentCategoryData);
     let sortedData = [...currentCategoryData]; // Make a copy of the data
     if (criteria === "name") {
       sortedData.sort((a, b) =>
@@ -88,7 +89,6 @@ const HomePage = () => {
       sortedData.sort((a, b) => (a.upload_date < b.upload_date ? 1 : -1));
     }
     setSortedFiles(sortedData); // Update the state with sorted data
-    console.log(sortedData);
   };
 
   useEffect(() => {
@@ -123,11 +123,23 @@ const HomePage = () => {
       ? deletedFiles
       : sharedFiles;
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Calculate the index of the last item being displayed
+  const indexOfLastItem = currentPage * itemsPerPage;
+  // Calculate the index of the first item being displayed
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // Slice the array to display only the items for the current page
+  const currentItems = currentCategoryData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
   const handleCategorySelect = (category) => {
     setShowVersions(false);
     setSelectedCategory(category);
     setSelectedItem(null);
     setShowItems(true);
+    setCurrentPage(1);
   };
 
   const handleItemClick = (item) => {
@@ -197,9 +209,9 @@ const HomePage = () => {
                     />
                   ))}
                 </div>
-              ) : currentCategoryData.length > 0 ? (
+              ) : currentItems.length > 0 ? (
                 <div className="item-container">
-                  {currentCategoryData.map((item,index) => (
+                  {currentItems.map((item) => (
                     <Item
                       key={index}
                       id={item.id}
@@ -217,7 +229,11 @@ const HomePage = () => {
             ) : (
               <p>no versions found</p>
             )}
-            <Paginations />
+            <Paginations
+              itemsPerPage={itemsPerPage}
+              totalItems={currentCategoryData.length}
+              paginate={paginate}
+            />
           </Col>
         </Row>
       </Container>

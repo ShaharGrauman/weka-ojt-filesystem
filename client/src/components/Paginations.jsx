@@ -1,26 +1,32 @@
+import React from "react";
 import Pagination from "react-bootstrap/Pagination";
 import "../css/Paginations.css";
 
-function AdvancedExample() {
+function Paginations({ itemsPerPage, totalItems, paginate }) {
+  const pageNumbers = [];
+
+  // Calculate the total number of pages
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
   return (
     <div className="pagination-container">
       <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item active>{1}</Pagination.Item>
-        <Pagination.Item>{2}</Pagination.Item>
-        <Pagination.Item>{3}</Pagination.Item>
-        <Pagination.Ellipsis />
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Last />
+        <Pagination.First onClick={() => paginate(1)} />
+
+        {pageNumbers.map((number) => (
+          <Pagination.Item key={number} onClick={() => paginate(number)}>
+            {number}
+          </Pagination.Item>
+        ))}
+
+        <Pagination.Last
+          onClick={() => paginate(Math.ceil(totalItems / itemsPerPage))}
+        />
       </Pagination>
     </div>
   );
 }
 
-export default AdvancedExample;
+export default Paginations;
