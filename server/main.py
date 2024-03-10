@@ -44,7 +44,8 @@ def get_name(request:Request):
     print(user_name)
     return user_name
 @app.post("/logout")
-def logout():
+def logout(response: Response):
+    response.delete_cookie('user_id')
     return {"message": "bye bye"}
 @app.post("/signup")
 def signup(user: User):
