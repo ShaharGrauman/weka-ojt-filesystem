@@ -37,7 +37,7 @@ const versionData = [
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-//   const [isVersion, setIsVersion] = useState(true);
+  //   const [isVersion, setIsVersion] = useState(true);
   const [showItems, setShowItems] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Home");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -45,7 +45,21 @@ const HomePage = () => {
   const [deletedFiles, setDeletedFiles] = useState([]);
   const [sharedFiles, setSharedFiles] = useState([]);
   const [showVersions, setShowVersions] = useState(false);
+  const [sortBy, setSortBy] = useState(""); // Track the sorting criteria
+  const [sortedFiles, setSortedFiles] = useState([]); // Store the sorted list of files
 
+  const handleSort = (criteria) => {
+    setSortBy(criteria);
+    console.log(currentCategoryData);
+    let sortedData = [...currentCategoryData]; // Make a copy of the data
+    if (criteria === "name") {
+      sortedData.sort((a, b) => (a.name > b.name ? 1 : -1));
+    } else if (criteria === "date") {
+      sortedData.sort((a, b) => (a.upload_date > b.upload_date ? 1 : -1));
+    }
+    setSortedFiles(sortedData); // Update the state with sorted data
+    console.log(sortedData);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,7 +82,7 @@ const HomePage = () => {
     setSelectedItem(item);
     setShowVersions(true);
     setShowItems(false);
-    console.log("1234")
+    console.log("1234");
   };
   const currentCategoryData =
     selectedCategory === "Home"
@@ -83,7 +97,7 @@ const HomePage = () => {
     setShowVersions(false);
     setSelectedCategory(category);
     setSelectedItem(null);
-    setShowItems(true)
+    setShowItems(true);
   };
 
   const handleItemClick = (item) => {
@@ -101,7 +115,7 @@ const HomePage = () => {
         style={{ marginTop: "20px", marginBottom: "20px" }}
         className={isOpen ? "sidebar-open" : "sidebar-close"}
       >
-        <Toolbar />
+        <Toolbar onSort={handleSort} />
       </Container>
 
       <Container
@@ -129,6 +143,18 @@ const HomePage = () => {
                   filePath={selectedItem.path}
                   fileName={selectedItem.name}
                 />
+              ) : sortedFiles.length > 0 ? (
+                <div className="item-container">
+                  {sortedFiles.map((item) => (
+                    <Item
+                      key={item.id}
+                      id={item.id}
+                      item={item}
+                      showVersion={() => showVersion(item)}
+                      onSelect={() => handleItemClick(item)}
+                    />
+                  ))}
+                </div>
               ) : currentCategoryData.length > 0 ? (
                 <div className="item-container">
                   {currentCategoryData.map((item) => (
@@ -146,8 +172,9 @@ const HomePage = () => {
               )
             ) : showVersions ? (
               <VersionsList item={selectedItem} />
-            ) : <p>no versions found</p>
-            }
+            ) : (
+              <p>no versions found</p>
+            )}
             <Paginations />
           </Col>
         </Row>

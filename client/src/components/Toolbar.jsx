@@ -13,7 +13,7 @@ import PlusDropdown from "./PlusOptions";
 import "../css/Toolbar.css";
 import axios from "axios";
 
-function Toolbar() {
+function Toolbar({ onSort }) {
   const [searchTerm, setSearchTerm] = useState([]); // State to store the search term
 
   const handleSearch = () => {
@@ -60,8 +60,8 @@ function Toolbar() {
               Sort By
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Name</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Date</Dropdown.Item>
+              <Dropdown.Item onClick={() => onSort("name")}>Name</Dropdown.Item>
+              <Dropdown.Item onClick={() => onSort("date")}>Date</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
