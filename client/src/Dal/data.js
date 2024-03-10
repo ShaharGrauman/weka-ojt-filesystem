@@ -391,8 +391,12 @@ async function getMyDeletedFiles() {
 
 async function delete_file(file_id) {
   try {
-    const response = await axios.put(`http://127.0.0.1:8000/file/${file_id}`, {
-      withCredentials: true,
+    const response = await fetch(`http://127.0.0.1:8000/file/${file_id}`, {
+      method: "PUT",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // Include cookies in the request
     });
 
     console.log(response);
@@ -405,11 +409,15 @@ async function delete_file(file_id) {
 
 async function delete_folder(folder_id) {
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/folder/${folder_id}`,
-      { withCredentials: true }
-    );
-    console.log("The folder deleted successfully");
+    const response = await fetch(`http://127.0.0.1:8000/folder/${folder_id}`, {
+      method: "PUT",
+      headers:{
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // Include cookies in the request
+    });
+
+    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
@@ -419,9 +427,15 @@ async function delete_folder(folder_id) {
 
 async function fileDeletion(file_id) {
   try {
-    const response = await axios.delete(
+    const response = await fetch(
       `http://127.0.0.1:8000/deleted/files/${file_id}`,
-      { withCredentials: true }
+      {
+        method: "DELETE",
+        headers:{
+        "Content-Type": "application/json",
+      },
+        credentials: "include", // Include cookies in the request
+      }
     );
 
     console.log("File permanently deleted successfully:", response.data);
@@ -434,10 +448,16 @@ async function fileDeletion(file_id) {
 
 async function folderDeletion(folder_id) {
   try {
-    const response = await axios.delete(
-      `http://127.0.0.1:8000/deleted/folders/${folder_id}`,
-      { withCredentials: true }
-    );
+      const response = await fetch(
+        `http://127.0.0.1:8000/deleted/folders/${folder_id}`,
+        {
+          method: "DELETE",
+          headers:{
+          "Content-Type": "application/json",
+           },
+          credentials: "include", // Include cookies in the request
+        }
+      );
     console.log("Folder permanently deleted successfully:", response.data);
     return response.data;
   } catch (error) {
@@ -449,13 +469,16 @@ async function folderDeletion(folder_id) {
 // Function to restore a deleted file
 async function restoreDeletedFile(file_id) {
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/deleted/files/restore/${file_id}`,
-      { withCredentials: true }
-    );
+      const response = await fetch(`http://127.0.0.1:8000/deleted/files/restore/${file_id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      credentials: "include", // Include cookies in the request
+      });
 
-    console.log(response);
-    return response;
+      console.log(response);
+      return response;
   } catch (error) {
     console.error(error);
   }
@@ -464,12 +487,15 @@ async function restoreDeletedFile(file_id) {
 // Function to restore a deleted folder
 async function restoreDeletedFolder(folder_id) {
   try {
-    const response = await axios.put(
-      `http://127.0.0.1:8000/deleted/files/restore/${folder_id}`,
-      { withCredentials: true }
-    );
+    const response = await fetch( `http://127.0.0.1:8000/deleted/files/restore/${folder_id}`, {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json",
+      },
+    credentials: "include", // Include cookies in the request
+  });
 
-    console.log("The file restored successfully");
+    console.log(response);
     return response;
   } catch (error) {
     console.error(error);
