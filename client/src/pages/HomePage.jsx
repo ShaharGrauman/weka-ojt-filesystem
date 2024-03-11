@@ -51,8 +51,29 @@ const HomePage = () => {
   const [sortedFiles, setSortedFiles] = useState([]); // Store the sorted list of files
   const [searchFiles, setsearchFiles] = useState([]); // Store the sorted list of files
   const [username, setUsername] = useState("");
+  const [currentCategoryData, setcurrentCategoryData] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Define items per page
+
+  // useEffect to update currentCategoryData when selectedCategory changes
+  useEffect(() => {
+    // Function to set currentCategoryData based on selectedCategory
+    const setCurrentData = () => {
+      if (selectedCategory === "Home") {
+        setcurrentCategoryData([...myFiles, ...sharedFiles]);
+      } else if (selectedCategory === "MyFiles") {
+        setcurrentCategoryData(myFiles);
+      } else if (selectedCategory === "DeletedFiles") {
+        setcurrentCategoryData(deletedFiles);
+      } else if (selectedCategory === "SharedFiles") {
+        setcurrentCategoryData(sharedFiles);
+      }
+    };
+
+    // Call the function to set currentCategoryData when selectedCategory changes
+    setCurrentData();
+  }, [selectedCategory, myFiles, deletedFiles, sharedFiles]);
 
   const fetchUsername = async () => {
     // Example: fetch username from an API
@@ -66,29 +87,23 @@ const HomePage = () => {
   }, []);
 
   const handleSearch = (searchTerm) => {
-    axios
-      .get(
-        `http://localhost:8000/search?username=${username}&search_string=${searchTerm}`
-      )
-      .then((response) => {
-        setsearchFiles(response.data);
-      })
-      .catch((error) => {
-        console.error("Error searching:", error);
-      });
+    const filteredData = currentCategoryData.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setcurrentCategoryData(filteredData);
   };
 
   const handleSort = (criteria) => {
     setSortBy(criteria);
-    let sortedData = [...currentCategoryData]; // Make a copy of the data
     if (criteria === "name") {
-      sortedData.sort((a, b) =>
+      currentCategoryData.sort((a, b) =>
         a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
       );
     } else if (criteria === "date") {
-      sortedData.sort((a, b) => (a.upload_date < b.upload_date ? 1 : -1));
+      currentCategoryData.sort((a, b) =>
+        a.upload_date < b.upload_date ? 1 : -1
+      );
     }
-    setSortedFiles(sortedData); // Update the state with sorted data
   };
 
   useEffect(() => {
@@ -114,14 +129,6 @@ const HomePage = () => {
     setShowItems(false);
     console.log("1234");
   };
-  const currentCategoryData =
-    selectedCategory === "Home"
-      ? [...myFiles, ...sharedFiles]
-      : selectedCategory === "MyFiles"
-      ? myFiles
-      : selectedCategory === "DeletedFiles"
-      ? deletedFiles
-      : sharedFiles;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   // Calculate the index of the last item being displayed
@@ -185,30 +192,6 @@ const HomePage = () => {
                   filePath={selectedItem.path}
                   fileName={selectedItem.name}
                 />
-              ) : sortedFiles.length > 0 ? (
-                <div className="item-container">
-                  {sortedFiles.map((item) => (
-                    <Item
-                      key={item.id}
-                      id={item.id}
-                      item={item}
-                      showVersion={() => showVersion(item)}
-                      onSelect={() => handleItemClick(item)}
-                    />
-                  ))}
-                </div>
-              ) : searchFiles.length > 0 ? (
-                <div className="item-container">
-                  {searchFiles.map((item) => (
-                    <Item
-                      key={item.id}
-                      id={item.id}
-                      item={item}
-                      showVersion={() => showVersion(item)}
-                      onSelect={() => handleItemClick(item)}
-                    />
-                  ))}
-                </div>
               ) : currentItems.length > 0 ? (
                 <div className="item-container">
                   {currentItems.map((item) => (
